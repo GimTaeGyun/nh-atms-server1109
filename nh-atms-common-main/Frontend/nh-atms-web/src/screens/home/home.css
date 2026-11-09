@@ -1,0 +1,6 @@
+/* 홈 — 견본 바로가기 카드 */
+.home-hello { margin: 4px 0 16px; color: var(--text-secondary); }
+.home-card { height: 100%; }
+.home-card-icon { font-size: 26px; color: var(--primary); margin-bottom: 8px; }
+.home-card-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.home-card-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
