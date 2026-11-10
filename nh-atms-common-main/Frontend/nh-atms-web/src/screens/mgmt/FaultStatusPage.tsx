@@ -1,6 +1,8 @@
 import { useMemo } from 'react';
 import { faultStatusApi, faultStatusKeys } from '@/api/endpoints/faultStatus';
 import { useSearch } from '@/hooks/usePagedSearch';
+import { useAppMessage } from '@/hooks/useAppMessage';
+import { ActionBar } from '@/components/auth/ActionBar';
 import { PageFrame } from '@/components/page/PageFrame';
 import { ResultHeader } from '@/components/page/ResultHeader';
 import { ExcelButton } from '@/components/page/ExcelButton';
@@ -33,13 +35,17 @@ const VIEW_FIELD: SearchField[] = [
 
 const keyOf = (r: FaultStatusRow): string => `${r.ofcCode}-${r.mcnNo}`;
 
-/** 장애현황(`mgmt.faultStatus`) — 조회조건 → 집계 요약줄(EchoBar) → 목록(페이징 없음). 조회만 있는 화면 */
+/**
+ * 장애현황(`mgmt.faultStatus`) — 조회조건 → 집계 요약줄(EchoBar) → 목록(페이징 없음).
+ * [등록] 은 권한 처리 연습용 버튼 — 등록 권한(REG_ROL_YN)이 없으면 ActionBar 가 흐리게 한다. 실제 등록 API 는 없다.
+ */
 const FaultStatusPage = ({ screenKey }: ScreenProps) => {
   const fields = useOfficeMcnFields({ extra: VIEW_FIELD });
   const search = useSearch({ key: faultStatusKeys.list, fetch: faultStatusApi.list });
   const columns = useMemo(() => faultStatusColumns(), []);
   const rows = search.data?.rows ?? [];
   const kpi = search.data?.kpi;
+  const { modal } = useAppMessage();
 
   const onSearch = (v: Record<string, unknown>) => {
     const p: FaultStatusSearch = {
@@ -53,6 +59,19 @@ const FaultStatusPage = ({ screenKey }: ScreenProps) => {
 
   return (
     <PageFrame screenKey={screenKey} lastUpdated={search.lastUpdated} onRefresh={() => void search.refetch()} refreshing={search.loading}>
+      <ActionBar
+        screenKey={screenKey}
+        size="small"
+        style={{ marginBottom: 8 }}
+        actions={[
+          {
+            key: 'create',
+            onClick: () => {
+              modal.info({ title: '등록', content: '연습용 버튼입니다. 등록 권한이 있어서 눌렸습니다.' });
+            },
+          },
+        ]}
+      />
       <SearchForm fields={fields} onSearch={onSearch} loading={search.loading} onReset={search.reset} />
       {search.data && (
         <EchoBar

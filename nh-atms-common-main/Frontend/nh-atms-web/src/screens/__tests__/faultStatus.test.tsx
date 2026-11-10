@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { renderWithProviders } from '@/test/render';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useNavStore } from '@/stores/useNavStore';
+import { usePermPreviewStore } from '@/stores/usePermPreviewStore';
 import { faultStatusApi } from '@/api/endpoints/faultStatus';
 import { FAULT_STATUS_ROWS } from '@/mocks/data/faultStatus';
 import type { Me } from '@/types/auth';
@@ -32,5 +33,19 @@ describe('장애현황 화면', () => {
     const r = await faultStatusApi.list({ ofcCode: '000080', view: 'FAULT' });
     expect(r.rows.every((x) => x.tmnStat !== '00')).toBe(true);
     expect(r.kpi.total).toBe(mine().length);
+  });
+});
+
+describe('장애현황 [등록] 권한', () => {
+  it('권한 미리보기 "조회만" 이면 [등록] 이 흐려진다', async () => {
+    usePermPreviewStore.getState().setPreview('qry');
+    renderWithProviders(<FaultStatusPage screenKey="mgmt.faultStatus" screenId="" active />);
+    expect(screen.getByRole('button', { name: /등록/ })).toBeDisabled();
+    usePermPreviewStore.getState().setPreview('off');
+  });
+
+  it('관리자(목 사용자)면 [등록] 이 눌린다', () => {
+    renderWithProviders(<FaultStatusPage screenKey="mgmt.faultStatus" screenId="" active />);
+    expect(screen.getByRole('button', { name: /등록/ })).toBeEnabled();
   });
 });
