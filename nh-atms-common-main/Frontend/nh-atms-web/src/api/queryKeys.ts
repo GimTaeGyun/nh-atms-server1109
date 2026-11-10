@@ -8,6 +8,7 @@ import { menuKeys } from './endpoints/menu';
 import { noticeKeys } from './endpoints/notice';
 import { mcnInfoKeys } from './endpoints/mcnInfo';
 import { mcnModelKeys } from './endpoints/mcnModel';
+import { faultStatusKeys } from './endpoints/faultStatus';
 
 export const qk = {
   me: meKeys,
@@ -16,4 +17,5 @@ export const qk = {
   notice: noticeKeys,
   mcnInfo: mcnInfoKeys,
   mcnModel: mcnModelKeys,
+  faultStatus: faultStatusKeys,
 };

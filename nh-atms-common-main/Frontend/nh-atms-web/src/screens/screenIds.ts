@@ -14,6 +14,8 @@ export const SCREEN_IDS = {
   'sample.notice': '',
   'sample.mcnInfo': '',
   'sample.mcnModel': '',
+  // ---- 기기관리(mgmt) ----
+  'mgmt.faultStatus': '',
   // ---- 팝업 ----
   'popup.officeSearch': '',
   'popup.personSearch': '',

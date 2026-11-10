@@ -54,4 +54,16 @@ export const buildMenuSeed = (perms: SeedPerms = 'qry'): MenuNode[] => [
       children: [],
     })),
   },
+  {
+    menuId: 'MGT000',
+    parentMenuId: SEED_ROOT_PARENT,
+    menuNm: L1_BY_SLUG.mgmt.name,
+    menuType: 'G',
+    menuPath: null,
+    sortNo: 100,
+    ...flags(perms),
+    children: [
+      { menuId: 'MGT001', parentMenuId: 'MGT000', menuNm: '장애현황', menuType: 'M', menuPath: screenPath('mgmt.faultStatus'), sortNo: 1, ...flags(perms), children: [] },
+    ],
+  },
 ];

@@ -225,3 +225,15 @@ chmod 640 /home/atmswas/keys/field-k202611.key.pem /home/atmswas/keys/field-k202
 
 - 목: `src/mocks/handlers/login.ts` — 기본 `enabled=false`(평문), 개인번호 `000000000` 이면 `LGN_001`. 테스트는 `setMockPublicKey` 로 시험 키를 넣는다.
 
+
+## 8. 기기관리 — 장애현황 (`mgmt.faultStatus`, `/mgmt/fault-status`) — 2026-11-10
+
+- 프론트만 먼저 만들었다(목 서버로 동작). 백엔드는 이 계약대로 만든다. 원천 테이블 `TB_OP_ATM_STAT`(+ 이름 조인 `TB_OFC_REG_MGT.KANM`, `TB_NMS_SRC.SRC_NM`, `TB_NMS_SRC_ERR.ERR_NM`).
+- `GET /api/fault-status` — 권한 QRY. 페이징 없음.
+  - 요청: `ofcCode`(필수, 없으면 400 `V001_20`), `mcnNo`(선택), `view`(선택 `FAULT` = 정상 아닌 기기만, `NORMAL` = 정상만, 없으면 전체)
+  - 응답 `data`: `{ asOf, ofcCode, kanm, kpi: { total, normal, opErr, devErr, commLost, notOpen }, rows: FaultStatusRow[] }`
+    - `asOf` = 조회 시각 `YYYYMMDDHH24MISS`. `kpi` 는 `view` 와 상관없이 사무소 전체 집계.
+  - `FaultStatusRow`: `ofcCode, mcnNo, instPstCode, instPstNm, src, srcNm, tmnStat, devCode, errCode, errNm, errTime, rcvrTime, lastOpenTime, opBgnTime, opEndTime` (모두 `TB_OP_ATM_STAT` 컬럼 camelCase, 이름 3개는 조인)
+  - `tmnStat` 값 `00` 정상 · `01` 운영장애 · `02` 기기장애 · `03` 통신단절 · `09` 미개국 — 정본에 코드표가 없어 nh-atms 기준(잠정 Q-18). 프론트는 `src/domain/faultStatus.ts` `TMN_STAT_LABEL` 한 곳.
+- 프론트 파일: `src/domain/faultStatus.ts`, `src/api/endpoints/faultStatus.ts`, `src/mocks/{data,handlers}/faultStatus.ts`, `src/screens/mgmt/FaultStatus{Page,Columns}.tsx`, 테스트 `src/screens/__tests__/faultStatus.test.tsx`.
+- 메뉴: 프론트 내장 시드(`src/screens/menuSeed.ts`)에 그룹 `MGT000` '기기관리'(순서 100) + `MGT001` '장애현황'. DB 메뉴 시드(`db/seed/01_menu.sql`·`02_auth_menu.sql`)는 아직 없다 — 백엔드 작업 때 같은 ID 로 넣는다.

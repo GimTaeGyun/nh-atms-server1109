@@ -49,10 +49,10 @@ describe('toTree / resolveMenus', () => {
     expect(keys(r.menus)).toEqual(['sample.mcnInfo', 'sample.notice']);
   });
 
-  it('auto: 화면이 하나도 없으면 내장 시드(견본 4화면)로 대신한다', () => {
+  it('auto: 화면이 하나도 없으면 내장 시드(기기관리·견본 화면)로 대신한다', () => {
     const r = resolveMenus(noPathTree, 'auto');
     expect(r.source).toBe('static');
-    expect(keys(r.menus)).toEqual(['sample.commonModules', 'sample.notice', 'sample.mcnInfo', 'sample.mcnModel']);
+    expect(keys(r.menus)).toEqual(['mgmt.faultStatus', 'sample.commonModules', 'sample.notice', 'sample.mcnInfo', 'sample.mcnModel']);
   });
 
   it('내장 시드 권한: 기본(목 모드 아님)은 조회만 Y, 목 모드("all")는 5개 모두 Y', () => {

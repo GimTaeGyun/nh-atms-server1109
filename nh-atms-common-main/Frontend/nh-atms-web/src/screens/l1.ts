@@ -18,6 +18,7 @@ export interface L1DefEx extends L1Def {
 export const L1_DEFS: L1DefEx[] = [
   { slug: 'home', name: '홈', label: '홈', railLabel: '홈', icon: 'HomeOutlined' },
   { slug: 'sample', name: '견본', label: '견본', railLabel: '견본', icon: 'AppstoreOutlined' },
+  { slug: 'mgmt', name: '기기관리', label: '기기관리', railLabel: '기기', icon: 'ToolOutlined' },
   { slug: 'popup', name: '팝업', label: '팝업', railLabel: '팝업', icon: 'AppstoreOutlined', hidden: true, navAs: 'home' },
 ];
 

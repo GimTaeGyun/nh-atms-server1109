@@ -10,6 +10,7 @@ import { lookupHandlers } from './lookup';
 import { noticeHandlers } from './notice';
 import { mcnInfoHandlers } from './mcnInfo';
 import { mcnModelHandlers } from './mcnModel';
+import { faultStatusHandlers } from './faultStatus';
 import { fallbackHandlers } from './fallback';
 
 export const handlers = [
@@ -21,5 +22,6 @@ export const handlers = [
   ...noticeHandlers,
   ...mcnInfoHandlers,
   ...mcnModelHandlers,
+  ...faultStatusHandlers,
   ...fallbackHandlers,
 ];

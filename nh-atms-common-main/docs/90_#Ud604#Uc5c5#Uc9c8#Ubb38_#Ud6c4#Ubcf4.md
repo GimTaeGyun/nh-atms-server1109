@@ -44,6 +44,7 @@
 | Q-15 | 휴일 판정 값 — `TB_NMS_HDAY.HDAY_YN='Y'` 가 휴일인가(`CLOSE_YN`·`DAY_TYPE` 과의 관계) | 날짜 부품 휴일 표시 | `HDAY_YN='Y'` 면 휴일(표시만, 영업일 계산은 nh-atms H-068 대기) | `src/hooks/useHolidays.tsx` | 대기 |
 | Q-16 | 개인정보 마스킹 규칙(계좌·카드·이름·전화) | 마스킹 표시 전체 | 계좌 뒤 4자리 노출, 카드 앞6·뒤4 노출, 이름 두 번째 글자, 전화 가운데 | 서버 `web/common/Masking.java`, 프론트 `src/components/privacy/maskKinds.ts` | 대기 |
 | Q-17 | 로그인 비밀번호를 무엇과 비교하나 — TO-BE 테이블(`TB_INSA` 등)에 비밀번호 컬럼이 없음 (SSO·사내 인증·별도 비밀번호 테이블?) | 로그인 견본(`/login`, 계약 §7) | 개인번호가 `TB_INSA` 에 있고 비밀번호가 비어 있지 않으면 성공 | 서버 `web/login/service/InsaLoginVerifier.java` (`LoginVerifier` 구현 교체) | 대기 |
+| Q-18 | `TB_OP_ATM_STAT.TMN_STAT`(단말기상태) 값의 뜻 — 정본에 코드표가 없음 | 장애현황 상태 표시·집계(계약 §8) | `00` 정상 · `01` 운영장애 · `02` 기기장애 · `03` 통신단절 · `09` 미개국 (nh-atms 프론트 기준) | `src/domain/faultStatus.ts` `TMN_STAT_LABEL`, `src/screens/mgmt/FaultStatusColumns.tsx` `TONE` | 대기 |
 
 - Q-11~Q-16 은 이번에 코드에서 찾아 새로 붙인 번호다(설계 §14 에는 없음). Q-17 은 2026-11-09 로그인 견본에서 붙임.
 - nh-atms 대장에 이미 있는 H-068(영업일 달력)·H-074(`T_API_MESSAGE`·`T_USER_ACTION_LOG` 처럼 정본에 대응 없는 영역)도 이 저장소에 영향이 있다(`docs/04_DB_규칙.md` §4).

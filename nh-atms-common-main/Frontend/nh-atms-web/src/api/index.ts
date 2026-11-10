@@ -9,3 +9,4 @@ export { lookupApi, lookupKeys } from './endpoints/lookup';
 export { noticeApi, noticeKeys } from './endpoints/notice';
 export { mcnInfoApi, mcnInfoKeys } from './endpoints/mcnInfo';
 export { mcnModelApi, mcnModelKeys } from './endpoints/mcnModel';
+export { faultStatusApi, faultStatusKeys } from './endpoints/faultStatus';
