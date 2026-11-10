@@ -45,6 +45,7 @@
   - 새 앱 lock (NH-ATMS 에 없던 143개) + NH-ATMS lock (node-forge 1.4.0·@types/node-forge 1.3.14) + Windows·Linux 실행 파일 패키지(esbuild·rollup)를 한 캐시에
   - 자체 검증(오프라인 설치)까지 스크립트가 한다
 - 반입 후 같은 zip 을 팀 PC(`robocopy`)와 ws01 Jenkins(`podman unshare cp -rn`)에 합친다
+  - 팀 PC 용 zip 은 내부 Gitea **릴리스**(`npm-carry-YYYYMMDD`)에 한 번 올려 두고 각자 받는다. PC 당 한 번, lock 이 바뀔 때만 다시 (2026-11-10, REQUIRED_FILES 3-5 ⑤)
 - 확인: 팀 PC `npm ci --offline` → `npm run build`, Jenkins 화면 잡 `MODE=build-only`
 - 2026-11-09 시험: zip 약 60MB, ws01 방식으로 푼 캐시만으로 두 프로젝트 모두 오프라인 설치·빌드 성공
 

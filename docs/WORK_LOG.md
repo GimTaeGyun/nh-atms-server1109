@@ -465,3 +465,11 @@
 | 고침 | cors `CHANGE_ME_WEBTOB_HOST` → `http://16.88.122.112:9000` (고치기 전 Origin 9000 POST 403 재현), 문서의 옛 저장소 이름·zip 제외 목록, 내부 Gitea 교체 절차 추가 | 같은 문서 1·4·6장 |
 | 남은 일 | `.env` 3개, 키 파일, 개인번호 JVM 옵션, npm 캐시, TB_ 테이블·시드, WAS·WebtoB 작업, JEUS Jakarta 지원 확인 | 같은 문서 1장 |
 
+
+## 2026-11-10 · npm 캐시 팀 배포 방식
+
+| 구분 | 내용 | 문서 |
+|---|---|---|
+| 결정 | 팀 PC 용 `npm-carry.zip` 은 사람마다 전달하지 않고 **내부 Gitea 릴리스**(태그 `npm-carry-YYYYMMDD`, 설명에 SHA256·기준 커밋)에 첨부해 각자 받는다. 저장소에 zip 커밋은 하지 않음(이력에 60MB 씩 누적, 반입 시 압축 안의 압축). PC 당 한 번, `package-lock.json` 이 바뀔 때만 다시 받음 | `REQUIRED_FILES.md` 3-5 ⑤ |
+| 문서 | 새 앱 `docs/01_실행_배포.md` §2 에 캐시 안내 한 줄, `COMMON_ATMS_INTEGRATION.md` §3 | — |
+| 미시험 | 서버 Gitea 에 실제 60MB 업로드(기본 한도 2048MB 로 봄) | — |

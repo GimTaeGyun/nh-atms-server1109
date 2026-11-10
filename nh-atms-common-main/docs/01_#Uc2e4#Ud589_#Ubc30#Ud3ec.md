@@ -85,6 +85,8 @@ sh gradlew test -PdbTest --offline
 npm ci --offline
 ```
 
+- 처음 한 번은 반입된 npm 캐시(`npm-carry-YYYYMMDD.zip`)를 내 PC 캐시에 합쳐야 한다. zip 은 내부 Gitea 저장소의 **릴리스**에 있다. 합치는 법·갱신 시기는 배포킷 `docs/REQUIRED_FILES.md` 3-5 ②⑤. `ENOTCACHED` 가 나오면 최신 릴리스 zip 을 받아 다시 합친다.
+
 | 쓰임 | 명령 | 읽는 설정 | API 는 누가 답하나 | 주소·산출물 |
 |---|---|---|---|---|
 | 내 PC · 목 | `npm run dev:mock` | `.env.mock` | 브라우저 안 목 서버(MSW) | http://localhost:3100 |

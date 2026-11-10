@@ -256,8 +256,32 @@ rm -rf ~/atms/inbox/npm-carry
 - `cache/npm` 은 컨테이너 1000(subuid) 소유라 `podman unshare` 를 붙인다 (없으면 `Permission denied`). Jenkins 재기동 불필요 (`/cache/npm` 으로 마운트됨)
 - 확인: 화면 잡 `nh-atms-frontend` `MODE=build-only` 가 `ENOTCACHED` 없이 `npm run build` 까지 성공
 
-- 다른 팀원 PC 는 ② ③ 만
-- 라이브러리를 새로 추가할 때: 인터넷 PC 에서 프로젝트에 `npm install 이름@버전 --save-exact` → `package.json`·lock 커밋 → 이 스크립트를 다시 돌려 반입 (예전처럼 빈 폴더에 따로 설치할 필요 없음)
+- 다른 팀원 PC 는 ② ③ 만 (zip 은 ⑤ 의 Gitea 릴리스에서 받는다)
+- 라이브러리를 새로 추가할 때: 인터넷 PC 에서 프로젝트에 `npm install 이름@버전 --save-exact` → `package.json`·lock 커밋 → 이 스크립트를 다시 돌려 반입 (예전처럼 빈 폴더에 따로 설치할 필요 없음) → ⑤ 로 새 릴리스
+
+⑤ 팀 배포 — **내부 Gitea 릴리스에 zip 첨부** (2026-11-10 사용자 결정)
+
+zip 을 사람마다 USB·메신저로 돌리지 않고, 반입한 사람이 내부 Gitea 저장소의 **릴리스**에 한 번 올린다. 팀원은 거기서 받는다.
+
+- **매번 받는 것이 아니다**: 합친 캐시는 각 PC 의 `%LOCALAPPDATA%\npm-cache` 에 남는다. 저장소를 지우고 다시 clone 해도 그대로 쓴다. 다시 받는 때는 ⓐ 새 PC·새 팀원 ⓑ `package-lock.json` 이 바뀌어 `npm ci --offline` 이 `ENOTCACHED` 로 멈출 때뿐
+- **저장소에 zip 을 커밋하지 않는다**: 갱신할 때마다 약 60MB 가 이력에 영원히 쌓여 clone·Jenkins 체크아웃이 계속 무거워지고, 저장소째 반입할 때 압축 안에 압축이 생긴다(반입 규칙 위반). 릴리스 첨부 파일은 git 이력 밖에 저장된다
+
+올리는 사람 (반입 담당, Gitea 화면에서):
+- 저장소 → **릴리스** → **새 릴리스**
+- 태그 이름 `npm-carry-YYYYMMDD` (예: `npm-carry-20261109`), 대상 `main`, 제목도 같게
+- 설명에 적을 것: SHA256 값(`npm-carry.zip.sha256.txt`), 만든 기준 커밋(`package-lock.json` 이 들어 있는 커밋), 지난 릴리스보다 늘어난 라이브러리
+- 파일 첨부: `npm-carry.zip` (이름을 `npm-carry-YYYYMMDD.zip` 으로 바꿔도 SHA256 은 같다)
+- 첨부 크기: Gitea 기본 한도가 파일당 2048MB(`[repository.release] FILE_MAX_SIZE`)라 60MB 는 그대로 올라간다 (2026-11-10 기준 이 서버에서 실제 업로드는 미시험)
+- 옛 릴리스는 지우지 않는다 — 옛 커밋을 빌드해야 할 때 그 시점 zip 이 필요할 수 있다
+
+받는 사람 (팀원 PC, `cmd`):
+- Gitea 저장소 → 릴리스 → **가장 위(최신)** 의 zip 을 `D:\반입\` 에 받는다
+- SHA256 확인 (릴리스 설명의 값과 같아야 함, 대소문자 무관):
+```bat
+certutil -hashfile D:\반입\npm-carry-20261109.zip SHA256
+```
+- 그다음 ② ③ (파일 이름만 받은 이름으로). robocopy 는 없는 파일만 채우므로 갱신 때도 같은 명령을 다시 쓰면 된다
+- Jenkins 캐시(④)는 서버에 직접 올리는 절차 그대로 (릴리스는 PC 용)
 - (이전 방식, 2026-11-06) node-forge 2개만 빈 폴더 설치로 캐시를 만들던 절차는 이 스크립트가 대신한다 — NH-ATMS lock 에서 같은 버전·같은 의존(`@types/node` 등)으로 들어간다
 
 ## 4. 서버 반입 후 처리
