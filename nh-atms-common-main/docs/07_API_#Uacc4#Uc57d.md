@@ -224,4 +224,8 @@ chmod 640 /home/atmswas/keys/field-k202611.key.pem /home/atmswas/keys/field-k202
 ```
 
 - 목: `src/mocks/handlers/login.ts` — 기본 `enabled=false`(평문), 개인번호 `000000000` 이면 `LGN_001`. 테스트는 `setMockPublicKey` 로 시험 키를 넣는다.
+- 첫 화면(2026-11-10 사용자 결정): `/login` 이 앱의 **첫 화면**이다 — 탭마다 처음 한 번(`src/app/EntryGate.tsx`, 표시는 sessionStorage `nh-atms:entered`, `src/app/entry.ts`).
+  - [로그인] 성공 → 결과 카드 없이 바로 앱(처음 치려던 주소, 없으면 `/`). [비로그인 진입] → 로그인 없이 앱(고정 사용자 `atms.fixed-user.per-no`).
+  - 같은 탭에서는 새로고침해도 다시 묻지 않고, 탭을 닫으면 처음부터. 서버 API 변경 없음.
+  - `atms.login.enabled=true` 면 비로그인 진입은 `/api/me` 의 `ME_002` 화면에서 멈추고 [로그인 화면으로] 로 안내된다.
 

@@ -74,6 +74,7 @@
 
 - **로그인 없음 · 고정 사용자** — 설정 `atms.fixed-user.per-no` 의 개인번호 1개로 돈다.
   - 2026-11-09 예외: **로그인 견본** `/login`(비밀번호 node-forge 암호화, `docs/07_API_계약.md` §7). 설정 `atms.login.enabled=true` 일 때만 세션 사용자가 되고 기본은 고정 사용자 그대로(`web/common/auth/FixedUserFilter.java`, `web/login/**`, `atms-common/security/crypto/**`, `src/utils/fieldCrypto.ts`, `src/screens/login/LoginPage.tsx`). 개발서버는 키 파일 `/home/atmswas/keys` 가 없으면 기동 실패(`application-jeus.yml` `crypto.field`). npm `node-forge` 는 "새 의존성 금지"의 사용자 승인 예외.
+  - 2026-11-10: `/login` 이 **첫 화면**(탭마다 처음 한 번, `src/app/EntryGate.tsx`·`entry.ts`). [비로그인 진입] = 고정 사용자로 앱 진입, 로그인 성공도 바로 앱으로(`docs/07_API_계약.md` §7 "첫 화면").
   - 이름·사무소는 `TB_INSA`, 권한은 `TB_SCR_AUTH` → `TB_SCR_AUTH_MENU`(`web/common/auth/FixedUserFilter.java`, `CurrentUserLoader.java`).
   - 값이 비었거나 `CHANGE_ME` 이면 `/api/**` 가 401 `ME_001`. 실제 값은 `D:\local-db.yml` 에(저장소 밖).
 - **설정은 배포킷 방식 복사**(이 저장소 안에만) — `D:\local-db.yml` + `LocalDbLoginGuard`, `orai18n`, DB 테스트 `@Tag("db")`(기본 제외, `-PdbTest` 로만), `-Pjeus` WAR + JNDI `dsATMS01`(`Backend/nh-atms-api/build.gradle` 머리말).
