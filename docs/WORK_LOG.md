@@ -465,3 +465,10 @@
 | 고침 | cors `CHANGE_ME_WEBTOB_HOST` → `http://16.88.122.112:9000` (고치기 전 Origin 9000 POST 403 재현), 문서의 옛 저장소 이름·zip 제외 목록, 내부 Gitea 교체 절차 추가 | 같은 문서 1·4·6장 |
 | 남은 일 | `.env` 3개, 키 파일, 개인번호 JVM 옵션, npm 캐시, TB_ 테이블·시드, WAS·WebtoB 작업, JEUS Jakarta 지원 확인 | 같은 문서 1장 |
 
+
+## 2026-11-10 · 내부 Gitea main 교체 절차 보완
+
+| 구분 | 내용 | 문서 |
+|---|---|---|
+| 결정 | 내부 Gitea `NH-ATMS/nh-atms` 의 옛 main 은 `backup/main-20261110` 로 남기고, main 은 `nh-atms-common-main/` 안의 내용으로 교체 커밋 1개 (강제 푸시 없음) | `PRE_CARRYIN_CHECK.md` 4장 |
+| 고침 | "웹훅 빌드는 배포 안 함" 오기 정정 — 화면 잡은 웹훅도 `build-deploy` → 교체 중 웹훅 잠시 끔 | 같은 곳 4-0 |
