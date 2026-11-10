@@ -227,5 +227,5 @@ git push origin main
 ### 6-6. 그 밖에 (영향 작음)
 
 - `mockServiceWorker.js` 가 `dist/` 에 들어가 DocBase 로 배포된다 — 운영 빌드에는 목 코드가 없어 등록되지 않음 (무해)
-- 화면은 주소창 라우팅(BrowserRouter) — 하위 주소에서 새로고침하면 WebtoB 설정이 필요한 것은 NH-ATMS 와 같다 (변화 없음). 안 되면 `.env.production` 에 `VITE_ROUTER=hash`
+- 화면 라우터: 2026-11-10 사용자 결정으로 운영 빌드는 해시 라우터 (`Frontend/nh-atms-web/.env.production` `VITE_ROUTER=hash`, 주소 `/#/home`). 주소창 방식(BrowserRouter)에서는 열리자마자 `/home` 으로 바뀌어 첫 화면에서도 F5 → WebtoB `302 /error/error.html` 이었다 (INFRA_MANUAL T40). 로컬 `npm run dev` 는 그대로 주소창 방식
 - NH-ATMS `atms-web` 의 `NoticeServiceTest` 가 컴파일되지 않는 기존 문제로 `gradlew :atms-web:test` 전체가 멈춘다 (이번 변경과 무관, 그대로 둠)

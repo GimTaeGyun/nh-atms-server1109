@@ -1414,7 +1414,7 @@ curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:9000/
 |---|---|
 | `/api/` 가 여전히 `302 /error/error.html` | T38 |
 | 19000 ESTAB 이 없거나 일부만 / `503` | T39 |
-| 화면 하위 메뉴에서 F5 → 404 | T40 |
+| 화면에서 F5 → 404·`/error/error.html` | T40 |
 | `/swagger-ui.html` 이 9000 에서 안 열림 | T41 |
 | `wsboot` 뒤 9000 이 응답 없음 | T60 |
 
@@ -1595,7 +1595,7 @@ PC 브라우저 — 확인 순서:
 2. 은행 DB 의 사용자 계정으로 로그인 → 메뉴 → 목록 화면에 데이터가 나오면 **DB 까지 정상**
 3. F12 → Network: `/api/auth/login` 응답 200, `success: true`. 이어지는 `/api/…` 요청 200
 4. Swagger: `http://16.88.122.112:9000/swagger-ui/index.html` (`/swagger-ui.html` 은 9000 에서 안 열림, T41)
-5. 하위 화면에서 F5 → 404 는 알려진 문제 (T40)
+5. 주소가 `/#/home` 형태(해시 라우터). 어느 화면에서 F5 를 눌러도 오류 페이지로 가지 않아야 함 — 가면 T40
 
 ### 13-5. 에이전트 연결 (L4 앞단 준비)
 
@@ -2229,7 +2229,7 @@ podman unshare tar -C ~/atms/infra -xzf ~/atms/infra/jenkins-home-<날짜>.tar.g
 | T37 | `NoSuchMethodError` / `LinkageError` (jackson·slf4j 등) | JEUS 기본 라이브러리와 충돌 | 담당에 WEB-INF/lib 우선 로딩(classloading) 확인 요청 | 13-3 |
 | T38 | `/api/` 가 `302 /error/error.html` | `http.m` `*URI` 미적용 (`wscfl`·재기동 안 함 포함) | 11장 | 11-3 |
 | T39 | 19000 ESTAB 없음·일부만 / 특정 경로 `503` | registration-id ≠ `*SERVER` 이름, `JSVPORT` 없음, 커넥터 미설정, 그 서버 미기동 | 10-1 의 registration-id 와 `http.m` 대조, 담당 확인 | 11-3 |
-| T40 | 하위 화면에서 F5 → 404 (은행 오류 페이지) | React BrowserRouter — 없는 경로를 `index.html` 로 돌려주는 설정 없음 | WebtoB 담당과 협의 (`/api/` 제외 SPA fallback). 그동안 메인에서 메뉴로 이동 | 13-4 |
+| T40 | 화면에서 F5 → 404·`302 /error/error.html` (첫 화면도 — 열리자마자 주소가 `/home` 으로 바뀌므로) | BrowserRouter 주소(`/home` 등)를 WebtoB 가 파일로 찾음 — 없는 경로를 `index.html` 로 돌려주는 설정 없음 | 2026-11-10: `Frontend/nh-atms-web/.env.production` 의 `VITE_ROUTER=hash` 로 해결(주소 `/#/home`, 서버는 항상 `/` 만 받음). 그래도 나면 그 파일이 Gitea 에 있는지·Jenkins 재빌드 됐는지 확인. 주소창 방식으로 돌아가려면 WebtoB 담당에 SPA fallback(`/api/` 등 제외) 적용 후 그 줄 삭제 | 13-4 |
 | T41 | `http://16.88.122.112:9000/swagger-ui.html` 이 안 열림 | `/swagger-ui.html` 은 `*URI` `/swagger-ui/` 에 안 걸려 정적 파일로 감 | `http://16.88.122.112:9000/swagger-ui/index.html` | 13-4 |
 | T42 | push `Authentication failed` / `403` | 비밀번호 칸에 토큰이 아닌 값 / 토큰·팀 권한 부족 | Windows 자격 증명 관리자에서 `git:http://16.88.122.113:3000` 삭제 후 토큰으로, `developers` 팀·`repository` 쓰기 확인 | 7-6 |
 | T43 | `! [rejected] main -> main (fetch first)` | 다른 사람이 먼저 push | `git pull` 후 다시 push (강제 푸시 금지) | 7-6 |
