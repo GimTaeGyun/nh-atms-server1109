@@ -472,3 +472,13 @@
 |---|---|---|
 | 결정 | 내부 Gitea `NH-ATMS/nh-atms` 의 옛 main 은 `backup/main-20261110` 로 남기고, main 은 `nh-atms-common-main/` 안의 내용으로 교체 커밋 1개 (강제 푸시 없음) | `PRE_CARRYIN_CHECK.md` 4장 |
 | 고침 | "웹훅 빌드는 배포 안 함" 오기 정정 — 화면 잡은 웹훅도 `build-deploy` → 교체 중 웹훅 잠시 끔 | 같은 곳 4-0 |
+
+
+## 2026-11-11 · 새 앱 로그인 필수 + 테스트 계정 표
+
+| 구분 | 내용 | 문서 |
+|---|---|---|
+| 결정 | (사용자) 통합업무시스템 흉내 화면 대신 ATMS 로그인 화면을 쓴다. 로그인 필수 — 고정 사용자(`atms.fixed-user.per-no`)·전환 스위치(`atms.login.enabled`) 삭제. 비밀번호는 공통 1개(잠정 Q-17). 로그인 화면 옆 테스트 계정 6명은 화면 코드(`testAccounts.ts`)에, 개인번호는 내부 Gitea 사본에서만 | 새 앱 `docs/07_API_계약.md` §7, `docs/00_설계.md` §5.3 |
+| 고침 | `FixedUserFilter` → `SessionUserFilter`(세션 없음 401 `ME_002`), 화면 MeGate·세션 끊김 → `/login`, 헤더 로그아웃, 시드 틀 `03_fixed_user_auth.sql` → `03_test_user_auth.sql` | 같은 곳 |
+| 운영 영향 | atms01 JVM 옵션 `-Datms.fixed-user.per-no` 준비물 없어짐. 로그인 전 `/api/me` 401 `ME_002` 가 정상 | `POST_HANDOVER_EDITS.md` K, `COMMON_ATMS_INTEGRATION.md` 6장 |
+| 시험 | 프론트 `npm run check` 통과, 백엔드 `gradlew build` 통과(테스트 95개). 은행 DB·JEUS 실기동은 안 함 | — |

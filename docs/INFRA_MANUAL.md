@@ -9,7 +9,7 @@
 >
 > 다른 문서는 근거·이력·더 깊은 설명용이다 (부록 C).
 >
-> **2026-11-09 결정 (Common-ATMS)**: 개발서버에 올리는 앱은 `nh-atms-common-main` (백엔드 `atms-web` 1개 + 화면)이 NH-ATMS 를 **대체**한다. 같은 폴더 이름이라 Jenkins·배포 스크립트는 그대로 쓰고, 실제로 배포되는 것은 atms01(`catms`)과 wb01 DocBase 뿐이다. journal·batch·file·ifin·ifex 서버와 에이전트·모듈 간 호출 내용은 NH-ATMS 를 다시 올릴 때 적용된다. 새 앱만의 준비물(고정 사용자 개인번호, npm 캐시 143개, TB_ 테이블)은 [COMMON_ATMS_INTEGRATION.md](COMMON_ATMS_INTEGRATION.md) 6장
+> **2026-11-09 결정 (Common-ATMS)**: 개발서버에 올리는 앱은 `nh-atms-common-main` (백엔드 `atms-web` 1개 + 화면)이 NH-ATMS 를 **대체**한다. 같은 폴더 이름이라 Jenkins·배포 스크립트는 그대로 쓰고, 실제로 배포되는 것은 atms01(`catms`)과 wb01 DocBase 뿐이다. journal·batch·file·ifin·ifex 서버와 에이전트·모듈 간 호출 내용은 NH-ATMS 를 다시 올릴 때 적용된다. 새 앱만의 준비물(로그인 테스트 계정 개인번호 — 2026-11-11 로그인 필수로 바뀜, npm 캐시 143개, TB_ 테이블)은 [COMMON_ATMS_INTEGRATION.md](COMMON_ATMS_INTEGRATION.md) 6장
 >
 > 전제: JEUS 는 WAS 담당이 확정 구성도(1-1)대로 셋팅한다 — 도메인 1개 + 매니지드 서버 6개. 이 문서는 그 셋팅이 끝난 뒤 우리가 할 일과, 서버를 처음부터 다시 세울 때의 우리 작업 전부를 다룬다.
 

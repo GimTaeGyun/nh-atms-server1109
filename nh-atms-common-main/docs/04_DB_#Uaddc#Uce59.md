@@ -48,8 +48,8 @@
 | `TB_CO_CODE` | `CODE_TYPE, CODE` | 14 | 읽기 | 공통코드 콤보, 기기사명(설정이 있을 때, 잠정 Q6) |
 | `TB_SCR_MENU` | `MENU_ID` | 11 | 읽기 | 메뉴(`MENU_PATH` = 화면 경로, 잠정 Q-05) |
 | `TB_SCR_AUTH_MENU` | `AUTH, MENU_ID` | 12 | 읽기 | 화면 권한 5개 플래그 |
-| `TB_SCR_AUTH` | `DEPT_CODE, OFC_CODE, PER_NO` | 13 | 읽기 | 고정 사용자의 권한코드 |
-| `TB_INSA` | `PER_NO` | 28 | 읽기 | 고정 사용자 이름·소속, 인원 콤보·팝업 |
+| `TB_SCR_AUTH` | `DEPT_CODE, OFC_CODE, PER_NO` | 13 | 읽기 | 로그인 사용자의 권한코드 |
+| `TB_INSA` | `PER_NO` | 28 | 읽기 | 로그인 확인(개인번호 존재)·사용자 이름·소속, 인원 콤보·팝업 |
 | `TB_OFC_REG_MGT` | `OFC_CODE` | 55 | 읽기 | 사무소 콤보·팝업(사무소명 `KANM`) |
 | `TB_SCRT_INST_PST` | `OFC_CODE, INST_PST_CODE` | 57 | 읽기 | 코너 콤보, 기기 조회의 코너명 |
 | `TB_NMS_SRC` | `SRC` | 12 | 읽기 | 기종 콤보, 기종명 `SRC_NM` |
@@ -82,7 +82,7 @@
    |---|---|---|
    | `01_menu.sql` | `TB_SCR_MENU` | 그룹 `SMP000`(견본) + 화면 `SMP001`~`SMP004` |
    | `02_auth_menu.sql` | `TB_SCR_AUTH_MENU` | 권한 A·T·L × 메뉴 5개 = 15행 |
-   | `03_fixed_user_auth.sql` | `TB_SCR_AUTH` | **틀**(기본 주석). 내 개인번호에 권한이 없을 때만 고쳐 씀 |
+   | `03_test_user_auth.sql` | `TB_SCR_AUTH` | **틀**(기본 주석). 테스트 계정·내 개인번호에 권한이 없을 때만 고쳐 씀 |
    | `10_sample_notice.sql` | `TB_NOTICE` | `[견본]` 공지 5건(선택) |
    | `99_cleanup_samples.sql` | 위 1·2·4 | 이 시드가 넣은 행(`CRT_CMENO='NHCOMMON'`)만 삭제 |
 
@@ -91,7 +91,7 @@
    - 파일은 UTF-8 이다. DB 도구에서 UTF-8 로 열어 한글이 깨지지 않는지 먼저 본다(DB 문자셋 KO16MSWIN949).
 5. **확인** — `db/check/03_seed_status.sql`(기대: 메뉴 5 / 권한별메뉴 15 / 견본 공지 5, 공지는 0 이어도 됨) → `db/README.md` 확인표와 `docs/91_폐쇄망_확인표.md` 에 적는다.
 
-- 감사 개인번호: 시드는 `NHCOMMON`, 앱이 사람 없이 쓴 행은 `SYSTEM`(`AuditUserProvider.SYSTEM_ID`), 화면에서 쓴 행은 고정 사용자 개인번호. 일부러 다르게 둔 것이다(둘 다 잠정 H-071, `db/seed/README.md`).
+- 감사 개인번호: 시드는 `NHCOMMON`, 앱이 사람 없이 쓴 행은 `SYSTEM`(`AuditUserProvider.SYSTEM_ID`), 화면에서 쓴 행은 로그인 사용자 개인번호. 일부러 다르게 둔 것이다(둘 다 잠정 H-071, `db/seed/README.md`).
 
 ## 6. DDL 생성기 (`db/tools/gen_ddl.py`)
 

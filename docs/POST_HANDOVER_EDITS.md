@@ -20,7 +20,7 @@
 | H | 앱 로그 폴더 경로가 다름 | 내부 PC `jeus-common.yml` (`log-dir`) | 소스 push → 6개 재배포 |
 | I | L4 VIP | 내부 PC `jeus-common.yml` (`jeus.agent-entry.host`) | 소스 push → 6개 재배포 |
 | J | WebtoB 서비스 IP 가 16.88.122.112 가 아님 (모듈 간 호출 입구·CORS, 2026-11-09) | 내부 PC `jeus-common.yml` (`jeus.webtob-url`, `cors.allowed-origins`) | 소스 push → 6개 재배포 |
-| K | **새 앱(nh-atms-common-main) 고정 사용자 개인번호 — 반드시** (2026-11-09) | atms01 JVM 옵션 `-Datms.fixed-user.per-no=<개인번호>` (WAS 담당) 또는 내부 Gitea 사본 `atms-web/src/main/resources/application-jeus.yml` 의 `CHANGE_ME` | JVM 옵션은 atms01 재기동, 소스는 push → 재배포. 없으면 화면 전체가 401 `ME_001` |
+| K | **새 앱(nh-atms-common-main) 로그인 테스트 계정 개인번호** (2026-11-09 고정 사용자 → 2026-11-11 로그인 필수로 바뀜) | 내부 Gitea 사본 `Frontend/nh-atms-web/src/screens/login/testAccounts.ts` 의 `CHANGE_ME_1`~`6` (JVM 옵션 필요 없음) | push → 화면 재배포. 비워 두어도 로그인 화면에 개인번호를 직접 치면 들어간다(공통 비밀번호 `atms1234!`) |
 | — | (값과 무관, 첫 배포 전에 꼭) 필드 암호화 키·화면 라이브러리 캐시 | ws01 `/home/atmswas/keys`, Jenkins npm 캐시 | 0-2·0-3 |
 
 ---
@@ -277,13 +277,12 @@ curl -s http://16.88.122.113:8080/actuator/health
 - 확인 (ws01, atmswas): `curl -s -o /dev/null -w "%{http_code}\n" http://<WebtoB IP>:9000/v3/api-docs` → `200`
 - 2호기가 wb02 를 쓰면 소스는 그대로 두고 ws02 서버 6개 JVM 옵션 `-Djeus.webtob-url=http://<wb02 IP>:9000` (WAS 담당)
 
-## K. 새 앱 고정 사용자 개인번호 (2026-11-09, nh-atms-common-main 이 NH-ATMS 를 대체)
+## K. 새 앱 로그인 테스트 계정 (2026-11-09 고정 사용자 → 2026-11-11 로그인 필수, nh-atms-common-main 이 NH-ATMS 를 대체)
 
-새 앱은 로그인이 없고 설정에 적은 개인번호 1개(`TB_INSA.PER_NO`)로 사용자가 정해진다. 저장소 값은 `CHANGE_ME` 라 그대로 배포하면 `/api/**` 가 모두 401 `ME_001`.
+2026-11-11 사용자 결정으로 새 앱은 **로그인 필수**다. 예전 고정 사용자 설정(`atms.fixed-user.per-no`)과 전환 스위치(`atms.login.enabled`)는 없앴다 → **atms01 JVM 옵션 `-Datms.fixed-user.per-no`·`-Datms.login.enabled` 는 필요 없다**(이미 넣었으면 남아 있어도 읽지 않음, 다음 WAS 작업 때 빼 달라고 하면 됨).
 
-- 권장: WAS 담당에 atms01 JVM 옵션 `-Datms.fixed-user.per-no=<개인번호>` 추가 요청 → atms01 재기동 (WAR 를 다시 만들 필요 없음)
-- 또는: 내부 PC Gitea 사본 `Backend/nh-atms-api/atms-web/src/main/resources/application-jeus.yml` 의 `atms.fixed-user.per-no: CHANGE_ME` → 실제 값 → push → `build-deploy`
-- 확인: `curl -s http://16.88.122.113:8080/api/me` 가 401 이 아니면 됨 (화면은 `http://16.88.122.112:9000`)
-- 새 앱에는 JWT 가 없다. **필드 암호화는 2026-11-09 로그인 견본(`/login`)으로 들어갔다** → 0-2(키 파일 `/home/atmswas/keys`, 없으면 atms01 기동 실패)는 새 앱에도 필요. 0-3(node-forge)은 `make-npm-carry` zip 에 들어 있다
-- 로그인 견본은 기본 꺼짐(`atms.login.enabled=false`) — 화면 사용자는 계속 이 개인번호. 켜려면 atms01 JVM 옵션 `-Datms.login.enabled=true` (그때부터 로그인 세션이 사용자)
-
+- 화면 `http://16.88.122.112:9000` → 로그인 화면(`/#/login`). 오른쪽 표에 테스트 계정 6명 + 공통 비밀번호 `atms1234!`
+- 테스트 계정 개인번호: 내부 PC Gitea 사본 `Frontend/nh-atms-web/src/screens/login/testAccounts.ts` 의 `CHANGE_ME_1`~`6` → 실제 개인번호(GitHub 에는 올리지 않음) → push → 화면 `build-deploy`
+- 로그인되려면 그 개인번호가 `TB_INSA` 에 있어야 하고, 메뉴가 보이려면 `TB_SCR_AUTH` 행이 있어야 한다 → 새 앱 `db/seed/03_test_user_auth.sql` 틀(계정마다 A·T·L 을 다르게 주면 버튼 권한 차이 시험)
+- 확인: `curl -s http://16.88.122.113:8080/api/me` 는 로그인 전이라 **401 `ME_002` 가 정상**. 화면에서 로그인해 메뉴가 보이면 됨
+- 새 앱에는 JWT 가 없다(세션 쿠키). **필드 암호화는 로그인 화면에서 쓴다** → 0-2(키 파일 `/home/atmswas/keys`, 없으면 atms01 기동 실패)는 새 앱에도 필요. 0-3(node-forge)은 `make-npm-carry` zip 에 들어 있다

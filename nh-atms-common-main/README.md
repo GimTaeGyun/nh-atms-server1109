@@ -19,7 +19,7 @@ NH-ATMS 화면을 만들 때 **같은 규칙으로 시작하게 해 주는 "공�
   - 프론트: React 19 · antd 6 · Vite 7 · TypeScript(대상 ES2020) — `Frontend/nh-atms-web/package.json`
   - 백엔드: Spring Boot 3.5 · Java 21 · MyBatis, 모듈 2개 `atms-common` + `atms-web` — `Backend/nh-atms-api/settings.gradle`
   - DB: 은행 개발 Oracle 만, TO-BE `TB_` 테이블 — `db/README.md`
-- **로그인 없음**: 설정에 적은 개인번호 1개로 "고정 사용자"가 됩니다(`atms.fixed-user.per-no`, `web/common/auth/FixedUserFilter.java`).
+- **로그인 필수**(2026-11-11): 로그인 화면(`/login`)에서 개인번호·비밀번호로 들어갑니다. 화면 옆에 테스트 계정 6명과 공통 비밀번호가 있습니다(`src/screens/login/testAccounts.ts`, 서버 `web/common/auth/SessionUserFilter.java`).
 - **응답 모양의 정본**: [`docs/07_API_계약.md`](docs/07_API_계약.md). 프론트 타입·목·백엔드 DTO 가 글자 하나까지 같아야 합니다.
 - **설계와 결정**: [`docs/00_설계.md`](docs/00_설계.md) (§0.1 · §13.1).
 
@@ -56,16 +56,13 @@ nh-atms-common/
 
 ### 백엔드 (내 PC)
 
-1. **`D:\local-db.yml` 만들기** — 저장소 밖, PC마다 1개. 계정·비밀번호·내 개인번호를 여기에만 적습니다.
+1. **`D:\local-db.yml` 만들기** — 저장소 밖, PC마다 1개. DB 계정·비밀번호를 여기에만 적습니다.
 
    ```yaml
    spring:
      datasource:
        username: "DB계정"
        password: "DB비밀번호"
-   atms:
-     fixed-user:
-       per-no: "내개인번호"
    ```
 
    - **들여쓰기는 스페이스만**(탭 금지). 탭이 섞이면 YAML 을 못 읽습니다.
@@ -79,7 +76,7 @@ nh-atms-common/
      ```bash
      sh gradlew :atms-web:bootRun --offline
      ```
-3. 확인: `http://localhost:8080/swagger-ui.html`. `/api/me` 가 401 `ME_001` 이면 개인번호 설정 또는 `TB_INSA` 를 확인합니다.
+3. 확인: `http://localhost:8080/swagger-ui.html`. 로그인 전 `/api/me` 는 401 `ME_002` 가 정상입니다. 화면에서 로그인한 뒤 확인합니다.
 
 ### 프론트 (내 PC)
 

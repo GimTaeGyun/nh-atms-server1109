@@ -1,6 +1,6 @@
 # 01. 실행 · 빌드 · 배포 · 반입
 
-> 원본: nh-atms `Frontend/nh-atms-web/docs/offline/01-run-deploy.md` 를 이 저장소에 맞게 다시 씀(로그인 없음, 모듈 2개).
+> 원본: nh-atms `Frontend/nh-atms-web/docs/offline/01-run-deploy.md` 를 이 저장소에 맞게 다시 씀(세션 로그인, 모듈 2개).
 > 명령은 Git Bash 기준. 명령 하나 = 블록 하나(사진 보고 그대로 칠 수 있게).
 
 ## 0. 준비물
@@ -22,20 +22,17 @@
 
 ### 1-1. `D:\local-db.yml` (PC마다, 저장소 밖)
 
-- DB 계정·비밀번호와 **고정 사용자 개인번호**를 여기에만 적는다. 저장소에는 비밀값이 없다.
+- DB 계정·비밀번호를 여기에만 적는다. 저장소에는 비밀값이 없다. (사용자는 로그인 화면에서 고른다 — 예전 `atms.fixed-user.per-no` 는 2026-11-11 에 없앴다. 파일에 남아 있어도 읽지 않는다.)
 
 ```yaml
 spring:
   datasource:
     username: "DB계정"
     password: "DB비밀번호"
-atms:
-  fixed-user:
-    per-no: "내개인번호"
 ```
 
 - 들여쓰기는 **스페이스만**(탭 금지). 메모장에서 Tab 키를 누르지 않는다.
-- 값은 큰따옴표로 감싼다(숫자로만 된 개인번호가 숫자로 읽히지 않게).
+- 값은 큰따옴표로 감싼다(숫자로만 된 값이 숫자로 읽히지 않게).
 - 어떻게 읽히나(우선순위 높은 것부터)
   1. OS 환경변수·`-D` 실행 옵션
   2. `D:\local-db.yml` — `local-common.yml` 의 `spring.config.import: optional:file:D:/local-db.yml`
@@ -45,7 +42,8 @@ atms:
   - 파일이 없거나 계정이 비면 **DB 에 붙지 않고 기동을 멈춘다**.
   - 로그인 실패(ORA-01017 비밀번호 틀림, ORA-28000 잠김)는 `D:\db-login-failed` 에 해시로만 기록하고, 같은 값으로 다시 붙지 않는다. 비유: "틀린 열쇠는 한 번만 꽂아 본다" — 은행 DB 계정이 잠기는 것을 막는다.
   - 비밀번호를 고치면 자동으로 한 번 다시 시도한다.
-- 개인번호가 비었거나 `CHANGE_ME` 면 백엔드는 뜨지만 `/api/**` 가 401 `ME_001` 이다(`web/common/auth/FixedUserFilter.java`). 프론트는 그 문구를 화면 전체에 보여 준다(`src/app/MeGate.tsx`).
+- 로그인하지 않으면 `/api/**` 가 401 `ME_002` 이다(`web/common/auth/SessionUserFilter.java`). 프론트는 로그인 화면(`/login`)으로 보낸다(`src/app/MeGate.tsx`).
+- 로그인 화면 옆 **테스트 계정 6명**(`src/screens/login/testAccounts.ts`, 공통 비밀번호 `atms1234!`). 개인번호 칸은 저장소에 `CHANGE_ME_n` 이고 **내부 Gitea 사본에서만** 실제 개인번호로 바꾼다. 그 개인번호가 `TB_INSA` 에 있어야 로그인되고, 메뉴가 보이려면 `TB_SCR_AUTH` 행이 있어야 한다(`db/seed/03_test_user_auth.sql`).
 
 ### 1-2. 실행
 
@@ -135,7 +133,7 @@ sh gradlew bootWar -Pjeus --offline
   - DB 는 JEUS 데이터소스 **JNDI `dsATMS01`** — 주소·계정은 JEUS 에만 있다.
   - 로그: `${jeus.log-dir}/atms-web.log`(`/WASlogs/jeusATMSlogs/nbatmsltws01/app`), 화면 swagger 는 끔, `/v3/api-docs` 는 켬(배포킷 기동 확인용).
 - `CHANGE_ME` 자리(내부망 Gitea 사본에서만 실제 값으로)
-  - `application-jeus.yml` `atms.fixed-user.per-no` — 또는 JEUS JVM 옵션 `-Datms.fixed-user.per-no=<개인번호>`
+  - `Frontend/nh-atms-web/src/screens/login/testAccounts.ts` 의 `CHANGE_ME_1`~`6` — 로그인 화면 옆 테스트 계정 개인번호
   - `jeus-common.yml` `cors.allowed-origins` 의 `CHANGE_ME_WEBTOB_HOST`
 
 ## 4. 이 저장소와 배포킷(nh-atms-server)의 관계
@@ -211,8 +209,9 @@ sha512sum -c SHA512SUMS.txt
 | `[DB-GUARD] 로컬 DB 계정이 없습니다` 로 기동 멈춤 | `D:\local-db.yml` 없음·username/password 빔 | §1-1 대로 만든다 |
 | `[DB-GUARD] 이 계정(…)·비밀번호는 이미 로그인에 실패한 기록이 있어…` | 예전에 같은 값으로 로그인 실패 | `D:\local-db.yml` 비밀번호를 고치면 다시 시도한다. 비밀번호가 맞고 잠김 해제를 받은 경우에만 `D:\db-login-failed` 를 지운다(지킴이 문구 그대로) |
 | YAML 오류(`found character '\t'`) | 들여쓰기에 탭 | 스페이스로 바꾼다 |
-| 화면 전체에 "고정 사용자 개인번호가 없거나…" | 401 `ME_001` | `atms.fixed-user.per-no` 값, `TB_INSA` 에 그 개인번호가 있는지 |
-| 메뉴가 비었거나 버튼이 다 흐림 | `TB_SCR_AUTH`·`TB_SCR_AUTH_MENU` 에 내 권한 없음 | `db/seed/03_fixed_user_auth.sql` 틀, `docs/04_DB_규칙.md` §5 |
+| 로그인하면 "개인번호 또는 비밀번호를 확인하세요." | 400 `LGN_001` | 개인번호가 `TB_INSA` 에 있는지, 비밀번호가 공통 `atms1234!` 인지 |
+| 쓰다가 갑자기 로그인 화면으로 감 | 401 `ME_002`(세션 만료) | 서버 세션 시간(JEUS 기본 30분 무조작) — 다시 로그인 |
+| 메뉴가 비었거나 버튼이 다 흐림 | `TB_SCR_AUTH`·`TB_SCR_AUTH_MENU` 에 내 권한 없음 | `db/seed/03_test_user_auth.sql` 틀, `docs/04_DB_규칙.md` §5 |
 | 조회가 403 `SYS_403` | 조회 GET 도 QRY 권한을 검사함(`docs/07_API_계약.md` §0) | 위와 같음 |
 | 화면이 500 "시스템 오류" | 개발 DB 에 테이블·컬럼이 다름 | `db/check/01_exists.sql`·`02_columns.sql` |
 | `ORA-17056` 문자 집합 | `orai18n` 이 없음 | Gradle 캐시 확인(§0), JEUS 는 JEUS 라이브러리에 |
