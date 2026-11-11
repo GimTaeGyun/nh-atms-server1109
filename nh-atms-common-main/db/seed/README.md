@@ -10,7 +10,7 @@
 | 0 | `db/check/01_exists.sql`, `02_columns.sql` | (읽기만) | 테이블이 있고 컬럼이 정본과 같은지 확인 | 예 |
 | 1 | `01_menu.sql` | TB_SCR_MENU | 그룹 `SMP000` 견본 + 화면 `SMP001`~`SMP004` | 예 |
 | 2 | `02_auth_menu.sql` | TB_SCR_AUTH_MENU | 권한 A·T·L × 메뉴 5개 = 15행 | 예 |
-| 3 | `03_fixed_user_auth.sql` | TB_SCR_AUTH | **틀**(기본 주석). 본인 개인번호에 권한이 없을 때만 고쳐서 씀 | 상황에 따라 |
+| 3 | `03_test_user_auth.sql` | TB_SCR_AUTH | **틀**(기본 주석). 테스트 계정·내 개인번호에 권한이 없을 때만 고쳐서 씀 | 상황에 따라 |
 | 4 | `10_sample_notice.sql` | TB_NOTICE | `[견본]` 공지 5건 | 선택 |
 | - | `99_cleanup_samples.sql` | 위 1·2·4 | 이 시드가 넣은 행만 삭제 | 되돌릴 때 |
 | 확인 | `db/check/03_seed_status.sql` | (읽기만) | 들어간 행 수(5 / 15 / 5) | 권장 |
@@ -34,7 +34,7 @@
 ## 전제
 
 - 앱이 접속하는 계정(스키마)으로 실행한다. 대상 테이블이 이미 있어야 한다(`db/check`).
-- 고정 사용자(`atms.fixed-user.per-no`)의 개인번호가 `TB_INSA` 에 있어야 하고, `TB_SCR_AUTH` 에 승인(`APV_STS='Y'`)·미만료 행이 있어야 메뉴가 보인다. 없으면 `03_fixed_user_auth.sql` 틀을 쓴다.
+- 로그인할 개인번호(로그인 화면 옆 테스트 계정 6명, `src/screens/login/testAccounts.ts`)가 `TB_INSA` 에 있어야 로그인되고, `TB_SCR_AUTH` 에 승인(`APV_STS='Y'`)·미만료 행이 있어야 메뉴가 보인다. 없으면 `03_test_user_auth.sql` 틀을 쓴다(계정마다 권한코드 A·T·L 을 다르게 주면 버튼 권한 차이를 시험할 수 있다).
 - **은행 마스터 데이터는 넣지 않는다**: TB_MCN_INFO · TB_CO_MODEL · TB_INSA · TB_OFC_REG_MGT 등은 개발 DB 에 있는 실제(이관) 데이터를 쓴다.
 
 ## 은행 DB 도구에서 돌리는 법
@@ -56,7 +56,7 @@
 |---|---|---|
 | `NHCOMMON` | 이 폴더의 시드 SQL(`CRT_CMENO`·`LS_CMENO`, 03 의 `INS_ID`) | "시드 스크립트가 넣은 행". `99_cleanup_samples.sql` 이 이 값으로만 골라 지운다 |
 | `SYSTEM` | 백엔드 `AuditUserProvider.SYSTEM_ID`(atms-common) — 감사 컬럼 자동 채움에서 사용자를 모를 때 | "앱이 사람 없이 쓴 행"(기동 시 적재 등) |
-| 고정 사용자 개인번호 | 백엔드 감사 자동 채움(`AuditInterceptor`) — 화면에서 등록·수정한 행 | 실제 작업한 사람 |
+| 로그인 사용자 개인번호 | 백엔드 감사 자동 채움(`AuditInterceptor`) — 화면에서 등록·수정한 행 | 실제 작업한 사람 |
 
 - 두 상수는 **일부러 다르게** 둔다: 시드가 넣은 행만 안전하게 지우기 위해서다. 둘 다 잠정(H-071)이고, 현업 답이 오면 함께 정리한다(시드는 이 폴더 SQL, 백엔드는 `AuditUserProvider.SYSTEM_ID` 한 곳).
 

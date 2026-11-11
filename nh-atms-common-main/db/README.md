@@ -12,7 +12,7 @@ db/
 │   ├─ TB_*.sql            15개
 │   └─ _source_columns.csv, _source_entities.csv   정본에서 뽑은 사본
 ├─ seed/    견본 화면용 시드 (다시 돌려도 안전) — seed/README.md
-│   ├─ 01_menu.sql, 02_auth_menu.sql, 03_fixed_user_auth.sql(틀), 10_sample_notice.sql(선택)
+│   ├─ 01_menu.sql, 02_auth_menu.sql, 03_test_user_auth.sql(틀), 10_sample_notice.sql(선택)
 │   └─ 99_cleanup_samples.sql
 └─ tools/
     ├─ gen_ddl.py          정본 CSV → ddl/ (python3 -I, 표준 라이브러리만)

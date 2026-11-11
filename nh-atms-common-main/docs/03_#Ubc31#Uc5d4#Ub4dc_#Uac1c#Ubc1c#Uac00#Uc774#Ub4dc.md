@@ -15,7 +15,7 @@
 web/
 ├─ common/            CurrentUser, Dates, Yn, OfficeCode, DbBytes, Masking, Pages, BatchChanges,
 │  │                  NotFound/Forbidden/UnauthorizedException, ExceptionAdvice …
-│  └─ auth/           FixedUserFilter, CurrentUserLoader, MeController(/api/me),
+│  └─ auth/           SessionUserFilter, CurrentUserLoader, MeController(/api/me),
 │                     RequireMenuAuth, Perm, MenuAuthAspect, MenuAuthService
 ├─ menu/              GET /api/menu/my
 ├─ lookup/            GET /api/lookup/*  (콤보·팝업 원천)
@@ -86,7 +86,7 @@ public ApiResponse<Notice> create(@RequestBody @Valid NoticeSave req) {
   2. 매퍼 XML 에 `#{crtDtm}`, `#{crtCmeno}`, `#{lschgDtm}`, `#{lsCmeno}` 를 **적기만** 한다.
 - 그러면 `AuditInterceptor`(MyBatis 플러그인)가 실행 직전에 값을 넣는다.
   - INSERT → 4개, UPDATE → `lschgDtm`·`lsCmeno` 2개, DELETE → 안 건드림.
-  - 일시 = 지금 `YYYYMMDDHH24MISS`, 개인번호 = 고정 사용자(`CurrentUser.perNo()`), 모르면 `AuditUserProvider.SYSTEM_ID = "SYSTEM"`(잠정 H-071).
+  - 일시 = 지금 `YYYYMMDDHH24MISS`, 개인번호 = 로그인 사용자(`CurrentUser.perNo()`), 모르면 `AuditUserProvider.SYSTEM_ID = "SYSTEM"`(잠정 H-071).
   - 파라미터가 DTO 하나든, `@Param` 여럿이든, 목록(foreach)이든 안의 `Auditable` 을 모두 채운다.
 - **값을 손으로 만들지 않는다**(`Dates.now14()` 를 매퍼 파라미터에 직접 넣는 등 금지). 시험: `AuditInterceptorTest`.
 
@@ -101,17 +101,18 @@ public ApiResponse<Notice> create(@RequestBody @Valid NoticeSave req) {
 - 검사하지 않는 것: `/api/lookup/*`, `/api/me`, `/api/menu/my`(공통).
 - 시험: `MenuAuthServiceTest`(플래그 5개·관리자·화면키→메뉴경로 예시 표 — 프론트 `registry.test.ts` 와 같은 표).
 
-## 7. 고정 사용자 (로그인 없음, `web/common/auth/`)
+## 7. 로그인 사용자 (세션, `web/common/auth/`·`web/login/`)
 
-- 설정 `atms.fixed-user.per-no` 의 개인번호 1개로 돈다(설계 Q1).
-  - 로컬: `D:\local-db.yml`, JEUS: 내부망 사본의 `application-jeus.yml` 또는 JVM 옵션 `-Datms.fixed-user.per-no=…`. 저장소에는 `CHANGE_ME`.
-- `/api/**` 요청마다 `FixedUserFilter` 가
-  1. 설정이 비었거나 `CHANGE_ME` 면 401 `ME_001`
+- 2026-11-11 사용자 결정: **로그인 필수**. 예전 고정 사용자 설정(`atms.fixed-user.per-no`)·전환 스위치(`atms.login.enabled`)는 없앴다.
+- 로그인 `POST /api/auth/login`(계약 §7) → `LoginService` 가 새 HTTP 세션에 개인번호(`SessionUserFilter.SESSION_PER_NO`)를 넣는다.
+  - 검증 `InsaLoginVerifier`: `TB_INSA` 에 있는 개인번호 + 공통 테스트 비밀번호 `TEST_PASSWORD`(잠정 Q-17).
+- `/api/**` 요청마다 `SessionUserFilter` 가(`/api/auth/**` 는 거치지 않음)
+  1. 세션에 개인번호가 없으면 401 `ME_002` → 화면은 로그인 화면으로
   2. `CurrentUserLoader.load` — `TB_INSA`(이름·소속) + `TB_SCR_AUTH`(채택 1행: `APV_STS='Y'`, `DUE_DATE` 없음 또는 지금 이후, `AUTH` 오름차순 첫 행 — `pickAuth`, 잠정) + `TB_OFC_REG_MGT.KANM`. 60초 동안 메모리에 둔다(`TTL_MS`).
-  3. `TB_INSA` 에 없으면 401 `ME_001`, DB 오류면 500.
+  3. `TB_INSA` 에 없으면 401 `ME_001`(화면은 로그인 화면으로), DB 오류면 500.
   4. 사용자를 SecurityContext 에 넣는다 → 서비스에서 `CurrentUser.perNo()`·`ofcCode()`·`isAdmin()`.
 - `GET /api/me` → `Me` (`MeController`, 계약 §1).
-- **SSO 를 붙일 때 바꿀 곳은 이 필터 하나**(`FixedUserFilter` javadoc).
+- **SSO 를 붙일 때 바꿀 곳은 이 필터 하나**(`SessionUserFilter` javadoc).
 
 ## 8. 공통 조회 API (`web/lookup/`, 계약 §2)
 
@@ -140,7 +141,7 @@ public ApiResponse<Notice> create(@RequestBody @Valid NoticeSave req) {
 
 ## 10. 설정
 
-- 키 이름은 `atms.<업무>.<키>`(예: `atms.fixed-user.per-no`, `atms.lookup.vendor-code-type`, `atms.api-message.reload-minutes`).
+- 키 이름은 `atms.<업무>.<키>`(예: `atms.lookup.vendor-code-type`, `atms.api-message.reload-minutes`).
 - 기본값은 코드에 `@Value("${atms.x.y:기본값}")`. `application*.yml` 은 리드만 고친다.
 - 프로파일: `local`(기본, PC) / `jeus`(WAR). `docs/01_실행_배포.md` §1·§3.
 
@@ -160,7 +161,7 @@ sh gradlew build --offline --no-daemon
 | `web/common/TypeAliasUniquenessTest` | 같은 단순 클래스 이름 |
 | `common/message/ApiMessageCodeGuardTest` · `ApiMessagesTest` | TSV 에 없는 코드, 한글 문구 직접 사용, TSV 형식 |
 | `web/audit/AuditInterceptorTest` | 감사 컬럼 채움 |
-| `web/common/auth/{MenuAuthService,CurrentUserLoader,FixedUserFilter}Test` | 권한 5개·화면키→메뉴경로·고정 사용자 |
+| `web/common/auth/{MenuAuthService,CurrentUserLoader,SessionUserFilter}Test`, `web/login/LoginServiceTest` | 권한 5개·화면키→메뉴경로·로그인 세션·공통 비밀번호 |
 | `web/common/{CommonUtils,DbBytes,CommandRegistry}Test`, `web/actionlog/UserActionLogSupportTest` | 공통 도구 |
 | `web/{menu/MenuService,lookup/LookupService}Test` | 메뉴 트리·공통 조회 |
 | `web/{notice,mcninfo,mcnmodel}/*ServiceTest` | 견본 서비스(응답코드·잠정 규칙) |

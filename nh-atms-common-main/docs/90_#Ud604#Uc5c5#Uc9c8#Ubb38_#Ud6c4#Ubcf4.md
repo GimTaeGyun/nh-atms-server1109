@@ -31,9 +31,9 @@
 | 번호 | 질문 | 영향 화면·문서 | 미결 시 가정 | 임시 규칙이 있는 곳 | 상태 |
 |---|---|---|---|---|---|
 | Q-09 | 권한 코드 `AUTH` 값(A/T/L/기타)과 화면 권한의 대응, 관리자 판정 | 모든 화면 버튼·서버 권한 검사 | `AUTH='A'` = 관리자(전부 허용). 시드 플래그 A 전부 / T 조회·등록·수정 / L 조회 | `web/common/auth/CurrentUserLoader.java` `adminYnOf`, `db/seed/02_auth_menu.sql` | 대기 |
-| Q-11 | 한 사람이 `TB_SCR_AUTH` 에 여러 행(부서·사무소별)을 가질 때 어느 행을 쓰나 | 고정 사용자의 권한·기본 사무소(`/api/me`) | `APV_STS='Y'` 이고 `DUE_DATE` 가 비었거나 지금 이후인 행 중 `AUTH` 오름차순 첫 행 | `web/common/auth/CurrentUserLoader.java` `pickAuth`, 계약 §1 | 대기 |
+| Q-11 | 한 사람이 `TB_SCR_AUTH` 에 여러 행(부서·사무소별)을 가질 때 어느 행을 쓰나 | 로그인 사용자의 권한·기본 사무소(`/api/me`) | `APV_STS='Y'` 이고 `DUE_DATE` 가 비었거나 지금 이후인 행 중 `AUTH` 오름차순 첫 행 | `web/common/auth/CurrentUserLoader.java` `pickAuth`, 계약 §1 | 대기 |
 | Q-12 | 인원 콤보의 "사무소 소속" 기준과 퇴직자 판정 | 인원 콤보·팝업(`/api/lookup/persons`) | `TRIM(TB_INSA.SAMUSO) = 사무소코드`, `RETIRE_DATE` 가 비었거나 앞 8자리가 오늘보다 뒤면 재직 | `web/lookup/service/LookupRules.java` `personRetireCutoff`, `mapper/lookup/LookupMapper.xml` `selectPersons` | 대기 |
-| Q-13 | `TB_SCR_AUTH.DEPT_CODE` 에 무엇을 넣나(시드 틀은 `TB_INSA.SAMUSO` 로 채움 — 23 메모 §4.3 근거의 추정) | 권한 시드 | `DEPT_CODE = TB_INSA.SAMUSO` | `db/seed/03_fixed_user_auth.sql` | 대기 |
+| Q-13 | `TB_SCR_AUTH.DEPT_CODE` 에 무엇을 넣나(시드 틀은 `TB_INSA.SAMUSO` 로 채움 — 23 메모 §4.3 근거의 추정) | 권한 시드 | `DEPT_CODE = TB_INSA.SAMUSO` | `db/seed/03_test_user_auth.sql` | 대기 |
 | H-071 | (nh-atms 대장에 있음) 사람이 없는 적재의 감사 개인번호 `CRT_CMENO`·`LS_CMENO` 값 | 감사 컬럼 전체, 시드 | 앱 `SYSTEM`, 시드 `NHCOMMON`(일부러 다르게) | `atms-common/.../audit/AuditUserProvider.java` `SYSTEM_ID`, `db/seed/*.sql` | 대기 |
 
 ### 1.4 화면 표시 (코드)
@@ -43,16 +43,16 @@
 | Q-14 | 사무소가 없는 공지(`OFC_CODE` NULL = 전체 공지)를 "내 사무소" 조회에도 함께 보여야 하나 | 공지사항 기본 조회(기본 조건이 내 사무소라 전체 공지가 안 보임) | 사무소 조건은 `OFC_CODE = 값` 으로만 거름 → 사무소 칸을 비우고 조회해야 보임. Q-02 와 함께 묻기 | `mapper/notice/NoticeMapper.xml` 사무소 조건, `src/screens/sample/NoticeParts.tsx` `useNoticeFields`, `db/seed/10_sample_notice.sql` 머리 주석 | 대기 |
 | Q-15 | 휴일 판정 값 — `TB_NMS_HDAY.HDAY_YN='Y'` 가 휴일인가(`CLOSE_YN`·`DAY_TYPE` 과의 관계) | 날짜 부품 휴일 표시 | `HDAY_YN='Y'` 면 휴일(표시만, 영업일 계산은 nh-atms H-068 대기) | `src/hooks/useHolidays.tsx` | 대기 |
 | Q-16 | 개인정보 마스킹 규칙(계좌·카드·이름·전화) | 마스킹 표시 전체 | 계좌 뒤 4자리 노출, 카드 앞6·뒤4 노출, 이름 두 번째 글자, 전화 가운데 | 서버 `web/common/Masking.java`, 프론트 `src/components/privacy/maskKinds.ts` | 대기 |
-| Q-17 | 로그인 비밀번호를 무엇과 비교하나 — TO-BE 테이블(`TB_INSA` 등)에 비밀번호 컬럼이 없음 (SSO·사내 인증·별도 비밀번호 테이블?) | 로그인 견본(`/login`, 계약 §7) | 개인번호가 `TB_INSA` 에 있고 비밀번호가 비어 있지 않으면 성공 | 서버 `web/login/service/InsaLoginVerifier.java` (`LoginVerifier` 구현 교체) | 대기 |
+| Q-17 | 로그인 비밀번호를 무엇과 비교하나 — TO-BE 테이블(`TB_INSA` 등)에 비밀번호 컬럼이 없음 (SSO·사내 인증·별도 비밀번호 테이블?) | 로그인(`/login`, 계약 §7) | 개인번호가 `TB_INSA` 에 있고 비밀번호가 공통 테스트 비밀번호 `atms1234!` 와 같으면 성공(2026-11-11 사용자 결정, 처음엔 "비어 있지만 않으면") | 서버 `web/login/service/InsaLoginVerifier.java` (`LoginVerifier` 구현 교체) | 대기 |
 
-- Q-11~Q-16 은 이번에 코드에서 찾아 새로 붙인 번호다(설계 §14 에는 없음). Q-17 은 2026-11-09 로그인 견본에서 붙임.
+- Q-11~Q-16 은 이번에 코드에서 찾아 새로 붙인 번호다(설계 §14 에는 없음). Q-17 은 2026-11-09 로그인 견본에서 붙임(2026-11-11 로그인 필수로 바뀜).
 - nh-atms 대장에 이미 있는 H-068(영업일 달력)·H-074(`T_API_MESSAGE`·`T_USER_ACTION_LOG` 처럼 정본에 대응 없는 영역)도 이 저장소에 영향이 있다(`docs/04_DB_규칙.md` §4).
 
 ## 2. 현업이 아니라 리드·사용자가 정할 것
 
 | 번호 | 정할 것 | 지금 상태 | 어디 |
 |---|---|---|---|
-| D-01 | 조회 GET 에도 서버 권한(QRY)을 걸지 | **정해짐** — 설계 §13 Q2(5개 플래그를 프론트·서버 둘 다 검사)대로 건다. 개발 DB 에서 고정 사용자에게 메뉴 권한이 없으면 견본 조회가 403 → `db/seed/03_fixed_user_auth.sql` 로 먼저 넣는다 | `docs/07_API_계약.md` §0, 각 컨트롤러 `@RequireMenuAuth(need = Perm.QRY)` |
+| D-01 | 조회 GET 에도 서버 권한(QRY)을 걸지 | **정해짐** — 설계 §13 Q2(5개 플래그를 프론트·서버 둘 다 검사)대로 건다. 개발 DB 에서 로그인한 사용자에게 메뉴 권한이 없으면 견본 조회가 403 → `db/seed/03_test_user_auth.sql` 로 먼저 넣는다 | `docs/07_API_계약.md` §0, 각 컨트롤러 `@RequireMenuAuth(need = Perm.QRY)` |
 | D-02 | 하단 메시지 줄 `MessageLine` 을 앱 셸(`AppShell`)에 둘지 | 공통 모듈 화면에만 있음(원본 nh-atms 도 같음) | `src/components/feedback/MessageLine.tsx` |
 | D-03 | 내장 메뉴(`menuSeed.ts`)에 견본 밖 업무 그룹을 넣는 방법 | 견본 그룹 하나만 만든다 | `src/screens/menuSeed.ts`, `docs/02_프론트_개발가이드.md` §3 ⑥ |
 | D-04 | 이 저장소를 개발 서버(JEUS)에 올릴지, Jenkins 잡을 따로 둘지 | WAR 이름이 본 프로젝트와 같은 `atms-web` 이라 그대로 올리면 덮어씀 | `docs/01_실행_배포.md` §4 |

@@ -151,6 +151,6 @@
 | `DbBytes` | 바이트 길이(ASCII 1, 그 밖 2) | [신규] [잠정 Q-07] |
 | `Dates`·`Yn`·`Pages`·`Masking`·`BatchChanges`·`AsOf*`·`KpiPage`·`Command*` | 날짜·Y/N·페이지·가림·일괄 변경 묶음·기준시각 응답 등 | [원본] (`Masking` 규칙은 잠정) |
 | `auth/RequireMenuAuth`·`MenuAuthService`·`MenuAuthAspect`·`Perm` | 화면 권한 서버 검사 | [신규] 설계 §5.5 |
-| `auth/FixedUserFilter`·`CurrentUserLoader`·`MeController` | 고정 사용자·`/api/me` | [신규] 설계 §5.3 |
+| `auth/SessionUserFilter`·`CurrentUserLoader`·`MeController` | 로그인 세션 사용자·`/api/me` | [신규] 설계 §5.3 |
 | `atms-common/.../audit/AuditInterceptor`·`AuditFields` | 감사 컬럼 자동 채움 | [신규] 21지침 §3 |
 | `web/lookup/**` | 공통 조회 API | [원본 master·code] → [TO-BE] |

@@ -1,7 +1,7 @@
 # 02. 프론트 개발 가이드 — 이 저장소에서 화면을 만들고 고칠 때
 
 > 원본 nh-atms `Frontend/nh-atms-web/docs/offline/02-dev-guide.md` 를 이 저장소 기준으로 다시 썼다.
-> 바뀐 점: 화면번호로 쓰던 예시(`def('<번호>',…)`, `screenId=`) → **화면키**, 권한 2개(`readYn/writeYn`) → **5개 플래그**, 로그인·SSO 절은 뺌(고정 사용자).
+> 바뀐 점: 화면번호로 쓰던 예시(`def('<번호>',…)`, `screenId=`) → **화면키**, 권한 2개(`readYn/writeYn`) → **5개 플래그**, SSO 절은 뺌(로그인은 세션 방식 — `src/screens/login/LoginPage.tsx`).
 > 경로는 모두 `Frontend/nh-atms-web/src/` 기준.
 
 ## 1. 자주 쓰는 명령 (`Frontend/nh-atms-web` 에서)
@@ -268,7 +268,7 @@ const RULES = {
   - 오류 목: 서버와 같은 HTTP 상태·코드(`fail(404, '공지사항을 찾을 수 없습니다.', 'NTC_001')`).
 - 입력 검사 순서도 서버 서비스와 같게(`mocks/handlers/notice.ts` `checkSave` ↔ `NoticeService`).
 - 데이터는 `mocks/data/<업무>.ts`, 테스트가 처음 상태로 돌릴 `reset…()` 을 함께 둔다(`resetMockNotices`).
-- 목 고정 사용자: `mocks/handlers/me.ts` `MOCK_ME`(사무소 `000080`), 메뉴: `mocks/data/menu.ts`(내장 메뉴, 권한 전부 Y).
+- 목 사용자(목은 2026-11 삭제됨, 기록용): `mocks/handlers/me.ts` `MOCK_ME`(사무소 `000080`), 메뉴: `mocks/data/menu.ts`(내장 메뉴, 권한 전부 Y).
 - 단위 테스트(msw/node)와 브라우저(`dev:mock`)가 **같은 핸들러**를 쓴다(`src/test/setup.ts`, `mocks/browser.ts`).
 - 알려진 한계: 목끼리는 따로 논다(예: 기기모델코드 화면에서 저장해도 공통 조회의 모델 콤보 목 `MODELS` 는 그대로).
 

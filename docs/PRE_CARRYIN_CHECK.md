@@ -13,7 +13,7 @@
 | 3 | **내부 Gitea 에 새 앱 소스를 올리는 절차가 없었음** | 🔧 | 4장에 추가 (저장소 `NH-ATMS/nh-atms` 내용을 `nh-atms-common-main/` 안의 내용으로 교체). 2026-11-10: 옛 main 백업 브랜치 `backup/main-20261110`·점검·되돌리기 추가, "웹훅 빌드는 배포 안 함" 오기 정정(화면 잡은 웹훅도 `build-deploy`) |
 | 4 | 새 프론트 `.env.production`·`.env.development`·`.env.mock` 이 저장소에 없음 | ⚠️ | 원본을 가진 PC 에서 올림 (`COMMON_ATMS_INTEGRATION.md` 6-5). 없어도 운영 빌드는 기본값으로 됨 — 단 원본 값(예: `VITE_ROUTER`)이 다르면 화면 동작이 달라짐 |
 | 5 | 필드 암호화 키 파일 `/home/atmswas/keys/field-k202611.{key,pub}.pem` | ⚠️ | **없으면 atms01 기동 실패** (로그인 견본 추가로 다시 필요). `POST_HANDOVER_EDITS.md` 0-2 — 그 명령 그대로 만든 키로 기동 확인함 (2-4) |
-| 6 | 고정 사용자 개인번호 | ⚠️ | atms01 JVM 옵션 `-Datms.fixed-user.per-no=<개인번호>` (WAS 담당) — 없으면 화면 전체 401 `ME_001` (`POST_HANDOVER_EDITS.md` K) |
+| 6 | ~~고정 사용자 개인번호~~ → 로그인 테스트 계정 (2026-11-11 로그인 필수) | ✅ | JVM 옵션 필요 없음. 로그인 화면 옆 테스트 계정 개인번호는 내부 Gitea 사본 `src/screens/login/testAccounts.ts` 에(선택) (`POST_HANDOVER_EDITS.md` K) |
 | 7 | npm 캐시 (143개 + node-forge) | ⚠️ | `deploy/offline-bundle/make-npm-carry.bat` → zip 1개 → 팀 PC·Jenkins 에 합치기 (`REQUIRED_FILES.md` 3-5). Windows 실행은 미시험 |
 | 8 | DB: 새 앱 TB_ 테이블 15개 + 시드 | ⚠️ | `nh-atms-common-main/db/check/01·02` → `db/seed` (JNDI 계정 ATMS_APP 에서 보여야 함) |
 | 9 | Gradle 캐시 (Jenkins `/cache/gradle`) | ✅ | 새 앱 WAR 의 jar 69개가 모두 NH-ATMS WAR 6개에 있음 → 새 반입 없음 (2-3). Gradle 8.14.4·플러그인 블록 같음 |
@@ -234,7 +234,7 @@ git log --oneline -2
 - Jenkins: 두 잡을 **"Build with Parameters" 로 `build-only`** 실행 → 둘 다 성공 확인. 백엔드는 `MODULE=all` 또는 `atms-web` 만 (다른 모듈은 WAR 가 없어 실패 — 정상)
 - 4-0 에서 끈 웹훅 다시 켜기 ("활성" 체크). 켠 뒤의 push 부터는 화면이 자동 배포된다
 - 팀원 PC: 옛 폴더는 그대로 두고 새로 clone (`git clone http://16.88.122.113:3000/NH-ATMS/nh-atms.git`). 옛 폴더에서 `git pull` 해도 되지만 무시 파일이 남는다
-- 개인번호를 JVM 옵션 대신 소스에 넣는다면 이 사본의 `Backend/nh-atms-api/atms-web/src/main/resources/application-jeus.yml` `atms.fixed-user.per-no` 만 바꾼다 (GitHub 에는 올리지 않음)
+- 로그인 화면 옆 테스트 계정 개인번호를 넣는다면 이 사본의 `Frontend/nh-atms-web/src/screens/login/testAccounts.ts` `CHANGE_ME_1`~`6` 만 바꾼다 (GitHub 에는 올리지 않음, 2026-11-11 로그인 필수 — 예전 `atms.fixed-user.per-no` 는 없앰)
 
 ### 4-7. 되돌리기 (옛 소스로)
 

@@ -23,7 +23,7 @@
 
 | 항목 | NH-ATMS | nh-atms-common-main | 결정 |
 |---|---|---|---|
-| ① 모듈·기능 (`settings.gradle`, `build.gradle`, `application.yml`) | 모듈 7개, JWT·SSO·필드 암호화·POI·H2 | 모듈 2개(common, web), 로그인 없음(고정 사용자) | **새 소스 유지** — 덮으면 없는 모듈 5개로 빌드 실패, `JWT_SECRET` 없어 기동 실패 |
+| ① 모듈·기능 (`settings.gradle`, `build.gradle`, `application.yml`) | 모듈 7개, JWT·SSO·필드 암호화·POI·H2 | 모듈 2개(common, web), 로그인 없음(고정 사용자) → 2026-11-11 로그인 필수(세션) | **새 소스 유지** — 덮으면 없는 모듈 5개로 빌드 실패, `JWT_SECRET` 없어 기동 실패 |
 | ② 폐쇄망 Gradle (foojay, `validateDistributionUrl`, JDK vendor) | 자동 다운로드·URL 검사·Adoptium 고정 | 모두 끔(로컬 JDK 21) | **새 소스 유지** |
 | ③ p6spy·prometheus | 운영 WAR 에 포함 | p6spy 는 `developmentOnly`, prometheus 없음 | **새 소스 유지** — 운영 로그에 SQL 평문 안 남음 |
 | ④ 프론트 npm (`package.json`/lock) | lock 334개 | lock 469개 (143개 추가: vitest·msw·playwright·jsdom·testing-library 등) | **새 소스 유지 + npm 캐시에 추가 반입** (§3) |
@@ -81,12 +81,9 @@ spring:
   datasource:
     username: "DB계정"
     password: "DB비밀번호"
-atms:
-  fixed-user:
-    per-no: "내개인번호"
 ```
 
-개인번호가 비었거나 `CHANGE_ME` 면 백엔드는 뜨지만 `/api/**` 가 401 `ME_001`.
+2026-11-11 부터 로그인 필수 — 사용자는 화면 로그인으로 정해진다(예전 `atms.fixed-user.per-no` 는 없앰). 로그인 전 `/api/**` 는 401 `ME_002`.
 
 ### 4-3. 백엔드
 
@@ -126,7 +123,7 @@ npm run dev
 
 | 확인 | 정상 |
 |---|---|
-| 첫 화면 | 화면 전체 `ME_001` 오류가 없음 (고정 사용자 인식) |
+| 첫 화면 | 로그인 화면(테스트 계정 표) → 로그인하면 홈 (2026-11-11 로그인 필수) |
 | 메뉴 | 좌측 메뉴가 보임 (서버 메뉴가 비면 내장 메뉴, 조회 권한) |
 | 견본 화면(공지 등) | 목록이 조회되면 DB 연결까지 정상 |
 
@@ -151,7 +148,7 @@ npm run dev
 | # | 항목 | 왜 | 할 일 |
 |---|---|---|---|
 | 1 | **프론트 `.env.production`·`.env.development`·`.env.mock` 이 저장소에 없음** | ATMS-server 루트 `.gitignore` 의 `.env.*` 규칙에 걸려 push 때 빠짐. 운영 빌드는 기본값으로 되지만 목 모드·화면 캡처(e2e)가 안 되고, 원본 값(예: `VITE_ROUTER`)이 다르면 화면 동작이 달라짐 | 루트 `.gitignore` 에 예외 3줄 추가함(이 커밋). 원본 파일을 가진 PC 에서 아래 6-5 명령으로 올린다 |
-| 2 | **고정 사용자 개인번호** (`atms.fixed-user.per-no`) | 저장소 값 `CHANGE_ME` → 개발서버에서 `/api/**` 전부 401 `ME_001` (화면 사용 불가) | atms01 JVM 옵션 `-Datms.fixed-user.per-no=<개인번호>` (WAS 담당) 또는 내부 Gitea 사본 기입 — `POST_HANDOVER_EDITS.md` K |
+| 2 | ~~고정 사용자 개인번호~~ → **로그인 테스트 계정** (2026-11-11 로그인 필수) | JVM 옵션 필요 없음. 로그인 화면 옆 표의 개인번호가 저장소에는 `CHANGE_ME_n` | 내부 Gitea 사본 `src/screens/login/testAccounts.ts` 에 실제 개인번호 기입(선택 — 비워도 직접 입력하면 로그인) — `POST_HANDOVER_EDITS.md` K |
 | 3 | **npm 캐시 143개 (+ node-forge)** | Jenkins `npm ci --offline` 이 캐시에 없는 패키지에서 실패 | `make-npm-carry.bat` 로 zip 1개 → 팀 PC + Jenkins 에 합치기 (REQUIRED_FILES 3-5) |
 | 4 | **DB: TB_ 테이블 15개 + 시드** | 새 앱은 TO-BE `TB_` 테이블을 쓴다. JNDI `dsATMS01` 계정(ATMS_APP)에서 보여야 함 | `nh-atms-common-main/db/check/01·02` 로 확인 → 시드 `db/seed/01·02(·03)` |
 | 4-1 | **필드 암호화 키 파일** (2026-11-09 로그인 견본 추가로 다시 필요) | 새 앱 `application-jeus.yml` 이 `crypto.field.enabled: true` + `/home/atmswas/keys/field-k202611.{key,pub}.pem` — **없으면 atms01 기동 실패** | ws01 에서 키 생성 (`POST_HANDOVER_EDITS.md` 0-2, 새 앱 `docs/07_API_계약.md` §7 — NH-ATMS 와 같은 키) |
