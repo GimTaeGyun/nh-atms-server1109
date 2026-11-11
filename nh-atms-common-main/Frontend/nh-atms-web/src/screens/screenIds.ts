@@ -9,6 +9,8 @@
 export const SCREEN_IDS = {
   // ---- home ----
   'home': '',
+  // ---- 종합관리(mgmt) ----
+  'mgmt.faultStatus': '',
   // ---- 견본(sample) ----
   'sample.commonModules': '',
   'sample.notice': '',

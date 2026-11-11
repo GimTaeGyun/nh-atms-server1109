@@ -4,7 +4,7 @@ import type { ScreenKey } from '@/screens/screenIds';
 export type { ScreenKey };
 
 /** 대분류 slug — 라우트 /{slug}/{kebab-case 화면키 이름} */
-export type L1Slug = 'home' | 'sample' | 'popup';
+export type L1Slug = 'home' | 'mgmt' | 'sample' | 'popup';
 
 export interface L1Def {
   slug: L1Slug;

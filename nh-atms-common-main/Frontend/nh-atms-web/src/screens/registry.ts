@@ -47,6 +47,8 @@ const def = (key: ScreenKey, title: string, slug: L1Slug, group: string, loader:
 export const SCREENS: Record<string, ScreenDef> = Object.fromEntries(
   [
     def(HOME_SCREEN_KEY, '홈', 'home', '', () => import('./home/HomePage')),
+    // ---- 종합관리(mgmt) ----
+    def('mgmt.faultStatus', '장애현황', 'mgmt', '장애', () => import('./mgmt/FaultStatusPage')),
     // ---- 견본(sample): 공통 모듈 화면 + CRUD 모양 3가지 ----
     def('sample.commonModules', '공통 모듈', 'sample', '', () => import('./sample/CommonModulesPage')),
     def('sample.notice', '공지사항', 'sample', '', () => import('./sample/NoticePage')),

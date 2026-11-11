@@ -12,11 +12,12 @@ export interface L1DefEx extends L1Def {
 /**
  * 대분류(1뎁스) 정의 — 상단 메뉴와 아이콘 줄이 공유한다.
  * `name` 은 메뉴 테이블(TB_SCR_MENU) 최상위 그룹의 MENU_NM 과 같아야 사이드바가 그 그룹을 찾는다.
- * 이 저장소는 업무 대분류 없이 홈 + 견본 1개(설계 §6.6). 팝업(popup)은 메뉴에 칸이 없다.
+ * 이 저장소는 홈 + 업무 대분류 '종합관리'(2026-11-11 장애현황 추가) + 견본(설계 §6.6). 팝업(popup)은 메뉴에 칸이 없다.
  * 새 업무 대분류를 추가하면: 여기 한 줄 + types/screen.ts L1Slug + 메뉴 테이블 그룹.
  */
 export const L1_DEFS: L1DefEx[] = [
   { slug: 'home', name: '홈', label: '홈', railLabel: '홈', icon: 'HomeOutlined' },
+  { slug: 'mgmt', name: '종합관리', label: '종합 관리', railLabel: '종합관리', icon: 'DashboardOutlined' },
   { slug: 'sample', name: '견본', label: '견본', railLabel: '견본', icon: 'AppstoreOutlined' },
   { slug: 'popup', name: '팝업', label: '팝업', railLabel: '팝업', icon: 'AppstoreOutlined', hidden: true, navAs: 'home' },
 ];

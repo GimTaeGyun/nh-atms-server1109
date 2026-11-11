@@ -124,7 +124,8 @@ export default CornerInfoPage;
   - 프론트는 메뉴 응답의 `menuPath` 를 `parseScreenPath` 로 화면키로 바꾼다(`screens/registry.ts`, 잠정 Q-05).
 - 목·개발: 내장 메뉴 `screens/menuSeed.ts`.
   - 지금 이 파일은 **견본 그룹(`SMP000`) 하나만** 만든다. 견본 그룹에 넣을 때는 `SAMPLE` 배열 + `db/seed/01_menu.sql` 을 같이 바꾼다(`screens/__tests__/menuSeed.test.ts` 가 두 값을 비교).
-  - 새 업무 그룹을 내장 메뉴에 넣는 방법은 아직 정해지지 않았다 → 리드 결정.
+  - 업무 그룹 예: 종합관리(`MGT000`) > 장애(`MGT100`) > 장애현황(`MGT101`, `mgmt.faultStatus`) — `menuSeed.ts` `MGMT_FOLDERS`(2026-11-11). 이 그룹은 아직 DB 시드가 없어 ID 가 잠정이다.
+  - 내장 메뉴는 DB 메뉴에 화면이 하나도 없을 때만 쓰인다 → 실서버에 보이려면 `TB_SCR_MENU`·`TB_SCR_AUTH_MENU` 행이 필요하다.
 
 ### ⑦ 확인
 
