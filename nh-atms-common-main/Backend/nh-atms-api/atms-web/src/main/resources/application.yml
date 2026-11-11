@@ -59,13 +59,6 @@ atms:
     # T_API_MESSAGE 다시 읽는 주기(분). 0 이면 기동 때 1번만. 테이블이 없으면 시드(api-messages.tsv) 그대로
     reload-minutes: 5
 
-# 사용자 행위 이력(T_USER_ACTION_LOG) — 모든 컨트롤러 호출을 자동 기록(UserActionLogAspect). 실패해도 요청은 정상 처리
-# exclude-uri-prefixes: 사용자 행위가 아닌 호출(나·메뉴·공통 조회·헬스체크)
-# enabled: false = 기록 안 함(2026-11-11, T_USER_ACTION_LOG 테이블이 아직 없어 INSERT 에러 로그가 남아서 끔). 테이블을 만든 뒤 true 로 되돌린다
-actionlog:
-  enabled: false
-  exclude-uri-prefixes: "/api/me,/api/menu/,/api/lookup/,/api/auth/public-key,/actuator"
-
 # CORS 허용 Origin — 로컬 기본값: Vite 개발서버(5173) + CRA(3000). JEUS 는 jeus-common.yml
 cors:
   allowed-origins: "http://localhost:3000,http://localhost:5173"

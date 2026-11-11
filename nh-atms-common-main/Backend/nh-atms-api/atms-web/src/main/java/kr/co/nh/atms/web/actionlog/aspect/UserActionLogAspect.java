@@ -42,7 +42,7 @@ import java.util.List;
  */
 @Slf4j
 @Aspect
-@Component
+// @Component   // 행위이력 끔: T_USER_ACTION_LOG 테이블이 생기면 주석 해제
 @RequiredArgsConstructor
 public class UserActionLogAspect {
 

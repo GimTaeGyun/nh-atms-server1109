@@ -170,6 +170,6 @@ sh gradlew build --offline --no-daemon
 ## 12. 그 밖
 
 - 행위이력: 모든 컨트롤러 호출이 `T_USER_ACTION_LOG` 에 자동 기록된다(`web/actionlog/`). 테이블이 없거나 실패해도 요청은 정상 처리. 화면 코드에서 할 일 없음.
-  - 지금은 **꺼져 있다**(`application.yml` `actionlog.enabled: false`, 2026-11-11 — 테이블이 아직 없어 INSERT 에러 로그가 남아서). 테이블을 만든 뒤 `true` 로 바꾸면 다시 기록된다.
+  - 지금은 **꺼져 있다**(2026-11-11 — 테이블이 아직 없어 INSERT 에러 로그가 남아서). `UserActionLogAspect` 의 `@Component` 를 주석 처리해 스프링이 Aspect 를 만들지 않는다. `application.yml` 의 `actionlog` 블록도 지웠다(제외 경로는 코드 `@Value` 기본값). 테이블을 만든 뒤 `@Component` 주석을 풀면 다시 기록된다.
 - 응답 문구 테이블 `T_API_MESSAGE` 가 있으면 TSV 를 덮어쓴다(5분마다 다시 읽음, `common/message/ApiMessageLoader.java`). 없으면 TSV 그대로.
 - 위 두 `T_` 테이블은 TO-BE 정본에 대응이 없다(H-074) — 이 저장소는 만들지 않는다(`db/README.md`).
