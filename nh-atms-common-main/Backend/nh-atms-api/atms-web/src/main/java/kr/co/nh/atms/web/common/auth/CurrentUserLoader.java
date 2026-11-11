@@ -22,6 +22,11 @@ public class CurrentUserLoader {
 
     static final long TTL_MS = 60_000L;
 
+    /**
+     * TB_SCR_AUTH.PER_NO 가 이 값이면 부서 권한 — DEPT_CODE 가 같은 부서(TB_INSA.SAMUSO) 전원에게 적용(현업 확인 2026-11-11).
+     */
+    public static final String DEPT_PER_NO = "1";
+
     private final CurrentUserMapper mapper;
     private final Map<String, Cached> cache = new ConcurrentHashMap<>();
 
@@ -51,7 +56,7 @@ public class CurrentUserLoader {
             log.warn("[고정사용자] TB_INSA 에 개인번호가 없습니다: {}", perNo);
             return null;
         }
-        ScrAuthRow a = pickAuth(mapper.selectAuths(perNo), Dates.now14());
+        ScrAuthRow a = pickAuth(mapper.selectAuths(perNo, trimToNull(insa.getSamuso()), DEPT_PER_NO), Dates.now14());
         String ofcCode = a == null ? null : trimToNull(a.getOfcCode());
         String kanm = ofcCode == null ? null : mapper.selectKanm(ofcCode);
         String auth = a == null ? null : trimToNull(a.getAuth());
@@ -64,7 +69,8 @@ public class CurrentUserLoader {
      * TB_SCR_AUTH 행 중 하나를 채택한다.
      * <p>
      * <b>잠정 Q-11 (API 계약 §1)</b>: {@code APV_STS='Y'} 이고 {@code DUE_DATE} 가 비었거나 지금(14자리) 이후인 행 중
-     * {@code AUTH} 오름차순 첫 행. 한 사람이 여러 부서·사무소 권한을 가질 때의 규칙은 현업 확인 전이다.
+     * <b>개인 권한이 있으면 개인 권한, 없으면 부서 권한</b>({@link #isDeptRow}), 그 안에서 {@code AUTH} 오름차순 첫 행.
+     * 개인·부서 우선순위와 한 사람이 여러 권한을 가질 때의 규칙은 현업 확인 전이다.
      */
     public static ScrAuthRow pickAuth(List<ScrAuthRow> rows, String now14) {
         if (rows == null) return null;
@@ -76,10 +82,16 @@ public class CurrentUserLoader {
                     return due == null || due.compareTo(now14) > 0;
                 })
                 .filter(r -> trimToNull(r.getAuth()) != null)
-                .min(Comparator.comparing((ScrAuthRow r) -> r.getAuth().trim())
+                .min(Comparator.comparing((ScrAuthRow r) -> isDeptRow(r))         // false(개인) 먼저
+                        .thenComparing(r -> r.getAuth().trim())
                         .thenComparing(r -> Objects.toString(trimToNull(r.getDeptCode()), ""))
                         .thenComparing(r -> Objects.toString(trimToNull(r.getOfcCode()), "")))
                 .orElse(null);
+    }
+
+    /** 부서 권한 행인가(PER_NO = '1') */
+    public static boolean isDeptRow(ScrAuthRow r) {
+        return DEPT_PER_NO.equals(trimToNull(r.getPerNo()));
     }
 
     /**

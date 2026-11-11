@@ -1,8 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- 현재 사용자(고정 개인번호) — TB_INSA · TB_SCR_AUTH · TB_OFC_REG_MGT (설계 §5.3, API 계약 §1) -->
+<!-- 현재 사용자·로그인 사용자 목록 — TB_INSA · TB_SCR_AUTH · TB_OFC_REG_MGT (설계 §5.3, API 계약 §1·§7) -->
 <mapper namespace="kr.co.nh.atms.web.common.auth.CurrentUserMapper">
+
+    <!--
+      [임시] TB_INSA 자리 — 지금은 DUAL 견본 4명. 컬럼 이름·타입은 TB_INSA 그대로. SAMUSO = 부서코드.
+      실제 테이블로 바꿀 때: 아래 <sql> 안의 내용 전체를  TB_INSA  한 단어로 바꾼다(쿼리는 그대로).
+    -->
+    <sql id="TB_INSA">
+        (SELECT CAST(PER_NO      AS VARCHAR2(9))  AS PER_NO,
+                CAST(NAME        AS VARCHAR2(10)) AS NAME,
+                CAST(SAMUSO      AS VARCHAR2(6))  AS SAMUSO,
+                CAST(SAMUSO_NAME AS VARCHAR2(36)) AS SAMUSO_NAME
+           FROM (SELECT '900000001' AS PER_NO, '김관리' AS NAME, '900001' AS SAMUSO, '견본본부'   AS SAMUSO_NAME FROM DUAL
+                 UNION ALL
+                 SELECT '900000002',           '이본부',         '900001',           '견본본부'                  FROM DUAL
+                 UNION ALL
+                 SELECT '900000003',           '박영업',         '900101',           '견본영업점'                FROM DUAL
+                 UNION ALL
+                 SELECT '900000004',           '최부서',         '900101',           '견본영업점'                FROM DUAL))
+    </sql>
+
+    <!--
+      [임시] TB_SCR_AUTH 자리 — 지금은 DUAL 견본 4행. 컬럼 이름·타입은 TB_SCR_AUTH 그대로.
+      PER_NO = 개인번호 → 개인 권한 / PER_NO = '1' → 부서 권한(DEPT_CODE 가 같은 부서 전원, CurrentUserLoader.DEPT_PER_NO).
+      AUTH 잠정(Q-09): A 관리자 / T 영업본부 / L 영업점.
+      실제 테이블로 바꿀 때: 아래 <sql> 안의 내용 전체를  TB_SCR_AUTH  한 단어로 바꾼다.
+    -->
+    <sql id="TB_SCR_AUTH">
+        (SELECT CAST(DEPT_CODE AS CHAR(6))     AS DEPT_CODE,
+                CAST(OFC_CODE  AS CHAR(6))     AS OFC_CODE,
+                CAST(PER_NO    AS VARCHAR2(9)) AS PER_NO,
+                CAST(AUTH      AS VARCHAR2(2)) AS AUTH,
+                CAST(APV_STS   AS CHAR(2))     AS APV_STS,
+                CAST(DUE_DATE  AS CHAR(14))    AS DUE_DATE
+           FROM (SELECT '900001' AS DEPT_CODE, '900001' AS OFC_CODE, '900000001' AS PER_NO, 'A' AS AUTH, 'Y' AS APV_STS, NULL AS DUE_DATE FROM DUAL
+                 UNION ALL
+                 SELECT '900001',              '900001',             '900000002',           'T',         'Y',            NULL             FROM DUAL
+                 UNION ALL
+                 SELECT '900101',              '900101',             '900000003',           'L',         'Y',            NULL             FROM DUAL
+                 UNION ALL
+                 SELECT '900101',              '900101',             '1',                   'L',         'Y',            NULL             FROM DUAL))
+    </sql>
 
     <!-- TB_INSA.PER_NO VARCHAR2(9) -->
     <select id="selectInsa" resultType="kr.co.nh.atms.web.common.auth.InsaRow">
@@ -10,19 +50,38 @@
                NAME,
                SAMUSO,
                SAMUSO_NAME
-          FROM TB_INSA
+          FROM <include refid="TB_INSA"/>
          WHERE PER_NO = #{perNo}
     </select>
 
-    <!-- TB_SCR_AUTH: DEPT_CODE·OFC_CODE CHAR(6), APV_STS CHAR(2), DUE_DATE CHAR(14) → RTRIM. 채택 규칙은 CurrentUserLoader.pickAuth(잠정) -->
+    <!--
+      내 권한 후보 = 개인 권한(PER_NO = 내 사번) + 부서 권한(PER_NO = '1' 이고 DEPT_CODE = 내 부서 TB_INSA.SAMUSO).
+      DEPT_CODE·OFC_CODE CHAR(6), APV_STS CHAR(2), DUE_DATE CHAR(14) → RTRIM. 채택 규칙은 CurrentUserLoader.pickAuth(잠정)
+    -->
     <select id="selectAuths" resultType="kr.co.nh.atms.web.common.auth.ScrAuthRow">
-        SELECT RTRIM(DEPT_CODE) AS DEPT_CODE,
+        SELECT PER_NO,
+               RTRIM(DEPT_CODE) AS DEPT_CODE,
                RTRIM(OFC_CODE)  AS OFC_CODE,
                AUTH,
                RTRIM(APV_STS)   AS APV_STS,
                RTRIM(DUE_DATE)  AS DUE_DATE
-          FROM TB_SCR_AUTH
+          FROM <include refid="TB_SCR_AUTH"/>
          WHERE PER_NO = #{perNo}
+            OR (PER_NO = #{deptPerNo} AND DEPT_CODE = CAST(#{deptCode} AS CHAR(6)))
+    </select>
+
+    <!-- 로그인 화면 사용자 목록 — 승인(Y)된 개인 권한 또는 부서 권한이 하나라도 있는 사람. 권한 내용은 CurrentUserLoader 가 채운다 -->
+    <select id="selectLoginUsers" resultType="kr.co.nh.atms.web.common.auth.LoginUserRow">
+        SELECT I.PER_NO,
+               I.NAME,
+               I.SAMUSO
+          FROM <include refid="TB_INSA"/> I
+         WHERE EXISTS (SELECT 1
+                         FROM <include refid="TB_SCR_AUTH"/> A
+                        WHERE A.APV_STS = CAST('Y' AS CHAR(2))
+                          AND (A.PER_NO = I.PER_NO
+                               OR (A.PER_NO = #{deptPerNo} AND A.DEPT_CODE = CAST(I.SAMUSO AS CHAR(6)))))
+         ORDER BY I.PER_NO
     </select>
 
     <!-- TB_OFC_REG_MGT.OFC_CODE CHAR(6) ← 바인드 값은 CAST (21지침 §5) -->

@@ -30,6 +30,24 @@ class CurrentUserLoaderTest {
     }
 
     @Test
+    void pickAuthPrefersPersonalOverDept() {
+        List<ScrAuthRow> rows = List.of(
+                new ScrAuthRow("1", "000080", "000080", "A", "Y", null),          // 부서 권한(AUTH 가 더 작아도)
+                new ScrAuthRow("123456789", "000080", "000080", "L", "Y", null));  // 개인 권한
+        assertThat(CurrentUserLoader.pickAuth(rows, NOW).getAuth()).isEqualTo("L");
+    }
+
+    @Test
+    void pickAuthUsesDeptWhenNoPersonal() {
+        List<ScrAuthRow> rows = List.of(
+                new ScrAuthRow("1", "000080", "000080", "L", "Y", null),
+                new ScrAuthRow("123456789", "000080", "000080", "A", "N", null));  // 개인 권한이지만 승인 아님
+        ScrAuthRow r = CurrentUserLoader.pickAuth(rows, NOW);
+        assertThat(r.getAuth()).isEqualTo("L");
+        assertThat(CurrentUserLoader.isDeptRow(r)).isTrue();
+    }
+
+    @Test
     void pickAuthReturnsNullWhenNothingValid() {
         assertThat(CurrentUserLoader.pickAuth(List.of(), NOW)).isNull();
         assertThat(CurrentUserLoader.pickAuth(null, NOW)).isNull();
@@ -53,7 +71,7 @@ class CurrentUserLoaderTest {
         insa.setSamuso("000080");
         insa.setSamusoName("본점");
         when(mapper.selectInsa("123456789")).thenReturn(insa);
-        when(mapper.selectAuths("123456789")).thenReturn(List.of(new ScrAuthRow("000010", "000080", "A", "Y", null)));
+        when(mapper.selectAuths("123456789", "000080", CurrentUserLoader.DEPT_PER_NO)).thenReturn(List.of(new ScrAuthRow("000010", "000080", "A", "Y", null)));
         when(mapper.selectKanm("000080")).thenReturn("본점영업부");
         CurrentUserLoader loader = new CurrentUserLoader(mapper);
 
