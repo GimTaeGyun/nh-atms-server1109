@@ -1,4 +1,4 @@
-export { useAuthStore, selectOfcCode, selectIsAdmin, type MeStatus } from './useAuthStore';
+export { useAuthStore, selectOfficeCd, selectIsAdmin, type MeStatus } from './useAuthStore';
 export { useNavStore, topNodes, nodeOfL1, flattenScreens, findMenuByScreen, resolveMenus, toTree } from './useNavStore';
 export { usePermPreviewStore, PERM_PREVIEW_OPTIONS, type PermPreview } from './usePermPreviewStore';
 export { useTabStore } from './useTabStore';

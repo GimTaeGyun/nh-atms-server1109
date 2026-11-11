@@ -13,7 +13,7 @@ import { allToUndef } from '@/components/search/params';
 import { AmountInput } from '@/components/forms/AmountInput';
 import { PersonNoInput, type PersonInfo } from '@/components/forms/PersonNoInput';
 import { DISTINCT_TARGETS, type DistinctTarget } from '@/domain/lookup';
-import { useAuthStore, selectOfcCode } from '@/stores/useAuthStore';
+import { useAuthStore, selectOfficeCd } from '@/stores/useAuthStore';
 import { compactParams } from '@/utils/object';
 import { Demo, DemoGrid, EchoJson } from './CodeSample';
 
@@ -39,7 +39,7 @@ export const toComboParams = (v: Record<string, unknown>) =>
 export const DEFAULT_CODE_TYPE = 'SAMPLE';
 
 const ComboTab = () => {
-  const myOfc = useAuthStore(selectOfcCode);
+  const myOfc = useAuthStore(selectOfficeCd);
   const [codeType, setCodeType] = useState(DEFAULT_CODE_TYPE);
   const [target, setTarget] = useState<DistinctTarget>('mcn-kom-type');
   const [params, setParams] = useState<Record<string, unknown> | null>(null);

@@ -10,7 +10,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { mcnInfoApi, mcnInfoKeys } from '@/api/endpoints/mcnInfo';
 import { useDistinct } from '@/hooks/useLookup';
-import { useAuthStore, selectOfcCode } from '@/stores/useAuthStore';
+import { useAuthStore, selectOfficeCd } from '@/stores/useAuthStore';
 import { ActionBar, type ActionItem } from '@/components/auth/ActionBar';
 import { DetailGrid } from '@/components/display/DetailGrid';
 import { EmptyState } from '@/components/feedback/EmptyState';
@@ -60,7 +60,7 @@ export const McnNoSearchInput = ({ value, onChange, disabled, form, officeField:
 
 /** 조회조건: 사무소(필수, 기본 내 사무소)·기번(🔍)·기기사·기기유형·운영구분·정내외·사용여부(기본 Y) */
 export const useMcnInfoFields = (): SearchField[] => {
-  const ofcCode = useAuthStore(selectOfcCode);
+  const ofcCode = useAuthStore(selectOfficeCd);
   return useMemo(
     () => [
       officeField({ defaultValue: ofcCode || undefined }),
@@ -187,7 +187,7 @@ export const McnInfoEditPane = ({ screenKey, mode, row, done }: EditProps) => {
 const McnInfoEditForm = ({ screenKey, initial, done }: { screenKey: ScreenKey; initial: McnInfo | null; done: () => void }) => {
   const [form] = Form.useForm<McnInfoForm>();
   const qc = useQueryClient();
-  const myOfc = useAuthStore(selectOfcCode);
+  const myOfc = useAuthStore(selectOfficeCd);
   const isEdit = !!initial;
   const initialValues = useMemo<McnInfoForm>(() => (initial ? toForm(initial) : { ofcCode: myOfc || undefined, useYn: 'Y' }), [initial, myOfc]);
 

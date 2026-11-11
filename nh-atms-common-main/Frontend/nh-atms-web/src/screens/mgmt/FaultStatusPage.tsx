@@ -7,7 +7,7 @@ import { useSearch } from '@/hooks/usePagedSearch';
 import { useAutoRefresh } from '@/hooks/useAutoRefresh';
 import { useAppMessage } from '@/hooks/useAppMessage';
 import { usePermission } from '@/hooks/usePermission';
-import { useAuthStore, selectOfcCode } from '@/stores/useAuthStore';
+import { useAuthStore, selectOfficeCd } from '@/stores/useAuthStore';
 import { EMPTY_RESULT_TEXT } from '@/config/constants';
 import { PageFrame } from '@/components/page/PageFrame';
 import { ResultHeader } from '@/components/page/ResultHeader';
@@ -40,7 +40,7 @@ const McnStatusTag = ({ status, text }: { status: McnStatusCd; text?: boolean })
  * 잠정(2026-11-11): 백엔드 API 가 아직 없다(`api/endpoints/fault.ts`).
  */
 const FaultStatusPage = ({ screenKey, active }: ScreenProps) => {
-  const ofcCode = useAuthStore(selectOfcCode);
+  const ofcCode = useAuthStore(selectOfficeCd);
   const { canExe } = usePermission(screenKey);
   const { notification } = useAppMessage();
   const [view, setView] = useState<'grid' | 'list'>('grid');

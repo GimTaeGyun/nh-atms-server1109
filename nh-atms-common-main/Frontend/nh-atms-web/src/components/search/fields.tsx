@@ -11,7 +11,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import type { Dayjs } from 'dayjs';
 import { useCodes } from '@/hooks/useCodes';
 import { useMcns, useOffices } from '@/hooks/useLookup';
-import { useAuthStore, selectOfcCode } from '@/stores/useAuthStore';
+import { useAuthStore, selectOfficeCd } from '@/stores/useAuthStore';
 import { timeOptions, today } from '@/utils/date';
 import { fmtOffice } from '@/utils/format';
 import type { SearchField } from './SearchForm';
@@ -214,7 +214,7 @@ export const dateField = (name = 'date', label = '조회일자', opts: Partial<S
  * 훅이므로 컴포넌트 본문에서 호출한다. 예: `const fields = useOfficeMcnFields({ date: true })`
  */
 export const useOfficeMcnFields = (opts: { date?: boolean | string; officeLabel?: string; mcn?: boolean; extra?: SearchField[] } = {}): SearchField[] => {
-  const ofcCode = useAuthStore(selectOfcCode);
+  const ofcCode = useAuthStore(selectOfficeCd);
   const { date, officeLabel, mcn = true, extra } = opts;
   return useMemo(() => {
     const out: SearchField[] = [officeField({ defaultValue: ofcCode || undefined, ...(officeLabel ? { label: officeLabel } : {}) })];

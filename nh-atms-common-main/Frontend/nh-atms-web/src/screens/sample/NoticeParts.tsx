@@ -6,7 +6,7 @@
 import { useMemo } from 'react';
 import { Form, Input, Typography } from 'antd';
 import type { FormInstance } from 'antd';
-import { useAuthStore, selectOfcCode } from '@/stores/useAuthStore';
+import { useAuthStore, selectOfficeCd } from '@/stores/useAuthStore';
 import type { SearchField } from '@/components/search/SearchForm';
 import { officeField } from '@/components/search/fields';
 import { rangeField } from '@/components/search/dateFields';
@@ -47,7 +47,7 @@ const KeywordInput = ({ form, value, onChange }: ValueProps<string | undefined> 
 
 /** 조회조건: 작성일(최근 1개월, 최대 366일) · 사무소(기본 내 사무소, 비우면 전체) · 작성자 · 검색구분+검색어 */
 export const useNoticeFields = (): SearchField[] => {
-  const myOfc = useAuthStore(selectOfcCode);
+  const myOfc = useAuthStore(selectOfficeCd);
   return useMemo(
     () => [
       rangeField({ name: 'period', label: '작성일', maxDays: 366, defaultValue: lastMonth() }),

@@ -42,6 +42,6 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
 }));
 
 /** 내 사무소 코드 (조회조건 기본값). 없으면 '' */
-export const selectOfcCode = (s: AuthState): string => s.me?.ofcCode ?? '';
+export const selectOfficeCd = (s: AuthState): string => s.me?.ofcCode ?? '';
 /** 관리자 여부 — 서버가 정한 adminYn(잠정: AUTH='A') 그대로 */
 export const selectIsAdmin = (s: AuthState): boolean => s.me?.adminYn === 'Y';

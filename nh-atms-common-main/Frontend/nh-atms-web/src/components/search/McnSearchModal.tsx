@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, Input, Modal, Space, Table } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { useMcns } from '@/hooks/useLookup';
-import { useAuthStore, selectOfcCode } from '@/stores/useAuthStore';
+import { useAuthStore, selectOfficeCd } from '@/stores/useAuthStore';
 import type { Machine } from '@/domain/lookup';
 import { ModalTitle } from '@/components/display/ModalTitle';
 import { VMSG } from '@/config/messages';
@@ -18,7 +18,7 @@ interface Props {
 }
 
 const Body = ({ onSelect, onClose, defaultOfcCode }: Omit<Props, 'open'>) => {
-  const myOfc = useAuthStore(selectOfcCode);
+  const myOfc = useAuthStore(selectOfficeCd);
   const first = defaultOfcCode ?? (myOfc || undefined);
   const [ofcCode, setOfcCode] = useState<string | undefined>(first);
   const [vendCode, setVendCode] = useState<string | undefined>();

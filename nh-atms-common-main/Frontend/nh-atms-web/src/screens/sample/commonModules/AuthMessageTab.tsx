@@ -57,7 +57,7 @@ const AuthMessageTab = ({ screenKey, active }: { screenKey: ScreenKey; active: b
           title="나 (GET /api/me)"
           desc="로그인 없이 설정의 고정 개인번호로 서버가 TB_INSA·TB_SCR_AUTH 를 읽어 준다."
           code={`const me = useAuthStore((s) => s.me);   // 앱 시작 때 loadMe()
-const ofcCode = useAuthStore(selectOfcCode);   // 조회조건 기본 사무소`}
+const ofcCode = useAuthStore(selectOfficeCd);   // 조회조건 기본 사무소`}
         >
           <DetailGrid
             cols={2}

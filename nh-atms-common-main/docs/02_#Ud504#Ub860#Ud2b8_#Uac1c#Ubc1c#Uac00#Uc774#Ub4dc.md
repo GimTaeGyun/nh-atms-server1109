@@ -223,7 +223,7 @@ npm run check
 - 그 밖: `useAutoRefresh(켜짐, 주기ms, 할일, active)`(주기 새로고침, 탭이 비활성·창이 숨으면 멈춤) · `useCommandPoll`(명령 → 완료까지 폴링) · `useFileUpload` · `useAppMessage`(경고 등 화면 문구) · `useOpenScreen`.
 - 표시 포맷은 `utils/format.ts` 만: `fmtDate`·`fmtDateTime`·`fmtDateTime14`·`fmtAmount`·`fmtCount`·`fmtPercent`·`fmtTermId`·`fmtOffice`·`fmtCodeName`·`fmtPhone`… 화면 안에서 같은 이름으로 다시 만들면 lint 가 막는다(`eslint.config.js`).
 - 날짜: `utils/date.ts`(`today`·`toYmd`·`lastDays`·`validateRange`), 객체: `compactParams`(빈 값 빼기).
-- 상태: `useAuthStore`(나, `selectOfcCode`·`selectIsAdmin`) · `useNavStore`(메뉴) · `useTabStore` · `useSettingsStore` · `useFavoriteStore`.
+- 상태: `useAuthStore`(나, `selectOfficeCd`·`selectIsAdmin`) · `useNavStore`(메뉴) · `useTabStore` · `useSettingsStore` · `useFavoriteStore`.
 
 ## 7. 입력 검증 (`utils/rules.ts`, `components/forms/formItem.tsx`)
 

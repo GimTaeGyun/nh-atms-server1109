@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, Input, Modal, Space, Table } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { usePersons } from '@/hooks/useLookup';
-import { useAuthStore, selectOfcCode } from '@/stores/useAuthStore';
+import { useAuthStore, selectOfficeCd } from '@/stores/useAuthStore';
 import type { Person } from '@/domain/lookup';
 import { ModalTitle } from '@/components/display/ModalTitle';
 import { OfficeSelector } from './fields';
@@ -17,7 +17,7 @@ interface Props {
 
 /** 팝업이 열릴 때마다 새로 그리는 본문(입력값 초기화) */
 const Body = ({ onSelect, onClose, defaultOfcCode }: Omit<Props, 'open'>) => {
-  const myOfc = useAuthStore(selectOfcCode);
+  const myOfc = useAuthStore(selectOfficeCd);
   const [ofcCode, setOfcCode] = useState<string | undefined>(defaultOfcCode ?? (myOfc || undefined));
   const [kw, setKw] = useState('');
   const [cond, setCond] = useState<{ ofcCode?: string; q?: string }>(() => ({ ofcCode: defaultOfcCode ?? (myOfc || undefined) }));
