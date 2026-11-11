@@ -5,12 +5,13 @@ import { notifySuccess } from '@/hooks/useAppMessage';
 import { AppError, KIND_MESSAGE, toAppError } from './errors';
 
 /**
- * HTTP 클라이언트 — [원본] nh-atms `src/api/http.ts` 에서 로그인·토큰 부분을 뺐다(설계 Q1 로그인 없음).
+ * HTTP 클라이언트 — [원본] nh-atms `src/api/http.ts` 에서 JWT 토큰 부분을 뺐다(이 앱은 세션 쿠키 로그인).
  *  - 응답 봉투(ApiResponse) 해제, 서버 성공 문구 자동 표시(quietSuccess 로 끔)
  *  - 모든 오류를 AppError 로 정규화 (화면은 e.kind / e.userMessage 만 본다)
  *  - 모든 요청에 X-Screen-Key / X-Screen-Name (행위이력·권한 검사용)
- *  - 사용자는 서버가 설정의 고정 개인번호로 정한다. 토큰·Authorization 헤더·401 재시도 없음.
- *    나중에 SSO 를 붙이면 이 파일의 요청 인터셉터와 서버 FixedUserFilter 한 곳을 바꾼다.
+ *  - 사용자는 서버가 로그인 세션(JSESSIONID 쿠키, 같은 주소라 브라우저가 알아서 붙임)으로 정한다. 토큰·Authorization 헤더·401 재시도 없음.
+ *  - 쓰는 중에 세션이 끊기면(401 ME_001·ME_002) bindUnauthorized 로 묶인 처리(useAuthStore)가 로그인 화면으로 보낸다.
+ *    나중에 SSO 를 붙이면 이 파일의 요청 인터셉터와 서버 SessionUserFilter 한 곳을 바꾼다.
  */
 
 /**
@@ -43,9 +44,24 @@ http.interceptors.request.use((config) => {
   return config;
 });
 
+/** 로그인이 필요하다는 서버 응답코드 — SessionUserFilter(세션 없음 ME_002, 인사정보 없음 ME_001) */
+export const LOGIN_REQUIRED_CODES: readonly string[] = ['ME_001', 'ME_002'];
+
+/** 세션이 끊겼을 때 할 일 — useAuthStore 가 묶는다(http → 스토어 순환 import 를 피하려고 함수로 받음) */
+let onUnauthorized: ((e: AppError) => void) | null = null;
+export const bindUnauthorized = (fn: (e: AppError) => void): void => {
+  onUnauthorized = fn;
+};
+
 http.interceptors.response.use(
   (res) => res,
-  (error: unknown) => Promise.reject(toAppError(error)),
+  (error: unknown) => {
+    const e = toAppError(error);
+    // /auth/** (공개키·로그인·로그아웃) 은 세션이 없어도 정상 — 그 밖의 401 ME_00x 만 "세션 끊김"
+    const url = (error as { config?: { url?: string } } | null)?.config?.url ?? '';
+    if (e.status === 401 && e.code && LOGIN_REQUIRED_CODES.indexOf(e.code) >= 0 && url.indexOf('/auth/') < 0) onUnauthorized?.(e);
+    return Promise.reject(e);
+  },
 );
 
 /**

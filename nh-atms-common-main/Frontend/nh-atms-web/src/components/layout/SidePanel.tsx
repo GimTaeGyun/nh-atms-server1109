@@ -53,7 +53,7 @@ const Folder = ({ node, activeId, onOpen }: { node: MenuTreeNode; activeId: stri
 
 /**
  * 사이드 패널: 맨 위 "☆ 즐겨찾기 ▾" 상자 → 대분류 제목 → 폴더/화면 트리(메뉴 응답 `/api/menu/my`).
- * 홈이면 홈·최근 방문. 하단은 나(고정 사용자) + 환경설정. 로그인이 없어 로그아웃 버튼은 없다(설계 Q1).
+ * 홈이면 홈·최근 방문. 하단은 나(로그인 사용자) + 환경설정. 로그아웃 버튼은 헤더(AppHeader)에 있다.
  */
 export const SidePanel = ({ slug, flyout, onOpenSettings, onMouseLeave }: Props) => {
   const menus = useNavStore((s) => s.menus);

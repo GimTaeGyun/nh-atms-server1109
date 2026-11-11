@@ -2,7 +2,7 @@ import { test, expect, type Page } from '@playwright/test';
 import { SCREENS } from './screens';
 
 /**
- * 전 화면 스모크 + 스크린샷 회귀 (목 모드, 로그인 없음 — 목 /api/me 가 고정 사용자).
+ * 전 화면 스모크 + 스크린샷 회귀 (목 /api/me 가 로그인된 사용자를 돌려준다).
  *  - 홈 진입(나 확인) → 각 화면 라우트 진입 → (조회 화면이면) 조회 → 결과 렌더 확인 → 스크린샷
  *  - 뷰포트 프로젝트(1280/1920)별로 docs/screenshots/{project}/{화면키}.png 저장
  *  - 화면별 실패는 모아서 마지막에 보고(한 화면 실패가 나머지를 막지 않음)

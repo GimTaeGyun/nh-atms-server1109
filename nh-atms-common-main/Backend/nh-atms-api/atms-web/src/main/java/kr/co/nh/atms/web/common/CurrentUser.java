@@ -6,7 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
- * 현재 사용자 — 로그인 없는 고정 사용자(설계 §5.3). principal 은 {@link LoginUser}(FixedUserFilter 가 채움).
+ * 현재 사용자 — 로그인 세션의 사용자. principal 은 {@link LoginUser}(SessionUserFilter 가 채움).
  * 사용자가 없으면(기동 시 처리·배치 등) {@code id()}/{@code perNo()} 는 "SYSTEM"({@link AuditUserProvider#SYSTEM_ID}).
  * [원본] nh-atms web/common/CurrentUser — principal 이 JWT userId 에서 LoginUser 로 바뀌었다. {@code id()} 는 개인번호를 돌려준다.
  */

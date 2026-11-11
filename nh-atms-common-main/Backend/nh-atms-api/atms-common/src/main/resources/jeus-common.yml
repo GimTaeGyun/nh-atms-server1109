@@ -3,7 +3,7 @@
 #  - atms-web 의 application-jeus.yml 이 spring.config.import 로 읽는다 (atms-common jar 안에 포함)
 #  - 활성화: WAR 의 WEB-INF/web.xml 이 spring.profiles.active=jeus 지정 (빌드: ./gradlew bootWar -Pjeus)
 #  - JVM 옵션(-Djeus.host=... 등)이나 OS 환경변수로 지정하면 이 파일 값보다 우선한다
-#  - 이 저장소는 모듈이 atms-web 하나라서 다른 모듈 주소(jeus.url.*)·에이전트 입구·JWT 는 뺐다(로그인 없음 — 고정 사용자)
+#  - 이 저장소는 모듈이 atms-web 하나라서 다른 모듈 주소(jeus.url.*)·에이전트 입구·JWT 는 뺐다(로그인은 세션 방식)
 #
 #  ※ CHANGE_ME 항목은 "내부망 소스(Gitea)" 에서만 실제 값으로 바꾼다. DB 는 JNDI 라 이 파일에 비밀번호가 없다.
 # =====================================================================

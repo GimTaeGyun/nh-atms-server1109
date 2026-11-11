@@ -38,7 +38,7 @@ import java.util.List;
  *   화면키·화면명은 프론트가 보내는 X-Screen-Key / X-Screen-Name(URL 인코딩) 헤더, 사유는 X-Action-Reason 헤더 또는 reason 파라미터.
  * </pre>
  * 기록 실패(DB 장애 등)는 경고 로그만 남기고 업무 요청을 막지 않는다.
- * [원본] nh-atms UserActionLogAspect — 사용자 ID 를 고정 사용자 개인번호로 바꿨다. 설정 키(actionlog.*)는 원본 그대로.
+ * [원본] nh-atms UserActionLogAspect — 사용자 ID 를 로그인 사용자 개인번호로 바꿨다. 설정 키(actionlog.*)는 원본 그대로.
  */
 @Slf4j
 @Aspect
@@ -146,7 +146,7 @@ public class UserActionLogAspect {
         return (ctx != null && !ctx.isEmpty() && uri.startsWith(ctx)) ? uri.substring(ctx.length()) : uri;
     }
 
-    /** 현재 사용자 개인번호(고정 사용자). 사용자가 없으면 "-" */
+    /** 현재 사용자 개인번호(로그인 사용자). 사용자가 없으면 "-" */
     private static String userIdOrDash() {
         String id = CurrentUser.perNo();
         return AuditUserProvider.SYSTEM_ID.equals(id) ? "-" : id;

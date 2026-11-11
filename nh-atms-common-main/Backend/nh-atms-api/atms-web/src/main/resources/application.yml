@@ -40,18 +40,8 @@ springdoc:
     path: /swagger-ui.html
 
 atms:
-  # 로그인 없는 고정 사용자(설계 §5.3) — TB_INSA.PER_NO 1개.
-  # 저장소에는 CHANGE_ME. 실제 값은 저장소 밖에서: 로컬은 D:\local-db.yml 에
-  #   atms:
-  #     fixed-user:
-  #       per-no: "<개인번호>"
-  # 를 함께 적거나, 실행 옵션 -Datms.fixed-user.per-no=<개인번호>. 비었거나 CHANGE_ME 면 /api/** 가 401 ME_001.
-  fixed-user:
-    per-no: CHANGE_ME
-  # 로그인 견본(2026-11-09, 계약 §7): true 면 /api/** 사용자를 로그인 세션(POST /api/auth/login)에서 읽고 고정 개인번호는 쓰지 않는다.
-  # false(기본)면 지금처럼 고정 사용자 — 로그인 화면(/login)은 암호화·복호화·검증 시연만 한다
-  login:
-    enabled: false
+  # 사용자 = 로그인 세션(POST /api/auth/login → SessionUserFilter). 2026-11-11 사용자 결정으로 로그인 필수 —
+  # 예전 고정 사용자(atms.fixed-user.per-no)·전환 스위치(atms.login.enabled)는 없앴다. 남아 있어도 읽지 않는다.
   lookup:
     # 기기사 이름 원천(잠정 Q6): TB_CO_CODE 의 CODE_TYPE. 비우면 VEND_CODE 값만(이름 없음)
     vendor-code-type: ""
