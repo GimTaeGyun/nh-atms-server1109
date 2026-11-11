@@ -9,17 +9,13 @@
   },
   "scripts": {
     "dev": "vite --host",
-    "dev:mock": "vite --host --mode mock",
     "build": "tsc -b && vite build",
-    "build:mock": "tsc -b && vite build --mode mock",
     "preview": "vite preview --host --port 4173",
     "lint": "eslint .",
     "typecheck": "tsc -b",
-    "test": "vitest run",
-    "test:watch": "vitest",
     "e2e": "playwright test",
     "e2e:shots": "playwright test e2e/screenshots.spec.ts",
-    "check": "npm run typecheck && npm run lint && npm run test"
+    "check": "npm run typecheck && npm run lint"
   },
   "dependencies": {
     "@ant-design/icons": "6.1.0",
@@ -57,10 +53,5 @@
     "typescript-eslint": "8.56.1",
     "vite": "7.3.1",
     "vitest": "4.1.11"
-  },
-  "msw": {
-    "workerDirectory": [
-      "public"
-    ]
   }
 }

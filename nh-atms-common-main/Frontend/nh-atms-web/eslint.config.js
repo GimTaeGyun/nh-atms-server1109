@@ -6,7 +6,7 @@ import tseslint from 'typescript-eslint';
 import { defineConfig, globalIgnores } from 'eslint/config';
 
 export default defineConfig([
-  globalIgnores(['dist', 'dist-mock', 'coverage', 'playwright-report', 'test-results', 'public/mockServiceWorker.js']),
+  globalIgnores(['dist', 'playwright-report', 'test-results']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
@@ -36,7 +36,7 @@ export default defineConfig([
     },
   },
   {
-    files: ['src/mocks/**/*.ts', 'src/test/**/*.{ts,tsx}', 'e2e/**/*.ts', '**/*.test.{ts,tsx}', 'src/components/**/*.tsx', 'src/screens/**/*.tsx'],
+    files: ['e2e/**/*.ts', 'src/components/**/*.tsx', 'src/screens/**/*.tsx'],
     rules: { 'react-refresh/only-export-components': 'off' },
   },
   {

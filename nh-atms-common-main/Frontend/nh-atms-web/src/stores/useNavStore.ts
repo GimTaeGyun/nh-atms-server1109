@@ -53,7 +53,7 @@ export const useNavStore = create<NavState>()(
         set({ loading: true, error: null });
         try {
           const fromApi = env.menuSource === 'static' ? [] : await menuApi.my();
-          const { menus, source } = resolveMenus(fromApi, env.menuSource, env.useMock ? 'all' : 'qry');
+          const { menus, source } = resolveMenus(fromApi, env.menuSource, 'qry');
           if (source === 'static' && env.menuSource === 'auto') {
             console.info('[menu] /api/menu/my 응답에 화면(MENU_PATH → 화면키)이 없어 내장 메뉴 시드(src/screens/menuSeed.ts, 조회 권한만)를 사용합니다.');
           }

@@ -3,8 +3,6 @@
  * import.meta.env 를 화면 코드에서 직접 읽지 않고 여기서 타입/기본값을 확정한다.
  * [원본] nh-atms `src/config/env.ts` — 로그인·SSO·데모·무조작 로그아웃 키는 뺐다(설계 §5.3, 로그인 없음).
  */
-const toBool = (v: string | undefined, def = false): boolean =>
-  v === undefined || v === '' ? def : /^(1|true|yes|on)$/i.test(v);
 
 export type MenuSourceMode = 'auto' | 'api' | 'static';
 
@@ -21,8 +19,6 @@ export const menuSourceOf = (mode: string, raw: string | undefined): MenuSourceM
 const MODE_LABEL: Record<string, string> = { production: 'prod', development: 'local' };
 
 export const env = {
-  /** MSW 브라우저 목 서버 사용 여부 (운영 빌드에서는 항상 false) */
-  useMock: toBool(import.meta.env.VITE_USE_MOCK, false) && import.meta.env.MODE !== 'production',
   apiBase: import.meta.env.VITE_API_BASE || '/api',
   envLabel: (import.meta.env.VITE_ENV_LABEL || MODE_LABEL[import.meta.env.MODE] || import.meta.env.MODE || 'local').toLowerCase(),
   appVersion: typeof __APP_VERSION__ === 'string' ? __APP_VERSION__ : '1.0.0',

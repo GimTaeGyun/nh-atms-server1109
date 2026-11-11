@@ -26,8 +26,6 @@ export default defineConfig(({ mode }) => {
     define: {
       __APP_VERSION__: JSON.stringify(process.env.npm_package_version ?? '1.0.0'),
       __BUILD_TIME__: JSON.stringify(new Date().toISOString()),
-      // 목 서버(MSW)를 번들에 넣을지. 운영(production) 빌드는 항상 false → 목 코드 청크가 산출물에서 아예 빠진다
-      __MOCK_ENABLED__: JSON.stringify(mode !== 'production' && fileEnv.VITE_USE_MOCK === 'true'),
     },
     server: {
       port: 3100,
@@ -38,8 +36,7 @@ export default defineConfig(({ mode }) => {
     },
     // AS-IS(ES2020) 사본에 그대로 들어가므로 ES2022+ 문법·API 가 번들에 남지 않게 한다
     build: {
-      // 목 빌드(build:mock)는 dist-mock/ 에 따로 — 운영 산출물 dist/ 를 덮어써 목 화면이 운영으로 나가는 일이 없게
-      outDir: mode === 'mock' ? 'dist-mock' : 'dist',
+      outDir: 'dist',
       target: 'es2020',
       sourcemap: false,
       chunkSizeWarningLimit: 1100,
@@ -58,14 +55,6 @@ export default defineConfig(({ mode }) => {
           },
         },
       },
-    },
-    test: {
-      environment: 'jsdom',
-      globals: true,
-      setupFiles: ['./src/test/setup.ts'],
-      include: ['src/**/*.test.{ts,tsx}'],
-      css: false,
-      coverage: { provider: 'v8', reporter: ['text', 'html'], include: ['src/utils/**', 'src/components/**', 'src/stores/**'] },
     },
   };
 });
