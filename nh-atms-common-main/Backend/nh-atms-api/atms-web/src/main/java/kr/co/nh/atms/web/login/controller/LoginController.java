@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 /**
- * 로그인 견본 + 민감필드 암호화 — API 계약 §7. {@code /api/auth/**} 는 사용자 확인 전에 부른다(SecurityConfig 허용,
- * FixedUserFilter 제외). 화면: {@code src/screens/login/LoginPage.tsx} (라우트 /login).
+ * 로그인 + 민감필드 암호화 — API 계약 §7. {@code /api/auth/**} 는 사용자 확인 전에 부른다(SecurityConfig 허용,
+ * SessionUserFilter 제외). 화면: {@code src/screens/login/LoginPage.tsx} (라우트 /login).
  */
 @RestController
 @RequiredArgsConstructor

@@ -22,49 +22,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 로그인 없는 고정 사용자(설계 §5.3) — {@code /api/**} 요청마다 설정 {@code atms.fixed-user.per-no} 의 개인번호로
- * {@link LoginUser} 를 SecurityContext 에 채운다.
+ * 로그인 사용자 필터 — {@code /api/**} 요청마다 HTTP 세션의 개인번호({@link #SESSION_PER_NO},
+ * {@code POST /api/auth/login} 이 저장)로 {@link LoginUser} 를 SecurityContext 에 채운다.
  * <pre>
- *   요청 /api/** ─▶ 개인번호 설정 확인(비었거나 CHANGE_ME → 401 ME_001)
+ *   요청 /api/** ─▶ 세션 개인번호 (없으면 401 ME_002 → 화면은 로그인 화면으로)
  *               ─▶ CurrentUserLoader.load (TB_INSA 에 없으면 401 ME_001, DB 오류 500 SYS_500)
  *               ─▶ principal = LoginUser, 권한 ROLE_USER (+관리자면 ROLE_ADMIN) ─▶ 다음 필터
  * </pre>
- * <b>로그인 견본(2026-11-09)</b>: {@code atms.login.enabled=true} 이면 개인번호를 설정 대신 HTTP 세션
- * ({@link #SESSION_PER_NO}, {@code POST /api/auth/login} 이 저장)에서 읽는다. 세션이 없으면 401 ME_002.
- * 기본값 false — 지금까지처럼 고정 사용자. {@code /api/auth/**}(공개키·로그인·로그아웃)는 이 필터를 거치지 않는다.
+ * {@code /api/auth/**}(공개키·로그인·로그아웃)는 이 필터를 거치지 않는다.
+ * 2026-11-11 사용자 결정: 로그인 필수. 예전 고정 사용자 설정(atms.fixed-user.per-no)·전환 스위치(atms.login.enabled)는 없앴다.
  * <b>SSO 를 붙일 때 바꿀 곳</b>: 이 필터 하나(같은 {@link UserContextFilter} 를 구현한 SSO 필터로 교체).
- * 빈 등록은 {@link FixedUserConfig}(보안 필터 체인 안에서만 돌게 서블릿 자동 등록을 끈다).
+ * 빈 등록은 {@link SessionUserConfig}(보안 필터 체인 안에서만 돌게 서블릿 자동 등록을 끈다).
  */
 @Slf4j
-public class FixedUserFilter extends UserContextFilter {
+public class SessionUserFilter extends UserContextFilter {
+
+    /** 로그인이 세션에 넣는 개인번호 속성 이름 */
+    public static final String SESSION_PER_NO = "atms.login.perNo";
 
     private final CurrentUserLoader loader;
     private final ObjectMapper objectMapper;
-    private final String perNo;
-    private final boolean loginEnabled;
 
-    /** 로그인 견본이 세션에 넣는 개인번호 속성 이름 */
-    public static final String SESSION_PER_NO = "atms.login.perNo";
-
-    public FixedUserFilter(CurrentUserLoader loader, ObjectMapper objectMapper, String perNo) {
-        this(loader, objectMapper, perNo, false);
-    }
-
-    public FixedUserFilter(CurrentUserLoader loader, ObjectMapper objectMapper, String perNo, boolean loginEnabled) {
+    public SessionUserFilter(CurrentUserLoader loader, ObjectMapper objectMapper) {
         this.loader = loader;
         this.objectMapper = objectMapper;
-        this.perNo = perNo == null ? "" : perNo.trim();
-        this.loginEnabled = loginEnabled;
-        if (loginEnabled) {
-            log.info("[로그인] atms.login.enabled=true — /api/** 사용자는 로그인 세션에서 읽는다 (고정 개인번호 설정은 쓰지 않음)");
-        } else if (!isConfigured(this.perNo)) {
-            log.warn("[고정사용자] atms.fixed-user.per-no 가 설정되지 않았습니다 — /api/** 는 401 ME_001 (D:\\local-db.yml 등에 개인번호를 넣으세요)");
-        }
-    }
-
-    /** 개인번호 설정이 쓸 만한지(비었거나 CHANGE_ME 자리표시면 아님) */
-    static boolean isConfigured(String v) {
-        return v != null && !v.isBlank() && !v.trim().startsWith("CHANGE_ME");
     }
 
     @Override
@@ -75,9 +56,8 @@ public class FixedUserFilter extends UserContextFilter {
         return !path.startsWith("/api/") || path.startsWith("/api/auth/");
     }
 
-    /** 이번 요청의 개인번호 — 로그인 모드면 세션, 아니면 설정값. 없으면 null */
-    private String perNoOf(HttpServletRequest request) {
-        if (!loginEnabled) return isConfigured(perNo) ? perNo : null;
+    /** 이번 요청의 개인번호(세션). 없으면 null */
+    private static String perNoOf(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         Object v = session == null ? null : session.getAttribute(SESSION_PER_NO);
         return v instanceof String s && !s.isBlank() ? s : null;
@@ -88,19 +68,19 @@ public class FixedUserFilter extends UserContextFilter {
             throws ServletException, IOException {
         String current = perNoOf(request);
         if (current == null) {
-            write(response, HttpStatus.UNAUTHORIZED, ApiResponse.fail(loginEnabled ? "ME_002" : "ME_001"));
+            write(response, HttpStatus.UNAUTHORIZED, ApiResponse.fail("ME_002"));
             return;
         }
         LoginUser user;
         try {
             user = loader.load(current);
         } catch (RuntimeException e) {
-            log.error("[고정사용자] 사용자 조회 실패(DB): {}", e.toString());
+            log.error("[로그인사용자] 사용자 조회 실패(DB): {}", e.toString());
             write(response, HttpStatus.INTERNAL_SERVER_ERROR, ApiResponse.fail("SYS_500"));
             return;
         }
         if (user == null) {
-            write(response, HttpStatus.UNAUTHORIZED, ApiResponse.fail(loginEnabled ? "ME_002" : "ME_001"));
+            write(response, HttpStatus.UNAUTHORIZED, ApiResponse.fail("ME_001"));
             return;
         }
         List<GrantedAuthority> authorities = new ArrayList<>();

@@ -21,7 +21,7 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
  * <ul>
  *   <li>업무 예외(BusinessException) → 400 + 예외의 응답코드</li>
  *   <li>입력값 검증(@Valid·필수 파라미터·형식) → 400 VAL_001~VAL_004</li>
- *   <li>권한 없음 → 403 SYS_403 (이 저장소는 로그인이 없다 — 고정 사용자, 설계 §5.3)</li>
+ *   <li>권한 없음 → 403 SYS_403 (로그인 사용자의 화면 권한 부족)</li>
  *   <li>없는 주소 → 404 SYS_404, 허용 안 된 메서드 → 405 SYS_405, 그 밖의 오류 → 500 SYS_500</li>
  * </ul>
  * atms-web 의 ExceptionAdvice(404/401/403 전용 예외)가 이보다 먼저 적용된다.

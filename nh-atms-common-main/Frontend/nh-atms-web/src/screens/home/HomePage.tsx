@@ -16,7 +16,7 @@ const CARDS: { key: ScreenKey; title: string; desc: string; icon: ReactNode }[] 
   { key: 'sample.mcnModel', title: '기기모델코드', desc: '표 직접 편집·일괄 저장형 견본 (TB_CO_MODEL)', icon: <TableOutlined /> },
 ];
 
-/** 홈 — 나(고정 사용자) 인사 + 견본 화면 바로가기 */
+/** 홈 — 나(로그인 사용자) 인사 + 견본 화면 바로가기 */
 const HomePage = ({ screenKey }: ScreenProps) => {
   const me = useAuthStore((s) => s.me);
   const openScreen = useOpenScreen();

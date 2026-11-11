@@ -39,7 +39,7 @@ interface Props {
 
 /**
  * 공지 등록/수정 팝업(`popup.noticeEdit`). 모달 안 폼은 열릴 때마다 새로 마운트(destroyOnHidden + 안쪽 컴포넌트, dev-guide §5-5).
- * 작성자는 서버가 고정 사용자로 채운다(화면은 보여 주기만). 성공 문구(S002·S003)는 서버 → 자동 표시.
+ * 작성자는 서버가 로그인 사용자로 채운다(화면은 보여 주기만). 성공 문구(S002·S003)는 서버 → 자동 표시.
  */
 export const NoticeEditModal = ({ open, no, onClose }: Props) => (
   <Modal

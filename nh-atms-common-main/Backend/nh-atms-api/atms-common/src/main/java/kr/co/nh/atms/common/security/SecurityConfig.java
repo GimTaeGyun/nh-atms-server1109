@@ -23,16 +23,17 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Spring Security 공통 설정 — nh-atms atms-common SecurityConfig 를 "로그인 없는 고정 사용자"(설계 §5.3)용으로 줄인 것.
+ * Spring Security 공통 설정 — nh-atms atms-common SecurityConfig 를 세션 로그인(POST /api/auth/login, JWT 없음)용으로 줄인 것.
  * <ul>
- *   <li>세션 없음(STATELESS), CSRF 끔, CORS 는 원본과 같음({@code cors.allowed-origins})</li>
+ *   <li>Spring Security 자체는 세션을 쓰지 않음(STATELESS) — 로그인 세션(JSESSIONID)은 atms-web LoginService 가 직접 만들고
+ *       SessionUserFilter 가 읽는다. CSRF 끔(본문이 JSON 이라 다른 사이트 폼으로는 못 보냄), CORS 는 원본과 같음({@code cors.allowed-origins})</li>
  *   <li>{@code /api/**} 는 인증 필요, swagger·api-docs·actuator 와 그 밖의 경로(정적 화면)는 허용</li>
- *   <li>현재 사용자는 {@link UserContextFilter} 빈(atms-web 의 FixedUserFilter)이 채운다 — AnonymousAuthenticationFilter 앞</li>
+ *   <li>현재 사용자는 {@link UserContextFilter} 빈(atms-web 의 SessionUserFilter)이 채운다 — AnonymousAuthenticationFilter 앞</li>
  *   <li>인증 없음 401 {@code SYS_401}, 권한 없음 403 {@code SYS_403} 을 JSON(ApiResponse) 으로</li>
  *   <li>{@code @EnableMethodSecurity}: {@code @PreAuthorize} 사용 가능(관리자 권한 ROLE_ADMIN)</li>
  * </ul>
- * 원본의 JWT·SSO·에이전트 .do 허용·PasswordEncoder 는 가져오지 않았다(로그인 없음).
- * 2026-11-09 로그인 견본: {@code /api/auth/**}(공개키·로그인·로그아웃)는 사용자 확인 전에 부르므로 허용.
+ * 원본의 JWT·SSO·에이전트 .do 허용·PasswordEncoder 는 가져오지 않았다(세션 로그인, 비밀번호 원천은 잠정 Q-17).
+ * 로그인(2026-11-09 견본 → 2026-11-11 필수): {@code /api/auth/**}(공개키·로그인·로그아웃)는 사용자 확인 전에 부르므로 허용.
  */
 @Configuration
 @EnableWebSecurity

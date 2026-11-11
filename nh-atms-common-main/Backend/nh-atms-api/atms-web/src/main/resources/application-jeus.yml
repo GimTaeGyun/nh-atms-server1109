@@ -1,7 +1,7 @@
 # =====================================================================
 # atms-web — JEUS 배포 (서버 atms01 :8080, 컨텍스트 '/')
 #  배포킷(nh-atms-server) NH-ATMS atms-web/application-jeus.yml 에서 복사·축소
-#  (다른 모듈 주소·게이트웨이·필드 암호화는 뺐다 — 모듈 1개, 로그인 없음, Q4 암호화 안 함)
+#  (다른 모듈 주소·게이트웨이·필드 암호화는 뺐다 — 모듈 1개)
 #  공통값(DB JNDI·로그 폴더·데이터 폴더)은 atms-common 의 jeus-common.yml
 # =====================================================================
 spring:
@@ -18,11 +18,6 @@ springdoc:
   api-docs:
     # 배포킷 헬스체크가 /v3/api-docs = 200 을 본다 (deploy-war.sh) → 문서 JSON 은 켜 둔다
     enabled: true
-
-atms:
-  # 고정 사용자 개인번호 — 내부망 소스(Gitea)에서만 실제 값으로 바꾸거나 JVM 옵션 -Datms.fixed-user.per-no=...
-  fixed-user:
-    per-no: CHANGE_ME
 
 # 민감필드 암호화 — 키 파일은 WAR 밖 /home/atmswas/keys (jeus 그룹 640). 없으면 기동 실패한다 (NH-ATMS 와 같은 키·경로).
 # required: 화면 배포 확인 후 true (그 전까지는 평문도 받음)

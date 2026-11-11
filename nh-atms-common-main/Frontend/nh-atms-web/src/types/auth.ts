@@ -1,6 +1,6 @@
 /**
- * 나(고정 사용자) — `GET /api/me` 응답. API 계약 §1 `Me` 와 글자 하나까지 같다.
- * 로그인이 없다(설계 Q1): 서버 설정의 개인번호로 TB_INSA·TB_SCR_AUTH 를 읽어 돌려준다.
+ * 나(로그인 사용자) — `GET /api/me` 응답. API 계약 §1 `Me` 와 글자 하나까지 같다.
+ * 서버가 로그인 세션의 개인번호로 TB_INSA·TB_SCR_AUTH 를 읽어 돌려준다.
  */
 export interface Me {
   /** TB_INSA.PER_NO */

@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 공지 등록·수정 본문 — API 계약 §3 {@code NoticeSave}. 작성자(NAME·PER_NO)는 받지 않는다(고정 사용자, 서비스가 채움).
+ * 공지 등록·수정 본문 — API 계약 §3 {@code NoticeSave}. 작성자(NAME·PER_NO)는 받지 않는다(로그인 사용자, 서비스가 채움).
  * 빈 값은 {@code @NotBlank} → 400 VAL_001(필드명). 바이트 길이(제목 200·내용 4000)는 서비스가 검사(잠정 Q-07).
  */
 @Getter

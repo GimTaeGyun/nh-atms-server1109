@@ -56,7 +56,7 @@ public class NoticeService {
         return found(no);
     }
 
-    /** 등록 — 번호 MAX+1(잠정 Q-02, 충돌 시 1회 재시도), 작성자 = 고정 사용자, 작성일 SYSDATE, 조회수 0 */
+    /** 등록 — 번호 MAX+1(잠정 Q-02, 충돌 시 1회 재시도), 작성자 = 로그인 사용자, 작성일 SYSDATE, 조회수 0 */
     @Transactional
     public Notice create(NoticeSave req) {
         Notice n = toNotice(req);

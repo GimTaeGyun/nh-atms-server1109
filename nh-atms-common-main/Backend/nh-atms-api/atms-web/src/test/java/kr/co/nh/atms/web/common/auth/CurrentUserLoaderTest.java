@@ -11,7 +11,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-/** 고정 사용자 — TB_SCR_AUTH 채택 규칙(잠정)·관리자 판정·캐시 */
+/** 로그인 사용자 정보 — TB_SCR_AUTH 채택 규칙(잠정)·관리자 판정·캐시 */
 class CurrentUserLoaderTest {
 
     private static final String NOW = "20261107120000";
@@ -74,13 +74,5 @@ class CurrentUserLoaderTest {
         CurrentUserMapper mapper = mock(CurrentUserMapper.class);
         assertThat(new CurrentUserLoader(mapper).load("999")).isNull();
         assertThat(new CurrentUserLoader(mapper).load(" ")).isNull();
-    }
-
-    @Test
-    void fixedUserSettingCheck() {
-        assertThat(FixedUserFilter.isConfigured("CHANGE_ME")).isFalse();
-        assertThat(FixedUserFilter.isConfigured("")).isFalse();
-        assertThat(FixedUserFilter.isConfigured(null)).isFalse();
-        assertThat(FixedUserFilter.isConfigured("123456789")).isTrue();
     }
 }

@@ -7,9 +7,8 @@ import { MeGate } from './MeGate';
 import { LoginPage } from '@/screens/login/LoginPage';
 
 /**
- * 기본은 고정 사용자(설계 Q1). 앱을 열면 MeGate 가 `/api/me` 를 먼저 읽고, 실패하면 서버 문구를 화면 전체에 보여 준다.
- * `/login` 은 비밀번호 암호화 견본 로그인 화면(계약 §7) — 앱 셸·MeGate 밖이라 사용자 확인 없이 열린다.
- * 서버 설정 atms.login.enabled=true 일 때만 로그인 세션이 화면 사용자가 된다(그때 MeGate 의 ME_002 가 이 화면으로 안내).
+ * 로그인 필수(2026-11-11 사용자 결정). 앱을 열면 MeGate 가 `/api/me` 를 먼저 읽고, 로그인 세션이 없으면(ME_002) `/login` 으로 보낸다.
+ * `/login` 은 로그인 화면(비밀번호 암호화, 계약 §7) — 앱 셸·MeGate 밖이라 사용자 확인 없이 열린다.
  */
 const AppRoutes = () => (
   <Suspense fallback={<LoadingBlock height={400} />}>
