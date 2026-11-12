@@ -63,6 +63,7 @@
 | 4 | `docs/03_백엔드_개발가이드.md` | 패키지·컨트롤러·서비스·매퍼 규칙, 감사 컬럼 |
 | 5 | `docs/04_DB_규칙.md` | TB_ 규칙 요약, 이 저장소가 쓰는 테이블 |
 | 6 | `docs/05_공통모듈_목록.md` | 날짜·콤보·팝업·표·출력 부품 카탈로그(쓰는 예) |
+| - | **Figma `[NH농협은행] ATMS GUI`** (2026-11-12 기록) — https://www.figma.com/design/voJt0DqmYV0WcNdVoju8SH/-NH%EB%86%8D%ED%98%91%EC%9D%80%ED%96%89--ATMS-GUI?node-id=294-955&t=mvJfHzIj0OswJiAA-1 (fileKey `voJt0DqmYV0WcNdVoju8SH`, node `294-955`) | 화면 모양(배치·색·글꼴)을 맞출 때. 폐쇄망 PC 에서는 안 열리므로 인터넷 PC 또는 클라우드 세션의 Figma MCP 로 본다 |
 | - | `docs/90_현업질문_후보.md` | 정본·현업 답이 없는 것 → 질문 후보(번호 `Q-xx`) |
 | - | `agent-briefs/README.md` | 화면을 에이전트에게 나눠 맡길 때 |
 | - | `db/README.md`, `db/seed/README.md`, `db/ddl/README.md` | DB 확인·시드 순서 |
