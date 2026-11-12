@@ -38,11 +38,12 @@
   - `Backend/nh-atms-api/` — Spring Boot 3.5 · Java 21 · MyBatis. 모듈 `atms-common` + `atms-web`, 패키지 `kr.co.nh.atms.web`.
   - `db/` — TO-BE 정본 사본(`db/ddl/_source_*.csv`), 참고용 DDL(생성물), 견본 시드, 확인 SQL(`db/README.md`).
   - `docs/` — 설계·API 계약·가이드. `agent-briefs/` — 화면 에이전트 지시문.
-- 화면 4개(`Frontend/nh-atms-web/src/screens/registry.ts`)
+- 견본 화면 5개(`Frontend/nh-atms-web/src/screens/registry.ts`)
   - 공통 모듈 `sample.commonModules` — 부품 카탈로그(실제 API 로 시연)
   - 공지사항 `sample.notice` — **팝업형 CRUD** 견본
   - 기기정보 `sample.mcnInfo` — **목록/편집 탭형** 견본
   - 기기모델코드 `sample.mcnModel` — **표 직접 편집·일괄 저장형** 견본
+  - 공통 조회 화면(lite) `sample.commonSearchLite` — **조회 전용, 가장 짧은** 견본(파일 2개, 기기정보 API 를 빌려 씀, 내장 메뉴만·DB 시드 없음 2026-11-12)
 
 ### 이웃 저장소와의 관계 (`docs/00_설계.md` §0.1·§2)
 
@@ -111,6 +112,7 @@
 
    | 화면 모양 | 복사할 견본 | 프론트 | 백엔드 |
    |---|---|---|---|
+   | 조회만(조회조건 → 목록 + 페이징) | 공통 조회 화면(lite) | `screens/sample/CommonSearchLitePage.tsx`, `CommonSearchLiteParts.tsx` | (빌려 쓴 API: `web/mcninfo/**`) |
    | 목록 + 팝업으로 등록·수정·상세 | 공지사항 | `screens/sample/NoticePage.tsx`, `NoticeParts.tsx`, `screens/popup/NoticeEditModal.tsx`, `NoticeViewModal.tsx` | `web/notice/**`, `mapper/notice/NoticeMapper.xml` |
    | [목록] / [등록·수정] 탭 | 기기정보 | `screens/sample/McnInfoPage.tsx`, `McnInfoParts.tsx`, `McnInfoColumns.tsx` | `web/mcninfo/**`, `mapper/mcninfo/McnInfoMapper.xml` |
    | 왼쪽 목록 + 오른쪽 표 직접 편집 → [저장] 한 번에 | 기기모델코드 | `screens/sample/McnModelPage.tsx`, `McnModelParts.tsx`, `McnModelColumns.tsx` | `web/mcnmodel/**`, `mapper/mcnmodel/McnModelMapper.xml` |

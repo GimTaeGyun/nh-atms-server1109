@@ -16,6 +16,7 @@ export const SCREEN_IDS = {
   'sample.notice': '',
   'sample.mcnInfo': '',
   'sample.mcnModel': '',
+  'sample.commonSearchLite': '',
   // ---- 팝업 ----
   'popup.officeSearch': '',
   'popup.personSearch': '',

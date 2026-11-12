@@ -54,6 +54,7 @@ export const SCREENS: Record<string, ScreenDef> = Object.fromEntries(
     def('sample.notice', '공지사항', 'sample', '', () => import('./sample/NoticePage')),
     def('sample.mcnInfo', '기기정보', 'sample', '', () => import('./sample/McnInfoPage')),
     def('sample.mcnModel', '기기모델코드', 'sample', '', () => import('./sample/McnModelPage')),
+    def('sample.commonSearchLite', '공통 조회 화면(lite)', 'sample', '', () => import('./sample/CommonSearchLitePage')),
   ].map((d) => [d.key, d]),
 );
 

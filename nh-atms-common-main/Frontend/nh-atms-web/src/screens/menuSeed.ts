@@ -20,6 +20,8 @@ const SAMPLE: { key: ScreenKey; name: string }[] = [
   { key: 'sample.notice', name: '공지사항' },
   { key: 'sample.mcnInfo', name: '기기정보' },
   { key: 'sample.mcnModel', name: '기기모델코드' },
+  // SMP005 — 잠정: DB 시드(db/seed/01_menu.sql)에는 아직 없다(사용자 결정 2026-11-12: 내장 메뉴만)
+  { key: 'sample.commonSearchLite', name: '공통 조회 화면(lite)' },
 ];
 
 /** 그룹 메뉴 ID·최상위 상위값·순서 (db/seed/01_menu.sql) */

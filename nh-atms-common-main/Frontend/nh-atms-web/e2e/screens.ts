@@ -8,4 +8,5 @@ export const SCREENS: { key: ScreenKey; path: string; title: string; search?: bo
   { key: 'sample.notice', path: '/sample/notice', title: '공지사항', search: true },
   { key: 'sample.mcnInfo', path: '/sample/mcn-info', title: '기기정보', search: true },
   { key: 'sample.mcnModel', path: '/sample/mcn-model', title: '기기모델코드', search: true },
+  { key: 'sample.commonSearchLite', path: '/sample/common-search-lite', title: '공통 조회 화면(lite)', search: true },
 ];

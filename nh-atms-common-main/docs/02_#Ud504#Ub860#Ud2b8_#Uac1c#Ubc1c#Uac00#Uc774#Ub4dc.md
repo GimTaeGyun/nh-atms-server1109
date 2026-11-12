@@ -41,6 +41,7 @@
 
 | 화면 모양 | 복사할 견본 |
 |---|---|
+| 조회만(조회조건 → 목록 + 페이징), 가장 짧은 틀 | 공통 조회 화면(lite) `screens/sample/CommonSearchLitePage.tsx`·`CommonSearchLiteParts.tsx` (API 는 기기정보 것을 빌려 씀) |
 | 조회 + 팝업 등록/수정 + 여러 건 삭제 | 공지사항 `screens/sample/NoticePage.tsx`·`NoticeParts.tsx`·`screens/popup/NoticeEditModal.tsx`·`NoticeViewModal.tsx` |
 | [목록]/[등록·수정] 탭, 키 수정 불가, 논리 삭제 | 기기정보 `screens/sample/McnInfoPage.tsx`·`McnInfoParts.tsx`·`McnInfoColumns.tsx` |
 | 왼쪽 목록 → 오른쪽 표 직접 편집, [저장] 한 번에 | 기기모델코드 `screens/sample/McnModelPage.tsx`·`McnModelParts.tsx`·`McnModelColumns.tsx` |
