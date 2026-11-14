@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 218">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fill-ink"/></marker>
+  </defs>
+
+  <!-- 왼쪽: 프로젝트 맨 위 폴더 -->
+  <rect class="box-gray" x="4" y="4" width="194" height="210"/>
+  <text class="t-b" x="14" y="23">프로젝트 맨 위 폴더</text>
+  <text class="t-mono" x="14" y="44">nh-atms-web/</text>
+  <path class="line-gray" d="M20,50 V200 M20,60 H30 M20,80 H30 M20,100 H30 M20,120 H30 M20,140 H30 M20,160 H30 M20,180 H30 M20,200 H30"/>
+  <text class="t-mono" x="35" y="64">index.html</text>
+  <text class="t-mono" x="35" y="84">package.json</text>
+  <text class="t-mono" x="35" y="104">vite.config.ts</text>
+  <text class="t-mono" x="35" y="124">tsconfig.app.json</text>
+  <text class="t-mono" x="35" y="144">eslint.config.js</text>
+  <text class="t-mono" x="35" y="164">.env.production</text>
+  <text class="t-mono" x="35" y="184">public/</text>
+  <text class="t-mono t-b" x="35" y="204">src/</text>
+  <text class="t-gray" x="104" y="64">첫 HTML</text>
+  <path class="line" d="M138,76 H144 V168 H138"/>
+  <text x="150" y="118">설정</text>
+  <text x="150" y="134">파일</text>
+  <text class="t-gray" x="84" y="184">로고와 글꼴</text>
+  <path class="line" d="M66,200 H214" marker-end="url(#arrow)"/>
+
+  <!-- 오른쪽: src 안 -->
+  <rect class="box-dash" x="216" y="4" width="380" height="210"/>
+
+  <rect class="box-yellow" x="226" y="12" width="360" height="74"/>
+  <text class="t-b" x="238" y="30">새 화면을 만들 때 파일을 만드는 곳</text>
+  <rect class="box" x="236" y="39" width="108" height="39"/>
+  <text class="t-mono t-b" x="290" y="55" text-anchor="middle">screens/</text>
+  <text x="290" y="71" text-anchor="middle">화면</text>
+  <rect class="box" x="352" y="39" width="108" height="39"/>
+  <text class="t-mono t-b" x="406" y="55" text-anchor="middle">domain/</text>
+  <text x="406" y="71" text-anchor="middle">자료의 타입</text>
+  <rect class="box" x="468" y="39" width="108" height="39"/>
+  <text class="t-mono t-b" x="522" y="55" text-anchor="middle">api/endpoints/</text>
+  <text x="522" y="71" text-anchor="middle">서버 호출 함수</text>
+
+  <rect class="box-blue" x="226" y="94" width="360" height="70"/>
+  <text class="t-b" x="238" y="112">만들어 둔 것을 가져다 쓰는 곳</text>
+  <text class="t-mono" x="238" y="133">components/</text>
+  <text class="t-mono" x="330" y="133">hooks/</text>
+  <text class="t-mono" x="410" y="133">stores/</text>
+  <text class="t-mono" x="490" y="133">utils/</text>
+  <text class="t-mono" x="238" y="153">config/</text>
+  <text class="t-mono" x="330" y="153">types/</text>
+  <text class="t-mono" x="410" y="153">theme/</text>
+
+  <rect class="box-gray" x="226" y="172" width="360" height="34"/>
+  <text class="t-b" x="238" y="193">앱을 켜는 곳</text>
+  <text class="t-mono" x="330" y="193">main.tsx</text>
+  <text class="t-mono" x="410" y="193">app/</text>
+</svg>

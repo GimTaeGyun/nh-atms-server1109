@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 214">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fill-ink"/></marker>
+  </defs>
+
+  <!-- 세 자리 -->
+  <rect x="2" y="2" width="150" height="28" class="box"/>
+  <text x="77" y="21" text-anchor="middle" class="t-b">화면</text>
+  <rect x="225" y="2" width="150" height="28" class="box-blue"/>
+  <text x="300" y="21" text-anchor="middle" class="t-b">캐시 (TanStack Query)</text>
+  <rect x="448" y="2" width="150" height="28" class="box-solid"/>
+  <text x="523" y="21" text-anchor="middle" class="t-b t-white">서버</text>
+
+  <path d="M77,30 L77,210" class="line-dash"/>
+  <path d="M300,30 L300,210" class="line-dash"/>
+  <path d="M523,30 L523,210" class="line-dash"/>
+
+  <!-- ① 등록 요청 -->
+  <text x="86" y="51"><tspan class="t-b t-blue">① [저장]</tspan><tspan dx="6" class="t-mono">POST /api/notice</tspan></text>
+  <path d="M77,59 L521,59" class="line" marker-end="url(#arrow)"/>
+
+  <!-- ② 성공 응답 -->
+  <text x="310" y="81"><tspan class="t-b t-blue">② 성공</tspan><tspan dx="6">"등록되었습니다."</tspan></text>
+  <path d="M523,89 L79,89" class="line" marker-end="url(#arrow)"/>
+  <text x="86" y="104" class="t-sm t-gray">알림이 뜨고 팝업이 닫힌다</text>
+
+  <!-- ③ 무효화 -->
+  <text x="86" y="126"><tspan class="t-b t-blue">③ 무효화</tspan><tspan dx="6" class="t-mono">['notice']</tspan></text>
+  <path d="M77,134 L298,134" class="line" marker-end="url(#arrow)"/>
+  <rect x="310" y="119" width="202" height="30" class="box-yellow"/>
+  <text x="411" y="138" text-anchor="middle">목록 서랍에 "낡았음" 딱지</text>
+
+  <!-- ④ 다시 읽기 -->
+  <text x="310" y="166"><tspan class="t-b t-blue">④ 다시 읽기</tspan><tspan dx="6" class="t-mono">GET /api/notice?…</tspan></text>
+  <path d="M300,174 L521,174" class="line" marker-end="url(#arrow)"/>
+
+  <!-- ⑤ 새 목록 -->
+  <text x="310" y="194"><tspan class="t-b t-blue">⑤ 새 목록</tspan></text>
+  <path d="M523,202 L302,202" class="line" marker-end="url(#arrow)"/>
+  <text x="86" y="194">표를 다시 그린다</text>
+  <path d="M300,202 L79,202" class="line" marker-end="url(#arrow)"/>
+</svg>

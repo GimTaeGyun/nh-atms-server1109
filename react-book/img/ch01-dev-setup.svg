@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 186">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fill-ink"/></marker>
+  </defs>
+
+  <!-- 내 PC -->
+  <rect x="6" y="24" width="588" height="156" class="box-dash"/>
+  <text x="10" y="15" text-anchor="start" class="t-b">내 PC</text>
+
+  <!-- 브라우저 -->
+  <rect x="20" y="44" width="112" height="96" class="box"/>
+  <text x="76" y="88" text-anchor="middle" class="t-lg">브라우저</text>
+  <text x="76" y="109" text-anchor="middle" class="t-gray">크롬 · 엣지</text>
+
+  <!-- 개발 서버 -->
+  <rect x="234" y="44" width="132" height="96" class="box-blue"/>
+  <text x="300" y="80" text-anchor="middle" class="t-lg">개발 서버</text>
+  <text x="300" y="101" text-anchor="middle" class="t-gray">Vite</text>
+  <text x="300" y="122" text-anchor="middle" class="t-b t-blue">3100번 포트</text>
+
+  <!-- 백엔드 서버 -->
+  <rect x="468" y="44" width="112" height="96" class="box-gray"/>
+  <text x="524" y="88" text-anchor="middle" class="t-lg">백엔드 서버</text>
+  <text x="524" y="109" text-anchor="middle" class="t-b">8080번 포트</text>
+
+  <!-- 화면 파일: 개발 서버가 직접 답한다 -->
+  <text x="183" y="66" text-anchor="middle">화면 파일</text>
+  <line x1="137" y1="74" x2="229" y2="74" class="line" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+
+  <!-- /api 요청: 개발 서버가 백엔드로 넘긴다 -->
+  <text x="183" y="110" text-anchor="middle" class="t-mono">/api 요청</text>
+  <line x1="137" y1="118" x2="229" y2="118" class="line-blue" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="417" y="110" text-anchor="middle" class="t-blue">그대로 넘김</text>
+  <line x1="371" y1="118" x2="463" y2="118" class="line-blue" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+
+  <!-- 누가 켜나 -->
+  <text x="76" y="164" text-anchor="middle">주소창에 localhost:3100</text>
+  <text x="300" y="164" text-anchor="middle">npm run dev 로 켠다</text>
+  <text x="524" y="164" text-anchor="middle">따로 켜 둔다</text>
+</svg>

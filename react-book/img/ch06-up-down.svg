@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 150">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fill-ink"/></marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fill-blue"/></marker>
+  </defs>
+
+  <!-- 부모 -->
+  <rect x="160" y="4" width="280" height="40" class="box-blue"/>
+  <text x="300" y="21" text-anchor="middle" class="t-b">NoticePage (부모)</text>
+  <text x="300" y="37" text-anchor="middle">팝업이 열렸는지 기억한다</text>
+
+  <!-- 자식 -->
+  <rect x="160" y="106" width="280" height="40" class="box"/>
+  <text x="174" y="131" class="t-b">NoticeViewModal (자식)</text>
+  <rect x="330" y="115" width="46" height="22" class="box-gray"/>
+  <text x="353" y="130" text-anchor="middle">닫기</text>
+  <rect x="382" y="115" width="46" height="22" class="box-solid"/>
+  <text x="405" y="130" text-anchor="middle" class="t-white">수정</text>
+
+  <!-- 내려가는 화살표: props -->
+  <path d="M222,44 L222,104" class="line" marker-end="url(#arrow)"/>
+  <text x="210" y="61" text-anchor="end" class="t-b">props로 건넨다</text>
+  <text x="210" y="78" text-anchor="end" class="t-mono">open · notice · loading</text>
+  <text x="210" y="94" text-anchor="end" class="t-mono">onClose · onEdit</text>
+
+  <!-- 올라가는 화살표: 받은 함수를 부른다 -->
+  <path d="M378,106 L378,46" class="line-blue" marker-end="url(#arrow-blue)"/>
+  <text x="390" y="61" class="t-b t-blue">받은 함수를 부른다</text>
+  <text x="390" y="78" class="t-mono">onClose()</text>
+  <text x="390" y="94" class="t-mono">onEdit(notice)</text>
+</svg>

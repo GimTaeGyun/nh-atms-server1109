@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 222">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fill-ink"/></marker>
+    <marker id="arrow-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fill-blue"/></marker>
+  </defs>
+
+  <!-- ① 이벤트 -->
+  <rect class="box" x="2" y="2" width="226" height="60"/>
+  <text class="t-b" x="115" y="27" text-anchor="middle">① 이벤트</text>
+  <text x="115" y="47" text-anchor="middle">사용자가 공지 제목을 누른다</text>
+
+  <!-- ② 바꾸는 함수 -->
+  <rect class="box" x="372" y="2" width="226" height="60"/>
+  <text class="t-b" x="485" y="27" text-anchor="middle">② 바꾸는 함수를 부른다</text>
+  <text class="t-mono" x="485" y="47" text-anchor="middle">setViewOpen(true)</text>
+
+  <!-- ③ 다시 렌더링 -->
+  <rect class="box" x="372" y="160" width="226" height="60"/>
+  <text class="t-b" x="485" y="185" text-anchor="middle">③ 다시 렌더링</text>
+  <text x="485" y="205" text-anchor="middle">NoticePage 함수를 다시 부른다</text>
+
+  <!-- ④ 화면 고치기 -->
+  <rect class="box" x="2" y="160" width="226" height="60"/>
+  <text class="t-b" x="115" y="185" text-anchor="middle">④ 화면 고치기</text>
+  <text x="115" y="205" text-anchor="middle">달라진 곳만 고친다. 팝업이 뜬다</text>
+
+  <!-- 가운데: 리액트가 보관하는 state -->
+  <rect class="box-yellow" x="210" y="84" width="180" height="54"/>
+  <text class="t-b" x="300" y="106" text-anchor="middle">리액트가 보관하는 state</text>
+  <text class="t-mono" x="300" y="126" text-anchor="middle">viewOpen: false → true</text>
+
+  <!-- 바깥 한 바퀴 -->
+  <path class="line" d="M228,32 H372" marker-end="url(#arrow)"/>
+  <path class="line" d="M560,62 V160" marker-end="url(#arrow)"/>
+  <path class="line" d="M372,190 H228" marker-end="url(#arrow)"/>
+  <path class="line" d="M40,160 V62" marker-end="url(#arrow)"/>
+
+  <!-- 보관함을 드나드는 값 -->
+  <path class="line-blue" d="M440,62 V98 H390" marker-end="url(#arrow-b)"/>
+  <text class="t-sm t-blue" x="447" y="84">새 값을 맡긴다</text>
+  <path class="line-blue" d="M390,124 H440 V160" marker-end="url(#arrow-b)"/>
+  <text class="t-sm t-blue" x="447" y="146">맡아 둔 값을 준다</text>
+
+  <text class="t-sm t-gray" x="48" y="115">새 화면을 보고</text>
+  <text class="t-sm t-gray" x="48" y="130">다시 누른다</text>
+</svg>

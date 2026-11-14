@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 212">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fill-ink"/></marker>
+  </defs>
+
+  <!-- 겉봉투 -->
+  <text x="4" y="14"><tspan class="t-b">ApiResponse</tspan><tspan class="t-gray" dx="8">겉봉투. 모든 응답이 이 모양이다</tspan></text>
+  <rect x="2" y="24" width="418" height="184" class="box"/>
+  <text x="16" y="52" class="t-mono">success: true</text>
+  <text x="16" y="74" class="t-mono">message: null</text>
+  <text x="16" y="96" class="t-mono">code: "0000"</text>
+  <text x="16" y="118" class="t-mono t-b">data:</text>
+  <path d="M52,114 L148,114" class="line" marker-end="url(#arrow)"/>
+
+  <!-- 속봉투 -->
+  <rect x="150" y="38" width="258" height="158" class="box-blue"/>
+  <text x="162" y="58"><tspan class="t-b">PageResult</tspan><tspan class="t-gray" dx="8">속봉투. 목록 한 쪽</tspan></text>
+  <text x="162" y="84" class="t-mono">totalCount: 45</text>
+  <text x="162" y="104" class="t-mono">page: 1</text>
+  <text x="162" y="124" class="t-mono">size: 20</text>
+  <text x="162" y="144" class="t-mono">totalPages: 3</text>
+  <text x="162" y="168" class="t-mono t-b">content:</text>
+  <path d="M214,164 L284,164" class="line" marker-end="url(#arrow)"/>
+
+  <!-- 알맹이 -->
+  <rect x="286" y="70" width="112" height="116" class="box-yellow"/>
+  <text x="342" y="89" text-anchor="middle" class="t-b">Notice 배열</text>
+  <rect x="294" y="98" width="96" height="22" class="box"/>
+  <text x="342" y="113" text-anchor="middle" class="t-mono">{ no: 264, … }</text>
+  <rect x="294" y="126" width="96" height="22" class="box"/>
+  <text x="342" y="141" text-anchor="middle" class="t-mono">{ no: 263, … }</text>
+  <rect x="294" y="154" width="96" height="22" class="box"/>
+  <text x="342" y="169" text-anchor="middle" class="t-mono">{ no: 261, … }</text>
+
+  <!-- 누가 벗기나 -->
+  <path d="M420,50 L434,50" class="line-blue"/>
+  <text x="440" y="46" class="t-b t-blue">① 겉봉투 벗기기</text>
+  <text x="440" y="64">공용 창구 api가</text>
+  <text x="440" y="81">data만 돌려준다</text>
+  <text x="440" y="98" class="t-sm t-gray">12.2절</text>
+
+  <path d="M408,134 L434,134" class="line-blue"/>
+  <text x="440" y="130" class="t-b t-blue">② 속봉투 풀기</text>
+  <text x="440" y="148">usePagedSearch가</text>
+  <text x="440" y="165">rows와 total로</text>
+  <text x="440" y="182">꺼내 준다</text>
+  <text x="440" y="199" class="t-sm t-gray">12.6절</text>
+</svg>

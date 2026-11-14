@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 250">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fill-ink"/></marker>
+  </defs>
+
+  <!-- 왼쪽 기둥: 차례로 일하는 파일 -->
+  <rect class="box-gray" x="6" y="10" width="132" height="26"/>
+  <text class="t-mono" x="72" y="28" text-anchor="middle">index.html</text>
+  <text x="150" y="28">빈 상자 #root 와 script 한 줄 (2장)</text>
+  <path class="line" d="M72,36 V50" marker-end="url(#arrow)"/>
+
+  <rect class="box" x="6" y="50" width="132" height="26"/>
+  <text class="t-mono" x="72" y="68" text-anchor="middle">main.tsx</text>
+  <text x="150" y="68">#root 안에 App 을 그린다 (5장)</text>
+  <path class="line" d="M72,76 V90" marker-end="url(#arrow)"/>
+
+  <rect class="box" x="6" y="90" width="132" height="26"/>
+  <text class="t-mono" x="72" y="108" text-anchor="middle">App</text>
+  <text x="150" y="108">가장 바깥 컴포넌트</text>
+  <path class="line" d="M72,116 V130" marker-end="url(#arrow)"/>
+
+  <rect class="box" x="6" y="130" width="132" height="26"/>
+  <text class="t-mono" x="72" y="148" text-anchor="middle">AppProviders</text>
+  <text x="150" y="148">공용 도구 세 겹을 깐다</text>
+  <path class="line" d="M72,156 V170" marker-end="url(#arrow)"/>
+
+  <rect class="box-blue" x="6" y="170" width="132" height="26"/>
+  <text class="t-mono t-b" x="72" y="188" text-anchor="middle">AppRouter</text>
+
+  <!-- 갈림길 1: 주소 -->
+  <path class="line" d="M72,196 V216" marker-end="url(#arrow)"/>
+  <text class="t-mono" x="80" y="210">/login</text>
+  <rect class="box" x="6" y="216" width="132" height="26"/>
+  <text x="72" y="234" text-anchor="middle"><tspan class="t-mono">LoginPage</tspan> 로그인 화면</text>
+
+  <path class="line" d="M138,183 H226" marker-end="url(#arrow)"/>
+  <text x="181" y="177" text-anchor="middle">그 밖의 주소</text>
+  <rect class="box-blue" x="226" y="170" width="96" height="26"/>
+  <text class="t-mono t-b" x="274" y="188" text-anchor="middle">MeGate</text>
+
+  <!-- 갈림길 2: status -->
+  <text class="t-b" x="509" y="31" text-anchor="middle">status 에 따라 돌려주는 것</text>
+  <path class="line" d="M322,183 H336 M336,57 V183"/>
+
+  <path class="line" d="M336,57 H424" marker-end="url(#arrow)"/>
+  <text class="t-mono" x="379" y="51" text-anchor="middle">ready</text>
+  <rect class="box-yellow" x="424" y="40" width="170" height="34"/>
+  <text class="t-b" x="509" y="54" text-anchor="middle">AppShell 화면 틀</text>
+  <text class="t-sm" x="509" y="68" text-anchor="middle">25행 · 안쪽은 10장</text>
+
+  <path class="line" d="M336,99 H424" marker-end="url(#arrow)"/>
+  <text class="t-mono" x="379" y="93" text-anchor="middle">idle, loading</text>
+  <rect class="box-gray" x="424" y="82" width="170" height="34"/>
+  <text x="509" y="96" text-anchor="middle">로딩 표시</text>
+  <text class="t-sm" x="509" y="110" text-anchor="middle">46행</text>
+
+  <path class="line" d="M336,141 H424" marker-end="url(#arrow)"/>
+  <text class="t-mono" x="379" y="135" text-anchor="middle">error</text>
+  <text class="t-sm" x="379" y="153" text-anchor="middle">그 밖의 실패</text>
+  <rect class="box-red" x="424" y="124" width="170" height="34"/>
+  <text x="509" y="138" text-anchor="middle">오류 안내와 [다시 시도]</text>
+  <text class="t-sm" x="509" y="152" text-anchor="middle">29–45행</text>
+
+  <path class="line" d="M336,183 H424" marker-end="url(#arrow)"/>
+  <text class="t-mono" x="379" y="177" text-anchor="middle">error</text>
+  <text class="t-sm" x="379" y="195" text-anchor="middle">로그인 필요</text>
+  <rect class="box" x="424" y="166" width="170" height="34"/>
+  <text x="509" y="180" text-anchor="middle">주소를 /login 으로</text>
+  <text class="t-sm" x="509" y="194" text-anchor="middle">27행</text>
+
+  <path class="line-dash" d="M509,200 V229 H138" marker-end="url(#arrow)"/>
+  <text class="t-sm" x="322" y="223" text-anchor="middle">로그인하면 원래 주소로 돌아가 MeGate 를 다시 지난다</text>
+</svg>

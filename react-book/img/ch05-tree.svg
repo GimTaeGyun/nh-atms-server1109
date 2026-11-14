@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 234">
+  <!-- 가지(실선: 바로 품는다, 점선: 사이에 다른 부품이 더 있다) -->
+  <path class="line" d="M22,27 V41.5 H36"/>
+  <path class="line" d="M46,52 V66.5 H60"/>
+  <path class="line" d="M70,77 V91.5 H84"/>
+  <path class="line-dash" d="M94,102 V116.5 H108"/>
+  <path class="line" d="M118,127 V141.5 H132"/>
+  <path class="line" d="M118,127 V166.5 H132"/>
+  <path class="line" d="M142,177 V191.5 H156"/>
+  <path class="line" d="M142,177 V216.5 H156"/>
+  <path class="line" d="M242,191.5 H258"/>
+  <path class="line-dash" d="M248,216.5 H264"/>
+  <path class="line-dash" d="M344,216.5 H360"/>
+
+  <!-- 0 -->
+  <rect class="box-gray" x="12" y="6" width="196" height="21"/>
+  <text x="110" y="21" text-anchor="middle">index.html 의 <tspan class="t-mono">&lt;div id=&quot;root&quot;&gt;</tspan></text>
+  <text class="t-gray" x="452" y="21">2장에서 본 빈 상자</text>
+  <!-- 1 -->
+  <rect class="box-yellow" x="36" y="31" width="56" height="21"/>
+  <text class="t-mono" x="64" y="46" text-anchor="middle">App</text>
+  <text x="452" y="46"><tspan class="t-mono">main.tsx</tspan> 가 여기에 그린다</text>
+  <!-- 2 -->
+  <rect class="box" x="60" y="56" width="104" height="21"/>
+  <text class="t-mono" x="112" y="71" text-anchor="middle">AppProviders</text>
+  <text class="t-gray" x="452" y="71">공용 도구 준비 (9장)</text>
+  <!-- 3 -->
+  <rect class="box" x="84" y="81" width="86" height="21"/>
+  <text class="t-mono" x="127" y="96" text-anchor="middle">AppRouter</text>
+  <text class="t-gray" x="452" y="96">화면 고르기 (10장)</text>
+  <!-- 4 -->
+  <rect class="box-yellow" x="108" y="106" width="70" height="21"/>
+  <text class="t-mono" x="143" y="121" text-anchor="middle">MeGate</text>
+  <text x="452" y="121">로그인 확인 (5.3절)</text>
+  <!-- 5 -->
+  <rect class="box-yellow" x="132" y="131" width="104" height="21"/>
+  <text class="t-mono" x="184" y="146" text-anchor="middle">LoadingBlock</text>
+  <text x="452" y="146">확인하는 동안 (5.1절)</text>
+  <!-- 6 -->
+  <rect class="box" x="132" y="156" width="78" height="21"/>
+  <text class="t-mono" x="171" y="171" text-anchor="middle">AppShell</text>
+  <text class="t-gray" x="452" y="171">확인이 끝나면 (10장)</text>
+  <!-- 7 -->
+  <rect class="box" x="156" y="181" width="86" height="21"/>
+  <text class="t-mono" x="199" y="196" text-anchor="middle">AppHeader</text>
+  <rect class="box-yellow" x="258" y="181" width="86" height="21"/>
+  <text class="t-mono" x="301" y="196" text-anchor="middle">BrandMark</text>
+  <text x="452" y="196">헤더와 로고 (5.3절)</text>
+  <!-- 8 -->
+  <rect class="box" x="156" y="206" width="92" height="21"/>
+  <text class="t-mono" x="202" y="221" text-anchor="middle">ScreenHost</text>
+  <rect class="box-yellow" x="264" y="206" width="80" height="21"/>
+  <text class="t-mono" x="304" y="221" text-anchor="middle">HomePage</text>
+  <rect class="box-yellow" x="360" y="206" width="74" height="21"/>
+  <text class="t-mono" x="397" y="221" text-anchor="middle">Card ×4</text>
+  <text x="452" y="221">홈 화면과 카드 (5.4절)</text>
+</svg>

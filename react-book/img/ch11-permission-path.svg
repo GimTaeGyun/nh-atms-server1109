@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 198">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fill-ink"/></marker>
+  </defs>
+
+  <text x="58" y="14" text-anchor="middle" class="t-b t-gray">서버</text>
+  <text x="240" y="14" text-anchor="middle" class="t-b t-gray">스토어</text>
+  <text x="428" y="14" text-anchor="middle" class="t-b t-gray">훅</text>
+  <text x="552" y="14" text-anchor="middle" class="t-b t-gray">버튼줄</text>
+
+  <!-- 서버 -->
+  <rect x="8" y="30" width="100" height="40" class="box"/>
+  <text x="58" y="47" text-anchor="middle">로그인한</text>
+  <text x="58" y="63" text-anchor="middle">사람 정보</text>
+  <rect x="8" y="85" width="100" height="40" class="box"/>
+  <text x="58" y="102" text-anchor="middle">메뉴와</text>
+  <text x="58" y="118" text-anchor="middle">화면별 권한</text>
+  <rect x="8" y="140" width="100" height="40" class="box-dash"/>
+  <text x="58" y="157" text-anchor="middle" class="t-gray">화면의</text>
+  <text x="58" y="173" text-anchor="middle" class="t-gray">미리보기 스위치</text>
+
+  <!-- 스토어 -->
+  <rect x="150" y="30" width="180" height="40" class="box-blue"/>
+  <text x="240" y="46" text-anchor="middle" class="t-mono t-b">useAuthStore</text>
+  <text x="240" y="63" text-anchor="middle">me: 관리자인가</text>
+  <rect x="150" y="85" width="180" height="40" class="box-blue"/>
+  <text x="240" y="101" text-anchor="middle" class="t-mono t-b">useNavStore</text>
+  <text x="240" y="118" text-anchor="middle">menus: 화면마다 권한 5가지</text>
+  <rect x="150" y="140" width="180" height="40" class="box-blue"/>
+  <text x="240" y="156" text-anchor="middle" class="t-mono t-b">usePermPreviewStore</text>
+  <text x="240" y="173" text-anchor="middle">preview: 미리보기 값</text>
+
+  <path d="M108,50 L149,50" class="line" marker-end="url(#arrow)"/>
+  <path d="M108,105 L149,105" class="line" marker-end="url(#arrow)"/>
+  <path d="M108,160 L149,160" class="line-dash" marker-end="url(#arrow)"/>
+
+  <!-- 훅 -->
+  <rect x="372" y="77" width="112" height="56" class="box-yellow"/>
+  <text x="428" y="101" text-anchor="middle" class="t-mono t-b">usePermission</text>
+  <text x="428" y="118" text-anchor="middle" class="t-mono">('sample.notice')</text>
+
+  <path d="M330,50 L371,88" class="line" marker-end="url(#arrow)"/>
+  <path d="M330,105 L371,105" class="line" marker-end="url(#arrow)"/>
+  <path d="M330,160 L371,122" class="line" marker-end="url(#arrow)"/>
+
+  <text x="428" y="154" text-anchor="middle" class="t-mono t-blue">canQry: true</text>
+  <text x="428" y="169" text-anchor="middle" class="t-mono t-blue">canReg: false</text>
+  <text x="428" y="184" text-anchor="middle" class="t-mono t-blue">canDel: false …</text>
+
+  <!-- 버튼줄 -->
+  <rect x="512" y="77" width="80" height="56" class="box"/>
+  <text x="552" y="109.500" text-anchor="middle">ActionBar</text>
+  <path d="M484,105 L511,105" class="line" marker-end="url(#arrow)"/>
+  <path d="M552,133 L552,147" class="line" marker-end="url(#arrow)"/>
+
+  <rect x="512" y="148" width="37" height="24" class="box-solid"/>
+  <text x="530.500" y="164.500" text-anchor="middle" class="t-white">조회</text>
+  <rect x="555" y="148" width="37" height="24" class="box-gray"/>
+  <text x="573.500" y="164.500" text-anchor="middle" class="t-gray">등록</text>
+  <text x="552" y="190" text-anchor="middle">등록은 흐리게</text>
+</svg>
