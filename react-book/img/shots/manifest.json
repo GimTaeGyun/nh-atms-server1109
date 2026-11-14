@@ -3,522 +3,522 @@
     "width": 2560,
     "height": 1600,
     "bytes": 103314,
-    "capturedAt": "2026-11-14T21:27:55.004Z"
+    "capturedAt": "2026-11-14T21:32:35.535Z"
   },
   "login-masked": {
     "width": 2560,
     "height": 1600,
     "bytes": 102542,
-    "capturedAt": "2026-11-14T21:27:55.260Z"
+    "capturedAt": "2026-11-14T21:32:35.786Z"
   },
   "login-filled": {
     "width": 2560,
     "height": 1600,
     "bytes": 105191,
-    "capturedAt": "2026-11-14T21:27:55.559Z"
+    "capturedAt": "2026-11-14T21:32:36.112Z"
   },
   "login-error": {
     "width": 2560,
     "height": 1600,
     "bytes": 115268,
-    "capturedAt": "2026-11-14T21:27:58.004Z"
+    "capturedAt": "2026-11-14T21:32:38.554Z"
   },
   "home-login-toast": {
     "width": 2560,
     "height": 1600,
     "bytes": 121028,
-    "capturedAt": "2026-11-14T21:32:05.266Z"
+    "capturedAt": "2026-11-14T21:32:40.460Z"
   },
   "home": {
     "width": 2560,
     "height": 1600,
     "bytes": 113462,
-    "capturedAt": "2026-11-14T21:32:07.512Z"
+    "capturedAt": "2026-11-14T21:32:42.775Z"
   },
   "boot-loading": {
     "width": 2560,
     "height": 1600,
-    "bytes": 21212,
-    "capturedAt": "2026-11-14T21:28:06.874Z"
+    "bytes": 21116,
+    "capturedAt": "2026-11-14T21:32:47.430Z"
   },
   "boot-backend-down": {
     "width": 2560,
     "height": 1600,
     "bytes": 36548,
-    "capturedAt": "2026-11-14T21:28:10.896Z"
+    "capturedAt": "2026-11-14T21:32:51.738Z"
   },
   "layout-tabs": {
     "width": 2560,
     "height": 1600,
-    "bytes": 305903,
-    "capturedAt": "2026-11-14T21:28:22.268Z"
+    "bytes": 304540,
+    "capturedAt": "2026-11-14T21:33:03.242Z"
   },
   "part-opentabbar": {
     "width": 2432,
     "height": 76,
     "bytes": 8098,
-    "capturedAt": "2026-11-14T21:28:22.492Z"
+    "capturedAt": "2026-11-14T21:33:03.464Z"
   },
   "part-header": {
     "width": 2560,
     "height": 112,
     "bytes": 34276,
-    "capturedAt": "2026-11-14T21:28:22.729Z"
+    "capturedAt": "2026-11-14T21:33:03.683Z"
   },
   "tab-context-menu": {
     "width": 2560,
     "height": 1600,
-    "bytes": 316795,
-    "capturedAt": "2026-11-14T21:28:23.394Z"
+    "bytes": 315331,
+    "capturedAt": "2026-11-14T21:33:04.332Z"
   },
   "part-iconrail": {
     "width": 128,
     "height": 1488,
     "bytes": 12263,
-    "capturedAt": "2026-11-14T21:28:24.791Z"
+    "capturedAt": "2026-11-14T21:33:05.630Z"
   },
   "layout-panel": {
     "width": 2560,
     "height": 1600,
-    "bytes": 345000,
-    "capturedAt": "2026-11-14T21:28:25.378Z"
+    "bytes": 344181,
+    "capturedAt": "2026-11-14T21:33:06.178Z"
   },
   "part-sidepanel": {
     "width": 440,
     "height": 1488,
     "bytes": 25997,
-    "capturedAt": "2026-11-14T21:28:25.605Z"
+    "capturedAt": "2026-11-14T21:33:06.410Z"
   },
   "layout-flyout": {
     "width": 2560,
     "height": 1600,
-    "bytes": 305486,
-    "capturedAt": "2026-11-14T21:28:26.508Z"
+    "bytes": 305659,
+    "capturedAt": "2026-11-14T21:33:07.291Z"
   },
   "global-search": {
     "width": 2560,
     "height": 1600,
-    "bytes": 334575,
-    "capturedAt": "2026-11-14T21:28:27.283Z"
+    "bytes": 335193,
+    "capturedAt": "2026-11-14T21:33:08.040Z"
   },
   "part-global-search": {
     "width": 792,
     "height": 408,
-    "bytes": 26691,
-    "capturedAt": "2026-11-14T21:28:27.550Z"
+    "bytes": 26936,
+    "capturedAt": "2026-11-14T21:33:08.284Z"
   },
   "layout-wide": {
     "width": 3840,
     "height": 2160,
-    "bytes": 465916,
-    "capturedAt": "2026-11-14T21:28:35.841Z"
+    "bytes": 464027,
+    "capturedAt": "2026-11-14T21:33:16.229Z"
   },
   "part-header-wide": {
     "width": 3840,
     "height": 112,
     "bytes": 41988,
-    "capturedAt": "2026-11-14T21:28:36.066Z"
+    "capturedAt": "2026-11-14T21:33:16.452Z"
   },
   "settings-drawer": {
     "width": 2880,
     "height": 1800,
-    "bytes": 336297,
-    "capturedAt": "2026-11-14T21:28:44.869Z"
+    "bytes": 336509,
+    "capturedAt": "2026-11-14T21:33:25.349Z"
   },
   "notice-initial": {
     "width": 2560,
     "height": 1600,
     "bytes": 126701,
-    "capturedAt": "2026-11-14T21:28:50.042Z"
+    "capturedAt": "2026-11-14T21:33:30.441Z"
   },
   "part-searchform": {
     "width": 2384,
     "height": 222,
     "bytes": 25921,
-    "capturedAt": "2026-11-14T21:28:50.265Z"
+    "capturedAt": "2026-11-14T21:33:30.669Z"
   },
   "notice-daterange-open": {
     "width": 2560,
     "height": 1600,
     "bytes": 165107,
-    "capturedAt": "2026-11-14T21:28:50.967Z"
+    "capturedAt": "2026-11-14T21:33:31.353Z"
   },
   "notice-office-modal": {
     "width": 2560,
     "height": 1600,
     "bytes": 171478,
-    "capturedAt": "2026-11-14T21:28:54.034Z"
+    "capturedAt": "2026-11-14T21:33:34.517Z"
   },
   "notice-list": {
     "width": 2560,
     "height": 2140,
-    "bytes": 431231,
-    "capturedAt": "2026-11-14T21:28:57.999Z"
+    "bytes": 429972,
+    "capturedAt": "2026-11-14T21:33:38.538Z"
   },
   "notice-list-top": {
     "width": 2560,
     "height": 1600,
-    "bytes": 329342,
-    "capturedAt": "2026-11-14T21:28:58.279Z"
+    "bytes": 329520,
+    "capturedAt": "2026-11-14T21:33:38.829Z"
   },
   "part-pageframe-title": {
     "width": 2384,
     "height": 148,
     "bytes": 20858,
-    "capturedAt": "2026-11-14T21:28:58.529Z"
+    "capturedAt": "2026-11-14T21:33:39.082Z"
   },
   "part-actionbar": {
     "width": 660,
     "height": 86,
     "bytes": 8206,
-    "capturedAt": "2026-11-14T21:28:58.737Z"
+    "capturedAt": "2026-11-14T21:33:39.292Z"
   },
   "part-resultheader": {
     "width": 2384,
     "height": 94,
     "bytes": 18417,
-    "capturedAt": "2026-11-14T21:28:58.957Z"
+    "capturedAt": "2026-11-14T21:33:39.512Z"
   },
   "part-datagrid": {
     "width": 2384,
     "height": 1470,
-    "bytes": 312943,
-    "capturedAt": "2026-11-14T21:28:59.549Z"
+    "bytes": 311688,
+    "capturedAt": "2026-11-14T21:33:40.104Z"
   },
   "part-pagination": {
     "width": 2384,
     "height": 90,
     "bytes": 8887,
-    "capturedAt": "2026-11-14T21:29:00.049Z"
+    "capturedAt": "2026-11-14T21:33:40.621Z"
   },
   "notice-list-bottom": {
     "width": 2560,
     "height": 1600,
-    "bytes": 350852,
-    "capturedAt": "2026-11-14T21:29:00.333Z"
+    "bytes": 350060,
+    "capturedAt": "2026-11-14T21:33:40.920Z"
   },
   "notice-page2": {
     "width": 2560,
     "height": 2140,
-    "bytes": 449675,
-    "capturedAt": "2026-11-14T21:29:01.565Z"
+    "bytes": 449184,
+    "capturedAt": "2026-11-14T21:33:41.987Z"
   },
   "part-actionbar-selected": {
     "width": 660,
     "height": 86,
     "bytes": 8670,
-    "capturedAt": "2026-11-14T21:29:03.021Z"
+    "capturedAt": "2026-11-14T21:33:43.376Z"
   },
   "notice-selected": {
     "width": 2560,
     "height": 1600,
-    "bytes": 333080,
-    "capturedAt": "2026-11-14T21:29:03.867Z"
+    "bytes": 333246,
+    "capturedAt": "2026-11-14T21:33:44.221Z"
   },
   "part-resultheader-selected": {
     "width": 2384,
     "height": 94,
     "bytes": 20585,
-    "capturedAt": "2026-11-14T21:29:04.089Z"
+    "capturedAt": "2026-11-14T21:33:44.432Z"
   },
   "notice-readonly": {
     "width": 2560,
     "height": 1600,
-    "bytes": 331223,
-    "capturedAt": "2026-11-14T21:29:40.051Z"
+    "bytes": 331405,
+    "capturedAt": "2026-11-14T21:34:20.562Z"
   },
   "part-actionbar-readonly": {
     "width": 660,
     "height": 86,
     "bytes": 8060,
-    "capturedAt": "2026-11-14T21:29:40.269Z"
+    "capturedAt": "2026-11-14T21:34:20.775Z"
   },
   "notice-readonly-tooltip": {
     "width": 2560,
     "height": 1600,
-    "bytes": 338197,
-    "capturedAt": "2026-11-14T21:29:40.847Z"
+    "bytes": 338384,
+    "capturedAt": "2026-11-14T21:34:21.362Z"
   },
   "notice-readonly-view": {
     "width": 2560,
     "height": 1600,
-    "bytes": 327309,
-    "capturedAt": "2026-11-14T21:29:42.362Z"
+    "bytes": 327631,
+    "capturedAt": "2026-11-14T21:34:22.931Z"
   },
   "part-actionbar-writer": {
     "width": 660,
     "height": 86,
     "bytes": 8319,
-    "capturedAt": "2026-11-14T21:29:50.585Z"
+    "capturedAt": "2026-11-14T21:34:31.258Z"
   },
   "mcn-info-initial": {
     "width": 2560,
     "height": 1600,
     "bytes": 127314,
-    "capturedAt": "2026-11-14T21:29:55.980Z"
+    "capturedAt": "2026-11-14T21:34:36.554Z"
   },
   "mcn-info-list": {
     "width": 2560,
     "height": 1600,
-    "bytes": 303668,
-    "capturedAt": "2026-11-14T21:29:59.004Z"
+    "bytes": 302307,
+    "capturedAt": "2026-11-14T21:34:39.543Z"
   },
   "mcn-info-list-full": {
     "width": 2560,
     "height": 2308,
-    "bytes": 462229,
-    "capturedAt": "2026-11-14T21:29:59.613Z"
+    "bytes": 460505,
+    "capturedAt": "2026-11-14T21:34:40.169Z"
   },
   "mcn-info-selected": {
     "width": 2560,
     "height": 1600,
-    "bytes": 306278,
-    "capturedAt": "2026-11-14T21:30:00.282Z"
+    "bytes": 304914,
+    "capturedAt": "2026-11-14T21:34:40.832Z"
   },
   "mcn-info-edit": {
     "width": 2560,
     "height": 1600,
-    "bytes": 130929,
-    "capturedAt": "2026-11-14T21:30:01.073Z"
+    "bytes": 131322,
+    "capturedAt": "2026-11-14T21:34:41.605Z"
   },
   "mcn-model-initial": {
     "width": 2560,
     "height": 1600,
     "bytes": 114068,
-    "capturedAt": "2026-11-14T21:30:07.856Z"
+    "capturedAt": "2026-11-14T21:34:48.411Z"
   },
   "mcn-model": {
     "width": 2560,
     "height": 1600,
     "bytes": 233288,
-    "capturedAt": "2026-11-14T21:30:10.868Z"
+    "capturedAt": "2026-11-14T21:34:51.466Z"
   },
   "mcn-model-editing": {
     "width": 2560,
     "height": 1600,
     "bytes": 241614,
-    "capturedAt": "2026-11-14T21:30:13.871Z"
+    "capturedAt": "2026-11-14T21:34:54.531Z"
   },
   "mcn-model-saved": {
     "width": 2560,
     "height": 1600,
-    "bytes": 253316,
-    "capturedAt": "2026-11-14T21:30:16.624Z"
+    "bytes": 253414,
+    "capturedAt": "2026-11-14T21:34:57.277Z"
   },
   "common-modules": {
     "width": 2560,
     "height": 1600,
     "bytes": 193690,
-    "capturedAt": "2026-11-14T21:30:21.736Z"
+    "capturedAt": "2026-11-14T21:35:02.489Z"
   },
   "common-modules-date": {
     "width": 2560,
     "height": 1600,
     "bytes": 193690,
-    "capturedAt": "2026-11-14T21:30:22.200Z"
+    "capturedAt": "2026-11-14T21:35:02.945Z"
   },
   "common-modules-date-full": {
     "width": 2560,
     "height": 3314,
     "bytes": 400962,
-    "capturedAt": "2026-11-14T21:30:22.862Z"
+    "capturedAt": "2026-11-14T21:35:03.618Z"
   },
   "common-modules-combo": {
     "width": 2560,
     "height": 1600,
     "bytes": 271316,
-    "capturedAt": "2026-11-14T21:30:23.890Z"
+    "capturedAt": "2026-11-14T21:35:04.719Z"
   },
   "common-modules-combo-full": {
     "width": 2560,
     "height": 2084,
     "bytes": 298673,
-    "capturedAt": "2026-11-14T21:30:24.462Z"
+    "capturedAt": "2026-11-14T21:35:05.301Z"
   },
   "common-modules-popup": {
     "width": 2560,
     "height": 1600,
     "bytes": 310146,
-    "capturedAt": "2026-11-14T21:30:25.347Z"
+    "capturedAt": "2026-11-14T21:35:06.171Z"
   },
   "common-modules-popup-full": {
     "width": 2560,
     "height": 1964,
     "bytes": 331866,
-    "capturedAt": "2026-11-14T21:30:25.895Z"
+    "capturedAt": "2026-11-14T21:35:06.751Z"
   },
   "fault-status": {
     "width": 2560,
     "height": 1600,
-    "bytes": 258089,
-    "capturedAt": "2026-11-14T21:30:54.118Z"
+    "bytes": 258533,
+    "capturedAt": "2026-11-14T21:35:34.772Z"
   },
   "fault-status-full": {
     "width": 2560,
     "height": 3062,
-    "bytes": 475806,
-    "capturedAt": "2026-11-14T21:30:54.828Z"
+    "bytes": 476294,
+    "capturedAt": "2026-11-14T21:35:35.450Z"
   },
   "fault-status-selected": {
     "width": 2560,
     "height": 1600,
-    "bytes": 270534,
-    "capturedAt": "2026-11-14T21:30:55.687Z"
+    "bytes": 270998,
+    "capturedAt": "2026-11-14T21:35:36.265Z"
   },
   "fault-status-list": {
     "width": 2560,
     "height": 1600,
-    "bytes": 349559,
-    "capturedAt": "2026-11-14T21:30:56.883Z"
+    "bytes": 349851,
+    "capturedAt": "2026-11-14T21:35:37.336Z"
   },
   "layout-panel-1440": {
     "width": 2880,
     "height": 1800,
-    "bytes": 397026,
-    "capturedAt": "2026-11-14T21:28:43.941Z"
+    "bytes": 395254,
+    "capturedAt": "2026-11-14T21:33:24.481Z"
   },
   "notice-delete-confirm": {
     "width": 2560,
     "height": 1600,
-    "bytes": 344122,
-    "capturedAt": "2026-11-14T21:29:06.514Z"
+    "bytes": 344302,
+    "capturedAt": "2026-11-14T21:33:46.892Z"
   },
   "part-popconfirm": {
     "width": 354,
     "height": 260,
     "bytes": 16308,
-    "capturedAt": "2026-11-14T21:29:06.755Z"
+    "capturedAt": "2026-11-14T21:33:47.146Z"
   },
   "notice-view": {
     "width": 2560,
     "height": 1600,
-    "bytes": 327490,
-    "capturedAt": "2026-11-14T21:29:08.633Z"
+    "bytes": 328385,
+    "capturedAt": "2026-11-14T21:33:49.023Z"
   },
   "notice-edit": {
     "width": 2560,
     "height": 1600,
-    "bytes": 313172,
-    "capturedAt": "2026-11-14T21:29:12.052Z"
+    "bytes": 313757,
+    "capturedAt": "2026-11-14T21:33:52.497Z"
   },
   "notice-new": {
     "width": 2560,
     "height": 1600,
-    "bytes": 284844,
-    "capturedAt": "2026-11-14T21:29:15.479Z"
+    "bytes": 285498,
+    "capturedAt": "2026-11-14T21:33:55.938Z"
   },
   "notice-new-invalid": {
     "width": 2560,
     "height": 1600,
-    "bytes": 281992,
-    "capturedAt": "2026-11-14T21:29:17.892Z"
+    "bytes": 282609,
+    "capturedAt": "2026-11-14T21:33:58.368Z"
   },
   "notice-new-filled": {
     "width": 2560,
     "height": 1600,
-    "bytes": 314397,
-    "capturedAt": "2026-11-14T21:29:18.433Z"
+    "bytes": 315010,
+    "capturedAt": "2026-11-14T21:33:58.897Z"
   },
   "notice-toast": {
     "width": 2560,
     "height": 1600,
-    "bytes": 337342,
-    "capturedAt": "2026-11-14T21:29:19.339Z"
+    "bytes": 337877,
+    "capturedAt": "2026-11-14T21:33:59.820Z"
   },
   "part-toast-success": {
     "width": 240,
     "height": 124,
     "bytes": 5779,
-    "capturedAt": "2026-11-14T21:29:19.421Z"
+    "capturedAt": "2026-11-14T21:33:59.891Z"
   },
   "notice-delete-toast": {
     "width": 2560,
     "height": 1600,
-    "bytes": 338047,
-    "capturedAt": "2026-11-14T21:29:24.397Z"
+    "bytes": 338629,
+    "capturedAt": "2026-11-14T21:34:04.907Z"
   },
   "notice-search-keyword": {
     "width": 2560,
     "height": 1600,
-    "bytes": 270459,
-    "capturedAt": "2026-11-14T21:29:28.685Z"
+    "bytes": 271381,
+    "capturedAt": "2026-11-14T21:34:09.203Z"
   },
   "notice-empty": {
     "width": 2560,
     "height": 1600,
     "bytes": 137600,
-    "capturedAt": "2026-11-14T21:29:31.666Z"
+    "capturedAt": "2026-11-14T21:34:12.184Z"
   },
   "mcn-info-new": {
     "width": 2560,
     "height": 1600,
     "bytes": 114719,
-    "capturedAt": "2026-11-14T21:30:02.508Z"
+    "capturedAt": "2026-11-14T21:34:43.039Z"
   },
   "popup-office-search": {
     "width": 2560,
     "height": 1600,
     "bytes": 331747,
-    "capturedAt": "2026-11-14T21:30:28.739Z"
+    "capturedAt": "2026-11-14T21:35:09.611Z"
   },
   "popup-person-search": {
     "width": 2560,
     "height": 1600,
     "bytes": 327740,
-    "capturedAt": "2026-11-14T21:30:31.878Z"
+    "capturedAt": "2026-11-14T21:35:12.707Z"
   },
   "popup-mcn-search": {
     "width": 2560,
     "height": 1600,
     "bytes": 360362,
-    "capturedAt": "2026-11-14T21:30:35.304Z"
+    "capturedAt": "2026-11-14T21:35:16.027Z"
   },
   "common-modules-grid": {
     "width": 2560,
     "height": 1600,
     "bytes": 194704,
-    "capturedAt": "2026-11-14T21:30:37.044Z"
+    "capturedAt": "2026-11-14T21:35:17.772Z"
   },
   "common-modules-grid-full": {
     "width": 2560,
     "height": 5602,
     "bytes": 763958,
-    "capturedAt": "2026-11-14T21:30:37.912Z"
+    "capturedAt": "2026-11-14T21:35:18.634Z"
   },
   "common-modules-output": {
     "width": 2560,
     "height": 1600,
     "bytes": 192879,
-    "capturedAt": "2026-11-14T21:30:38.767Z"
+    "capturedAt": "2026-11-14T21:35:19.503Z"
   },
   "common-modules-output-full": {
     "width": 2560,
     "height": 3048,
     "bytes": 354237,
-    "capturedAt": "2026-11-14T21:30:39.395Z"
+    "capturedAt": "2026-11-14T21:35:20.150Z"
   },
   "common-modules-auth": {
     "width": 2560,
     "height": 1600,
     "bytes": 298423,
-    "capturedAt": "2026-11-14T21:30:40.252Z"
+    "capturedAt": "2026-11-14T21:35:21.007Z"
   },
   "common-modules-auth-full": {
     "width": 2560,
     "height": 3446,
     "bytes": 516557,
-    "capturedAt": "2026-11-14T21:30:40.911Z"
+    "capturedAt": "2026-11-14T21:35:21.650Z"
   },
   "perm-preview-qry": {
     "width": 2384,
     "height": 466,
     "bytes": 80950,
-    "capturedAt": "2026-11-14T21:30:43.995Z"
+    "capturedAt": "2026-11-14T21:35:24.683Z"
   },
   "error-toast": {
     "width": 2560,
     "height": 1600,
     "bytes": 334209,
-    "capturedAt": "2026-11-14T21:30:46.653Z"
+    "capturedAt": "2026-11-14T21:35:27.355Z"
   }
 }
