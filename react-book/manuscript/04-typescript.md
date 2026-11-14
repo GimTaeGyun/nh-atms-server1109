@@ -153,7 +153,7 @@ export interface PageResult<T> {
 export const sumBy = <T,>(rows: T[], pick: (r: T) => number | null | undefined): number => rows.reduce((acc, r) => acc + (pick(r) ?? 0), 0);
 ```
 
-`<T,>`가 빈칸이고 쉼표는 없어도 뜻이 같습니다. `rows`는 `T`의 배열입니다. `pick`의 타입은 화살표 함수를 닮았는데, "`T` 하나를 받아 숫자나 `null`, `undefined`를 돌려주는 함수"라는 뜻입니다. 공지 배열 `notices`의 조회수 합은 `sumBy(notices, (n) => n.visit)`로 구합니다. 이런 함수는 읽을 수 있으면 충분합니다.
+`<T,>`가 빈칸이고 쉼표는 없어도 뜻이 같습니다. `rows`는 `T`의 배열입니다. `pick`의 타입은 화살표 함수를 닮았는데, "`T` 하나를 받아 숫자나 `null`, `undefined`를 돌려주는 함수"입니다. 공지 배열 `notices`의 조회수 합은 `sumBy(notices, (n) => n.visit)`로 구합니다. 이런 함수는 읽을 줄만 알면 됩니다.
 
 ## 자주 만나는 표기 읽는 법 {#ch4-table}
 
@@ -179,7 +179,7 @@ export const sumBy = <T,>(rows: T[], pick: (r: T) => number | null | undefined):
 
 ## domain/notice.ts 읽기 {#ch4-notice}
 
-`src/domain/notice.ts`는 공지사항 화면과 서버가 주고받는 자료의 모양을 적어 둔 57줄짜리 파일입니다. 실행되는 코드 없이 타입만 있습니다. 뒤쪽 절반은 [[#ch4-interface]]에서 읽었고, 앞쪽의 주인공은 공지 한 건의 모양 `Notice`입니다.@@|Notice@@ 표의 첫 세 행을 먼저 봅니다.
+`src/domain/notice.ts`는 공지사항 화면과 서버가 주고받는 자료의 모양을 적어 둔 57줄짜리 파일입니다. 뒤쪽 절반은 [[#ch4-interface]]에서 읽었습니다. 앞쪽의 주인공은 아래 그림의 한 행, 곧 공지 한 건의 모양 `Notice`입니다.@@|Notice@@
 
 ![공지사항 표의 한 행이 `Notice` 객체 하나다](img/shots/ch04-notice-rows.png){width=100%}
 
@@ -217,7 +217,7 @@ import type { Audit, PageParams } from '@/types/api';
 export type NoticeField = 'ALL' | 'SUBJECT' | 'TEXT' | 'NAME';
 ```
 
-1~4행의 주석은 이 파일이 API 계약, 곧 화면과 서버가 주고받을 자료의 모양을 정한 문서와 글자 하나까지 같아야 한다는 다짐입니다. 타입은 실행할 때 사라지므로 서버가 다른 모양을 보내도 타입스크립트는 알지 못하기 때문입니다. 3행의 camelCase는 DB 컬럼 이름 `OFC_CODE`를 `ofcCode`처럼 옮겨 적는 표기법입니다. 5행은 다른 파일의 양식 둘을 타입으로만 가져옵니다. 8행은 유니온 타입이고, 조회조건의 [검색구분]에서 고르는 전체, 제목, 내용, 작성자가 이 네 값입니다.
+1~4행의 주석은 이 파일이 API 계약, 곧 화면과 서버가 주고받을 자료의 모양을 정한 문서와 글자 하나까지 같아야 한다는 다짐입니다. 타입은 실행할 때 사라지므로 서버가 다른 모양을 보내도 타입스크립트는 알지 못하기 때문입니다. 3행의 camelCase는 DB 컬럼 이름 `OFC_CODE`를 `ofcCode`처럼 옮겨 적는 표기법입니다. 5행은 다른 파일의 양식 둘을 타입으로만 가져옵니다. 그래서 이 파일에는 실행되는 코드가 한 줄도 없습니다. 8행은 유니온 타입이고, 조회조건의 [검색구분]에서 고르는 전체, 제목, 내용, 작성자가 이 네 값입니다.
 
 ```ts src="src/domain/notice.ts:10-20"
 /** `GET /api/notice` 조회조건 */

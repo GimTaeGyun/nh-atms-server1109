@@ -294,7 +294,7 @@ const popular = notices.filter((n) => n.visit >= 14);
 
 우리 소스는 파일 180개에 12,000줄 가까이 됩니다. 한 파일에 다 적으면 찾을 수도 고칠 수도 없습니다. 그래서 일거리별로 파일을 나누는데, 이 파일 하나하나를 **모듈**(module)이라고 합니다. 파일 안에서 붙인 이름은 그 파일 안에서만 통합니다. 다른 파일에서 쓰게 하려면 @@`export`|export@@로 내보내고, 쓰는 쪽에서 @@`import`|import@@로 가져옵니다.
 
-[[#ch3-value]]에서 읽은 `constants.ts` 9행이 `export const MAX_OPEN_TABS = 12;`였습니다. `const` 앞의 `export`가 이 이름을 내보냅니다. 그 이름을 템플릿 문자열에 끼워 쓰던 `navigation.ts`의 맨 위를 봅니다.
+[[#ch3-value]]에서 읽은 `constants.ts` 9행은 `export const`로 시작했습니다. 이 `export`가 `MAX_OPEN_TABS`라는 이름을 내보냅니다. 그 이름을 가져다 쓰던 `navigation.ts`의 맨 위를 봅니다.
 
 ```ts src="src/screens/navigation.ts:1-8" hl="4"
 import { useCallback } from 'react';
@@ -307,11 +307,11 @@ import { getScreen, screenPath } from './registry';
 
 6행이 `MAX_OPEN_TABS`를 가져옵니다. `import { 이름 } from '파일';` 꼴입니다. 중괄호 안의 이름은 내보낸 이름과 글자 하나까지 같아야 합니다. 8행처럼 쉼표로 여러 이름을 한꺼번에 가져오기도 합니다. `from` 뒤의 글자는 어디서 가져오는지를 말하고, 세 가지로 읽습니다.
 
-- `'./registry'`: 점으로 시작하면 지금 파일에서 따라가는 길입니다. `./`는 같은 폴더, `../`는 한 칸 위 폴더입니다.
+- `'./registry'`: 점으로 시작하면 지금 파일에서 따라가는 길입니다. `./`는 같은 폴더, `../`는 위 폴더입니다.
 - `'@/config/constants'`: `@/`는 `src/` 폴더를 가리키는 우리 프로젝트의 약속입니다.
-- `'react'`, `'react-router-dom'`: 점도 `@/`도 없으면 1장에서 `npm ci`로 설치한 라이브러리의 이름입니다.
+- `'react'`, `'react-router-dom'`: 점도 `@/`도 없으면 `npm ci`로 설치한 라이브러리입니다.
 
-파일 이름 끝의 `.ts`와 `.tsx`는 적지 않습니다. 이제 앱의 맨 위에 있는 파일을 통째로 읽어 봅니다. 9줄입니다.
+파일 이름 끝의 `.ts`와 `.tsx`는 적지 않습니다. 이제 9줄짜리 파일 하나를 통째로 읽어 봅니다.
 
 ```tsx src="src/app/App.tsx:1-9"
 import { AppProviders } from './providers';

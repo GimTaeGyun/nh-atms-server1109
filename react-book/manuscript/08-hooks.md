@@ -172,7 +172,7 @@ ref에는 쓰임이 하나 더 있습니다. JSX 태그에 `ref={…}`로 건네
 
 ### 층을 건너 값 건네기, Context
 
-props는 부모에서 자식으로 한 층씩 내려갑니다. `NoticePage`는 받은 화면키 `screenKey`를 버튼줄 `ActionBar`에 건네고(83행), `ActionBar`는 그것을 버튼마다 다시 건넵니다. 층이 하나 늘 때마다 받아서 넘기는 줄도 하나씩 늡니다.
+props는 부모에서 자식으로 한 층씩 내려갑니다. `NoticePage`는 받은 화면키 `screenKey`를 버튼줄 `ActionBar`에 건네고(83행), `ActionBar`는 그것을 버튼마다 다시 건넵니다. 버튼이 화면키를 알아야 눌러도 되는 버튼인지 가려내기 때문입니다([[#ch11]]). 층이 하나 늘 때마다 받아서 넘기는 줄도 하나씩 늡니다.
 
 지점 이름은 창구마다 전표로 알려 주지 않습니다. 입구에 현판을 걸어 두면 안에 있는 누구든 고개를 들어 봅니다. 리액트의 **@@Context@@**(컨텍스트)가 이 현판입니다. 위쪽 컴포넌트가 값을 한 번 걸어 두면, 그 안쪽의 컴포넌트는 몇 층 아래에 있든 props 없이 꺼내 씁니다. 만들기, 걸기, 꺼내기 세 걸음입니다.
 
@@ -191,7 +191,7 @@ export const ScreenIdProvider = ({ screenKey, children }: { screenKey: ScreenKey
 
 ① @@|createContext@@`createContext(기본값)`이 Context를 만듭니다. 여기서는 기본값이 `undefined`입니다. ② Context에 딸린 `Provider` 컴포넌트로 감싸고 `value`에 값을 주면 걸립니다. 감싼 `children` 안쪽 전부가 이 값을 봅니다. 이렇게 값을 걸어 주는 컴포넌트를 **@@Provider@@**(프로바이더)라고 부릅니다. ③ @@|useContext@@`useContext(Context)`는 가장 가까운 위쪽 Provider가 건 값을 돌려줍니다. 감싼 Provider가 없으면 기본값을 돌려줍니다.
 
-알아 둘 것이 하나 있습니다. 지금 우리 소스에는 `ScreenIdProvider`로 화면을 감싼 곳이 아직 없습니다. 길만 닦아 둔 셈이라 화면들은 화면키를 props로 직접 건네고, `useScreenId()`는 늘 기본값을 돌려줍니다. 실제로 일하는 Context는 [[#ch9]]에서 만납니다. 앱 맨 위를 감싼 `QueryClientProvider` 같은 Provider들이 같은 원리로 값을 걸어 둡니다.
+알아 둘 것이 하나 있습니다. 지금 우리 소스에는 `ScreenIdProvider`로 화면을 감싼 곳이 아직 없습니다. 길만 닦아 둔 셈이라 화면들은 화면키를 props로 직접 건네고, `useScreenId()`는 늘 기본값을 돌려줍니다. 꺼내 쓰는 `useAllowed.ts` 35행도 `screenKey ?? ctxId`로 props를 먼저 봅니다. 실제로 일하는 Context는 [[#ch9]]에서 만납니다. 앱 맨 위를 감싼 `QueryClientProvider` 같은 Provider들이 같은 원리로 값을 걸어 둡니다.
 
 ## 나만의 훅 만들기, 커스텀 훅 {#ch8-custom}
 
