@@ -2,7 +2,7 @@
   <!-- 가지(실선: 바로 품는다, 점선: 사이에 다른 부품이 더 있다) -->
   <path class="line" d="M22,27 V41.5 H36"/>
   <path class="line" d="M46,52 V66.5 H60"/>
-  <path class="line" d="M70,77 V91.5 H84"/>
+  <path class="line-dash" d="M70,77 V91.5 H84"/>
   <path class="line-dash" d="M94,102 V116.5 H108"/>
   <path class="line" d="M118,127 V141.5 H132"/>
   <path class="line" d="M118,127 V166.5 H132"/>

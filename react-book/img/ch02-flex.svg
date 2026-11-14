@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 168">
+  <!-- flex: 그냥 두면 쌓이고, 부모에 .flex 를 주면 가로로 서고, .flex-between 이면 양 끝으로 벌어진다 (global.css 68~69행) -->
+
+  <!-- ① 그냥 두면 -->
+  <text x="10" y="16" class="t-b">그냥 두면</text>
+  <rect x="10" y="26" width="170" height="100" class="box-gray"/>
+  <rect x="18" y="34" width="154" height="36" class="box-blue"/>
+  <text x="95" y="57" text-anchor="middle" class="t-lg">제목</text>
+  <rect x="18" y="70" width="154" height="24" class="box"/>
+  <text x="95" y="86" text-anchor="middle">조회</text>
+  <rect x="18" y="94" width="154" height="24" class="box"/>
+  <text x="95" y="110" text-anchor="middle">등록</text>
+  <text x="10" y="146" class="t-gray">위에서 아래로 쌓인다</text>
+
+  <!-- ② 부모에 .flex -->
+  <text x="215" y="16"><tspan class="t-b">부모에</tspan>  <tspan class="t-mono t-b t-blue">.flex</tspan></text>
+  <rect x="215" y="26" width="170" height="52" class="box-gray"/>
+  <rect x="223" y="34" width="46" height="36" class="box-blue"/>
+  <text x="246" y="57" text-anchor="middle" class="t-lg">제목</text>
+  <rect x="277" y="40" width="40" height="24" class="box"/>
+  <text x="297" y="56" text-anchor="middle">조회</text>
+  <rect x="325" y="40" width="40" height="24" class="box"/>
+  <text x="345" y="56" text-anchor="middle">등록</text>
+  <text x="215" y="98" class="t-mono">display: flex;</text>
+  <text x="215" y="114" class="t-mono">align-items: center;</text>
+  <text x="215" y="130" class="t-mono">gap: 8px;</text>
+  <text x="215" y="150" class="t-gray">가로로 서고, 세로 가운데를</text>
+  <text x="215" y="165" class="t-gray">맞추고, 사이를 8px 띄운다</text>
+
+  <!-- ③ 부모에 .flex-between -->
+  <text x="420" y="16"><tspan class="t-b">부모에</tspan>  <tspan class="t-mono t-b t-blue">.flex-between</tspan></text>
+  <rect x="420" y="26" width="170" height="52" class="box-gray"/>
+  <rect x="428" y="34" width="46" height="36" class="box-blue"/>
+  <text x="451" y="57" text-anchor="middle" class="t-lg">제목</text>
+  <rect x="488" y="40" width="40" height="24" class="box"/>
+  <text x="508" y="56" text-anchor="middle">조회</text>
+  <rect x="542" y="40" width="40" height="24" class="box"/>
+  <text x="562" y="56" text-anchor="middle">등록</text>
+  <text x="420" y="98" class="t-gray"><tspan class="t-mono t-gray">.flex</tspan>의 세 줄에 더해</text>
+  <text x="420" y="114" class="t-mono">justify-content:</text>
+  <text x="432" y="130" class="t-mono">space-between;</text>
+  <text x="420" y="150" class="t-gray">남는 자리를 사이에 나눠</text>
+  <text x="420" y="165" class="t-gray">양 끝으로 벌린다</text>
+</svg>

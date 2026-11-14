@@ -36,9 +36,10 @@
   --marker-soft: #fff6c4;
   --code-bg: #f5f6f8;
 
-  --serif: 'Book Serif', 'Noto Serif KR', serif;
-  --sans: 'Pretendard', sans-serif;
-  --mono: 'D2Coding', monospace;
+  /* 글꼴에 없는 기호(⋮ ① → 등)는 시스템 비트맵 글꼴이 아니라 책의 다른 글꼴에서 찾게 한다 */
+  --serif: 'Book Serif', 'Pretendard', 'D2Coding', serif;
+  --sans: 'Pretendard', 'D2Coding', 'Book Serif', sans-serif;
+  --mono: 'D2Coding', 'Pretendard', monospace;
 
   /* 코드 색(구문 강조) — 먹·청색 중심, 문자열만 따뜻한 색 */
   --shiki-foreground: #17191c;
@@ -234,7 +235,7 @@ td code, th code { font-size: 0.93em; }
 td:first-child { font-weight: 500; }
 
 /* SVG 그림 공통 모양 — 그림 파일은 class 만 쓰고 색·글꼴은 여기서 정한다 */
-.fig svg text { font-family: 'Pretendard', sans-serif; font-size: 12.5px; fill: #17191c; }
+.fig svg text { font-family: 'Pretendard', 'D2Coding', sans-serif; font-size: 12.5px; fill: #17191c; }
 .fig svg .t-sm { font-size: 10.5px; }
 .fig svg .t-xs { font-size: 9.2px; }
 .fig svg .t-lg { font-size: 15px; font-weight: 700; }

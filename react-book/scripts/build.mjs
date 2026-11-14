@@ -104,6 +104,28 @@ export const matchQuote = (codeLines, srcSpec, where) => {
 /* ------------------------------------------------------------------ Markdown */
 const BOX_TAG = { tip: '팁', warn: '주의', note: '잠깐', term: '용어', source: '소스', try: '해 보기', check: '확인' };
 const md = new MarkdownIt({ html: true, linkify: false, typographer: false, breaks: false });
+// 곧은따옴표를 책 모양(“ ” ‘ ’)으로. markdown-it 의 자동 바꿈은 닫는 따옴표 뒤에 조사가 붙는 한국어("소스"의)를 못 바꿔서 직접 한다.
+// 규칙: 앞이 줄 처음·빈칸·여는 괄호·여는 따옴표면 여는 따옴표, 아니면 닫는 따옴표. 코드(`…`)와 HTML 은 건드리지 않는다.
+md.core.ruler.push('ko_quotes', (state) => {
+  for (const blk of state.tokens) {
+    if (blk.type !== 'inline' || !blk.children) continue;
+    let prev = '';
+    for (const t of blk.children) {
+      if (t.type === 'text') {
+        let out = '';
+        for (const ch of t.content) {
+          if (ch === '"' || ch === "'") {
+            const open = prev === '' || /[\s(\[{“‘<·/]/.test(prev);
+            out += ch === '"' ? (open ? '“' : '”') : (open ? '‘' : '’');
+          } else out += ch;
+          prev = ch;
+        }
+        t.content = out;
+      } else if (t.type === 'softbreak' || t.type === 'hardbreak') prev = ' ';
+      else if (t.type === 'code_inline' || t.type === 'ix' || t.type === 'image') prev = 'x';
+    }
+  }
+});
 md.use(mdAttrs, { allowedAttributes: ['id', 'class', 'width', 'w'] });
 for (const name of Object.keys(BOX_TAG)) {
   md.use(mdContainer, name, {
@@ -157,6 +179,9 @@ md.renderer.rules.ix = (tokens, idx, _o, env) => {
   return `<span class="ix" id="${id}">${md.renderInline(text, { ...env, nested: true })}</span>`;
 };
 
+/** 차례에 들어가는 제목 글자용 — 위 규칙과 같은 따옴표 바꿈 */
+const smartQ = (s) => { let prev = ''; let out = ''; for (const ch of s) { if (ch === '"' || ch === "'") { const open = prev === '' || /[\s(\[{“‘<·/]/.test(prev); out += ch === '"' ? (open ? '“' : '”') : (open ? '‘' : '’'); } else out += ch; prev = ch; } return out; };
+
 // 표 캡션: 표 바로 앞 문단이 "표: …" 로 시작하면 캡션
 md.core.ruler.push('table_caption', (state) => {
   const tk = state.tokens;
@@ -196,7 +221,7 @@ md.renderer.rules.heading_open = (tokens, idx, _o, env) => {
     env.sec += 1;
     const no = env.ch ? `${env.ch}.${env.sec}` : '';
     const id = env.ch ? `sec-${env.ch}-${env.sec}` : (custom ?? `sec-${env.key}-${env.sec}`);
-    env.sections.push({ id, no, text });
+    env.sections.push({ id, no, text: smartQ(text) });
     if (custom) env.xref.set(custom, { id, label: no ? `${no}절` : text });
     env.xref.set(id, { id, label: no ? `${no}절` : text });
     return `<h2 id="${id}">${no ? `<span class="no">${no}</span>` : ''}<span>`;
@@ -293,6 +318,14 @@ const ixSeq = { n: 0 };
 const xref = new Map();
 const allIx = [];
 const HOIST_RE = /^:::[ \t]*(lead|goals|files)[ \t]*\n([\s\S]*?)\n:::[ \t]*$/gm;
+/** 원고 손질: `**@@용어@@**` → `@@**용어**|용어@@` (닫는 ** 앞이 @ 라서 굵게가 안 닫히는 것을 막는다) */
+const fixBoldIx = (src) => src.replace(/\*\*@@([^@|\n]+?)(?:\|([^@\n]+?))?@@\*\*/g, (_m, text, key) => `@@**${text}**|${key ?? text}@@`);
+/** 조판된 글에 원고 기호(** 나 @@)가 그대로 남았는지 본다 — 코드 안은 빼고 */
+const checkLeftover = (html, where) => {
+  const text = html.replace(/<pre[\s\S]*?<\/pre>/g, '').replace(/<code>[\s\S]*?<\/code>/g, '').replace(/<svg[\s\S]*?<\/svg>/g, '').replace(/<[^>]+>/g, '');
+  const m = /(.{0,24})(\*\*|@@)(.{0,24})/.exec(text);
+  if (m) fail(where, `원고 기호 "${m[2]}" 가 글에 그대로 남았다: …${m[1]}${m[2]}${m[3]}… (굵게·찾아보기 표시의 짝이나 순서를 확인)`);
+};
 
 const renderChapter = (ch, part) => {
   const where = `${ch.no}장`;
@@ -308,7 +341,9 @@ const renderChapter = (ch, part) => {
   const hoist = {};
   src = src.replace(HOIST_RE, (m, k, body) => { hoist[k] = body; return '\n'.repeat(m.split('\n').length - 1); });
   const env = { ch: ch.no, key: `ch${ch.no}`, where, sec: 0, fig: 0, tbl: 0, sections: [], ix: allIx, ixSeq, xref };
+  src = fixBoldIx(src);
   const body = md.render(src, env);
+  checkLeftover(body, where);
   xref.set(`ch${ch.no}`, { id: `ch-${ch.no}`, label: `${ch.no}장` });
   const rows = [];
   rows.push(`<div class="lbl chno"><span>${part ? `${part.no}부` : ''}</span><b>${pad2(ch.no)}</b></div><div class="val title"><h1 id="ch-${ch.no}">${md.renderInline(title, env)}</h1>${hoist.lead ? `<p class="lead">${md.renderInline(hoist.lead.replace(/\n+/g, ' '), env)}</p>` : ''}</div>`);
@@ -325,6 +360,8 @@ const renderFront = (f) => {
   const h1 = /^#\s+(.+?)\s*$/m.exec(src);
   if (h1) src = src.replace(h1[0], '');
   const env = { ch: null, key: f.id, where: f.id, sec: 0, fig: 0, tbl: 0, sections: [], ix: allIx, ixSeq, xref };
+  src = fixBoldIx(src);
+  checkLeftover(md.render(src, { ...env, ix: [], ixSeq: { n: 0 }, xref: new Map() }), f.id);
   return { ...f, title: h1 ? h1[1] : f.title, html: `<section class="front" id="${f.id}"><h1 class="ft" id="fm-${f.id}">${esc(h1 ? h1[1] : f.title)}</h1>\n${md.render(src, env)}</section>` };
 };
 
@@ -415,7 +452,8 @@ const assemble = (pages) => {
 const toPdf = async (browser, htmlPath, pdfPath) => {
   const page = await browser.newPage();
   await page.goto(pathToFileURL(htmlPath).href, { waitUntil: 'networkidle' });
-  await page.evaluate(() => document.fonts.ready);
+  // 쪽 머리글·쪽번호(여백 상자)에만 쓰이는 글꼴도 미리 불러 둔다
+  await page.evaluate(async () => { await Promise.all([...document.fonts].map((f) => f.load().catch(() => null))); await document.fonts.ready; });
   await page.pdf({ path: pdfPath, preferCSSPageSize: true, printBackground: true, outline: true, tagged: false });
   await page.close();
 };

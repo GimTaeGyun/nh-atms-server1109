@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 146">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fill-ink"/></marker>
+    <marker id="arrow-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fill-blue"/></marker>
+  </defs>
+
+  <!-- 원본 -->
+  <text class="t-mono t-b" x="2" y="14">prev</text>
+  <rect class="box" x="2" y="22" width="150" height="30"/>
+  <text class="t-mono" x="77" y="41" text-anchor="middle">keyword: '점검'</text>
+  <rect class="box" x="2" y="52" width="150" height="30"/>
+  <text class="t-mono" x="77" y="71" text-anchor="middle">page: 1</text>
+  <rect class="box" x="2" y="82" width="150" height="30"/>
+  <text class="t-mono" x="77" y="101" text-anchor="middle">size: 20</text>
+  <text class="t-sm t-gray" x="2" y="130">원본은 그대로 남는다</text>
+
+  <!-- 가운데: 일어나는 일 -->
+  <path class="line" d="M152,37 H448" marker-end="url(#arrow)"/>
+  <text class="t-sm" x="300" y="31" text-anchor="middle">① ...prev가 베껴 놓는다</text>
+
+  <path class="line-dash" d="M152,67 H232"/>
+  <rect class="box-yellow" x="246" y="53" width="108" height="28"/>
+  <text class="t-mono" x="300" y="71" text-anchor="middle">page: 2</text>
+  <path class="line-blue" d="M354,67 H448" marker-end="url(#arrow-b)"/>
+  <text class="t-sm t-blue" x="300" y="94" text-anchor="middle">② 뒤에 적은 값이 덮어쓴다</text>
+
+  <path class="line" d="M152,105 H448" marker-end="url(#arrow)"/>
+  <text class="t-sm" x="300" y="121" text-anchor="middle">① ...prev가 베껴 놓는다</text>
+
+  <!-- 새 객체 -->
+  <text class="t-mono t-b" x="450" y="14">next</text>
+  <rect class="box" x="448" y="22" width="150" height="30"/>
+  <text class="t-mono" x="523" y="41" text-anchor="middle">keyword: '점검'</text>
+  <rect class="box-yellow" x="448" y="52" width="150" height="30"/>
+  <text class="t-mono" x="523" y="71" text-anchor="middle">page: 2</text>
+  <rect class="box" x="448" y="82" width="150" height="30"/>
+  <text class="t-mono" x="523" y="101" text-anchor="middle">size: 20</text>
+  <text class="t-sm t-gray" x="450" y="130">새로 만든 객체</text>
+</svg>

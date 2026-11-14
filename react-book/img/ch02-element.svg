@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 88">
+  <!-- 요소 하나의 생김새: 여는 태그 + 내용 + 닫는 태그, 여는 태그 안의 태그 이름과 속성 -->
+
+  <!-- 위 이름표 -->
+  <text x="188" y="12" text-anchor="middle" class="t-b t-blue">여는 태그</text>
+  <text x="366" y="12" text-anchor="middle" class="t-b t-blue">내용</text>
+  <text x="461" y="12" text-anchor="middle" class="t-b t-blue">닫는 태그</text>
+
+  <!-- 전체 = 요소 -->
+  <rect x="55" y="18" width="456" height="42" class="box-dash"/>
+  <path d="M511,39 L524,39" class="line-dash"/>
+  <text x="530" y="43" class="t-b">요소</text>
+
+  <!-- 세 토막 -->
+  <rect x="63" y="23" width="250" height="32" class="box-blue"/>
+  <text x="188" y="43" text-anchor="middle" class="t-mono">&lt;div class="home-card-title"&gt;</text>
+  <rect x="321" y="23" width="90" height="32" class="box-yellow"/>
+  <text x="366" y="44" text-anchor="middle">공지사항</text>
+  <rect x="419" y="23" width="84" height="32" class="box-blue"/>
+  <text x="461" y="43" text-anchor="middle" class="t-mono">&lt;/div&gt;</text>
+
+  <!-- 여는 태그 안: 태그 이름과 속성 -->
+  <path d="M113,49 L129,49" class="line-blue"/>
+  <path d="M121,49 L121,70" class="line-blue"/>
+  <text x="121" y="83" text-anchor="middle">태그 이름</text>
+
+  <path d="M135,49 L263,49" class="line-blue"/>
+  <path d="M199,49 L199,70" class="line-blue"/>
+  <text x="199" y="83" text-anchor="middle">속성 <tspan class="t-gray">이름="값"</tspan></text>
+</svg>

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 170">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fill-ink"/></marker>
+  </defs>
+
+  <!-- map -->
+  <text class="t-lg" x="2" y="38">map</text>
+  <rect class="box" x="70" y="16" width="40" height="34"/>
+  <text x="90" y="38" text-anchor="middle">25</text>
+  <rect class="box" x="110" y="16" width="40" height="34"/>
+  <text x="130" y="38" text-anchor="middle">26</text>
+  <rect class="box" x="150" y="16" width="40" height="34"/>
+  <text x="170" y="38" text-anchor="middle">27</text>
+
+  <path class="line" d="M190,33 H236" marker-end="url(#arrow)"/>
+  <rect class="box-blue" x="238" y="14" width="150" height="38"/>
+  <text class="t-mono" x="313" y="37" text-anchor="middle">(n) =&gt; n + 1</text>
+  <text class="t-sm t-gray" x="313" y="66" text-anchor="middle">25→26, 26→27, 27→28</text>
+  <path class="line" d="M388,33 H434" marker-end="url(#arrow)"/>
+
+  <rect class="box-yellow" x="436" y="16" width="40" height="34"/>
+  <text x="456" y="38" text-anchor="middle">26</text>
+  <rect class="box-yellow" x="476" y="16" width="40" height="34"/>
+  <text x="496" y="38" text-anchor="middle">27</text>
+  <rect class="box-yellow" x="516" y="16" width="40" height="34"/>
+  <text x="536" y="38" text-anchor="middle">28</text>
+  <text class="t-sm" x="436" y="66">개수가 같은 새 배열</text>
+
+  <path class="line-gray" d="M2,82 H598"/>
+
+  <!-- filter -->
+  <text class="t-lg" x="2" y="124">filter</text>
+  <rect class="box" x="70" y="102" width="40" height="34"/>
+  <text x="90" y="124" text-anchor="middle">25</text>
+  <rect class="box" x="110" y="102" width="40" height="34"/>
+  <text x="130" y="124" text-anchor="middle">26</text>
+  <rect class="box" x="150" y="102" width="40" height="34"/>
+  <text x="170" y="124" text-anchor="middle">27</text>
+
+  <path class="line" d="M190,119 H236" marker-end="url(#arrow)"/>
+  <rect class="box-blue" x="238" y="100" width="150" height="38"/>
+  <text class="t-mono" x="313" y="123" text-anchor="middle">(n) =&gt; n &gt; 25</text>
+  <text class="t-sm t-gray" x="313" y="152" text-anchor="middle">25→false, 26→true, 27→true</text>
+  <path class="line" d="M388,119 H434" marker-end="url(#arrow)"/>
+
+  <rect class="box-yellow" x="436" y="102" width="40" height="34"/>
+  <text x="456" y="124" text-anchor="middle">26</text>
+  <rect class="box-yellow" x="476" y="102" width="40" height="34"/>
+  <text x="496" y="124" text-anchor="middle">27</text>
+  <text class="t-sm" x="436" y="152">참인 항목만 남은 새 배열</text>
+
+  <text class="t-sm t-gray" x="70" y="10">원래 배열</text>
+  <text class="t-sm t-gray" x="238" y="10">건넨 콜백</text>
+  <text class="t-sm t-gray" x="436" y="10">돌려받는 배열</text>
+</svg>

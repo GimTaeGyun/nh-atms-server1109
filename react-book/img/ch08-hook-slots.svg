@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 160">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fill-ink"/></marker>
+  </defs>
+
+  <!-- 왼쪽: 처음 렌더링 -->
+  <text class="t-b" x="143" y="14" text-anchor="middle">처음 렌더링 (vip는 false)</text>
+  <text class="t-sm t-gray" x="72" y="36" text-anchor="middle">훅을 부른 순서</text>
+  <text class="t-sm t-gray" x="232" y="36" text-anchor="middle">리액트의 보관함</text>
+
+  <rect class="box" x="4" y="44" width="136" height="30"/>
+  <text class="t-mono" x="72" y="63" text-anchor="middle">6행 useState(7)</text>
+  <path class="line" d="M140,59 H183" marker-end="url(#arrow)"/>
+  <rect class="box-yellow" x="184" y="44" width="96" height="30"/>
+  <text x="232" y="63.5" text-anchor="middle">1번 칸: 7</text>
+
+  <text x="143" y="132" text-anchor="middle">waiting이 1번 칸의 7을 받는다</text>
+
+  <path class="line-dash" d="M300,2 V158"/>
+
+  <!-- 오른쪽: 다음 렌더링 -->
+  <text class="t-b" x="458" y="14" text-anchor="middle">다음 렌더링 (vip가 true)</text>
+  <text class="t-sm t-gray" x="388" y="36" text-anchor="middle">훅을 부른 순서</text>
+  <text class="t-sm t-gray" x="548" y="36" text-anchor="middle">리액트의 보관함</text>
+
+  <rect class="box-red" x="320" y="44" width="136" height="30"/>
+  <text class="t-mono" x="388" y="63" text-anchor="middle">3행 useState('귀빈')</text>
+  <path class="line" d="M456,59 H499" marker-end="url(#arrow)"/>
+  <rect class="box-yellow" x="500" y="44" width="96" height="30"/>
+  <text x="548" y="63.5" text-anchor="middle">1번 칸: 7</text>
+
+  <rect class="box" x="320" y="84" width="136" height="30"/>
+  <text class="t-mono" x="388" y="103" text-anchor="middle">6행 useState(7)</text>
+  <path class="line" d="M456,99 H499" marker-end="url(#arrow)"/>
+  <rect class="box-dash" x="500" y="84" width="96" height="30"/>
+  <text class="t-gray" x="548" y="103.5" text-anchor="middle">2번 칸: 없음</text>
+
+  <text class="t-red" x="458" y="132" text-anchor="middle">memo가 1번 칸의 7을 받는다</text>
+  <text class="t-red" x="458" y="151" text-anchor="middle">6행의 훅은 받을 칸이 없어 오류가 난다</text>
+</svg>

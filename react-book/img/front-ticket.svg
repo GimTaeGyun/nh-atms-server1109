@@ -12,7 +12,7 @@
   <g transform="translate(300 106) scale(3.2)">
     <text x="0" y="0" text-anchor="middle" class="t-lg t-blue">14</text>
   </g>
-  <text x="300" y="128" text-anchor="middle">앞선 차례 13장</text>
+  <text x="300" y="128" text-anchor="middle">먼저 읽을 장 13개</text>
 
   <line x1="202" y1="140" x2="398" y2="140" class="line-dash"/>
 
@@ -27,7 +27,8 @@
   <line x1="158" y1="90" x2="262" y2="90" class="line" marker-end="url(#arrow)"/>
 
   <!-- 오른쪽 설명 -->
-  <text x="450" y="119" text-anchor="start">1장부터 13장까지는</text>
-  <text x="450" y="136" text-anchor="start">차례를 기다리며 준비하는 시간</text>
-  <line x1="442" y1="124" x2="352" y2="124" class="line" marker-end="url(#arrow)"/>
+  <text x="450" y="111" text-anchor="start">1장부터 13장까지는</text>
+  <text x="450" y="128" text-anchor="start">차례를 기다리며</text>
+  <text x="450" y="145" text-anchor="start">준비하는 시간</text>
+  <line x1="442" y1="124" x2="362" y2="124" class="line" marker-end="url(#arrow)"/>
 </svg>

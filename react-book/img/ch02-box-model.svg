@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 190">
+  <!-- 박스 모델: 조회조건 상자(.search-panel)의 네 겹. 값은 global.css 88~95행 그대로 -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fill-ink"/></marker>
+  </defs>
+
+  <!-- 바깥 여백 -->
+  <rect x="10" y="8" width="580" height="174" class="box-dash"/>
+  <text x="24" y="27"><tspan class="t-b">바깥 여백</tspan>  <tspan class="t-mono">margin</tspan></text>
+  <path d="M300,150 L300,180" class="line" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="310" y="170" class="t-mono">margin-bottom: 14px</text>
+
+  <!-- 테두리 -->
+  <rect x="40" y="36" width="520" height="112" class="box-solid"/>
+  <text x="576" y="27" text-anchor="end"><tspan class="t-b">테두리</tspan>  <tspan class="t-mono">border: 1px</tspan></text>
+  <path d="M522,31 L522,37" class="line"/>
+
+  <!-- 안쪽 여백 -->
+  <rect x="45" y="41" width="510" height="102" class="box-blue"/>
+  <text x="58" y="60"><tspan class="t-b">안쪽 여백</tspan>  <tspan class="t-mono">padding</tspan></text>
+  <text x="300" y="60" text-anchor="middle" class="t-mono t-blue">12px</text>
+  <text x="300" y="136" text-anchor="middle" class="t-mono t-blue">12px</text>
+  <text x="75" y="96" text-anchor="middle" class="t-mono t-blue">16px</text>
+  <text x="525" y="96" text-anchor="middle" class="t-mono t-blue">16px</text>
+
+  <!-- 내용 -->
+  <rect x="105" y="68" width="390" height="48" class="box"/>
+  <text x="300" y="89" text-anchor="middle" class="t-b">내용</text>
+  <text x="300" y="106" text-anchor="middle" class="t-gray">조회조건 칸들과 [조회] 버튼</text>
+</svg>
