@@ -326,7 +326,7 @@ md.renderer.rules.fence = (tokens, idx, _o, env) => {
   let cap = '';
   const title = attrs.title ?? (attrs.src ? String(attrs.src).replace(/:\d+(-\d+)?$/, '') : '');
   let kind = attrs.kind ?? '';
-  if (!kind && attrs.src) { const r = /:(\d+)(?:-(\d+))?$/.exec(attrs.src); kind = r ? `우리 소스 ${r[1]}${r[2] && r[2] !== r[1] ? `–${r[2]}` : ''}줄` : '우리 소스'; }
+  if (!kind && attrs.src) { const r = /:(\d+)(?:-(\d+))?$/.exec(attrs.src); kind = r ? `우리 소스 ${r[1]}${r[2] && r[2] !== r[1] ? `~${r[2]}` : ''}줄` : '우리 소스'; }
   if (title || kind) cap = `<div class="cap${attrs.src ? '' : ' plain'}"><span class="path">${esc(title)}</span><span class="kind">${esc(kind)}</span></div>`;
   const keep = lines.length <= 14 ? ' keep' : '';
   return `<figure class="listing${keep}">${cap}<pre class="code${showNums ? ' nums' : ''}${isTerm ? ' term' : ''}${isOut ? ' out' : ''}">${body}</pre></figure>\n`;
@@ -536,6 +536,13 @@ if (ONLY) {
     const f = (config.front ?? []).find((x) => x.id === ONLY);
     if (!f) { console.error(`--only ${ONLY}: 그런 장/머리글이 없다`); process.exit(2); }
     const r = renderFront(f); body = r.html; name = `${f.id}${TAG ? `-${TAG}` : ''}`; title = r.title; budget = f.budget;
+    // 앞붙이도 [[#…]] 를 책 전체 빌드와 같은 글자로 푼다
+    const outer = scanXrefLabels();
+    body = body.replace(/\[\[#([\w-]+)\]\]/g, (_m, id) => {
+      const x = xref.get(id) ?? outer.get(id);
+      if (!x) { fail(f.id, `상호참조 대상 없음: [[#${id}]]`); return `<span class="xref">(→${id})</span>`; }
+      return `<a class="xref" href="#${x.id}">${esc(x.label)}</a>`;
+    });
   }
   if (errors.length) { console.error(`오류 ${errors.length}건\n${errors.join('\n')}`); process.exit(1); }
   if (CHECK_ONLY) { console.log(`${name}: 원고 문법·소스 인용 대조 통과`); if (warns.length) console.warn(warns.join('\n')); process.exit(0); }

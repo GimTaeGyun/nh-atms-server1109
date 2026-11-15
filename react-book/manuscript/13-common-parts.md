@@ -179,7 +179,7 @@ export const noticeColumns = (page: number, size: number, onOpen: (r: Notice) =>
 
 ## 팝업과 입력 검사 {#ch13-popup}
 
-[등록]을 누르면 뜨는 작은 창이 [[#ch6]]의 팝업(모달)이고, 틀은 `NoticeEditModal.tsx` 45~52행처럼 antd의 @@`Modal`|Modal@@로 그립니다. `open`이 `true`면 뜨고 `false`면 사라집니다. `onCancel`은 ×나 팝업 바깥을 누르거나 <kbd>Esc</kbd>를 눌렀을 때 부를 함수입니다. `destroyOnHidden`은 닫을 때 안쪽을 버리라는 표시라서, 다시 열면 새 폼으로 시작합니다.
+[등록]을 누르면 뜨는 작은 창이 [[#ch6]]의 팝업(모달)이고, 그 창은 `NoticeEditModal.tsx` 45~52행처럼 antd의 @@`Modal`|Modal@@로 그립니다. `open`이 `true`면 뜨고 `false`면 사라집니다. `onCancel`은 ×나 팝업 바깥을 누르거나 <kbd>Esc</kbd>를 눌렀을 때 부를 함수입니다. `destroyOnHidden`은 닫을 때 안쪽을 버리라는 표시라서, 다시 열면 새 폼으로 시작합니다.
 
 팝업 안쪽의 라벨과 값 표는 @@`DetailGrid`|DetailGrid@@가 `items`라는 설정 배열을 받아 그립니다. 값 자리에 글자를 넣으면 상세 팝업이, 입력 칸을 넣으면 등록·수정 팝업이 됩니다. 상세 팝업은 `Modal`에 제목 줄과 [닫기]를 붙인 팝업 틀 @@`DetailModal`|DetailModal@@로 감쌉니다. 아래는 등록 팝업에서 빈칸으로 [저장]을 누른 모습입니다.
 
@@ -199,7 +199,7 @@ const RULES = {
 
 규칙을 칸에 잇는 것은 antd의 `Form.Item`을 감싼 함수 @@`formItem`|formItem@@입니다. 88행은 칸 이름 `'subject'`, 입력 칸 `<Input … />`, 규칙 `RULES.subject`를 차례로 건네 제목 칸을 만듭니다. 함수여서 태그로 쓰지 않고 괄호로 부릅니다. 같은 줄의 `required: true`가 라벨 옆의 빨간 별을, 입력 칸의 `count`가 오른쪽의 `0 / 200`을 그립니다. 별은 표시일 뿐이라서, 별만 달고 `req`를 빼면 빈 제목을 막지 못합니다.
 
-[저장]은 `form.submit()`을 부르고, `Form`은 모든 칸이 규칙을 통과해야 80행의 `onFinish`를 불러 저장합니다. 이 버튼도 `ActionBar`의 버튼처럼 `AuthButton`이고, 96행에서 공지사항 화면의 화면키로 권한을 묻습니다. 메뉴에 없는 팝업에는 조회 권한만 있기 때문입니다.
+[저장]은 `form.submit()`을 부르고, `Form`은 모든 칸이 규칙을 통과해야 80행의 `onFinish`를 불러 저장합니다. 이 버튼도 `ActionBar`의 버튼과 같은 권한 버튼 `AuthButton`이고, 96행에서 공지사항 화면의 화면키로 권한을 묻습니다. 메뉴에 없는 팝업에는 조회 권한만 있기 때문입니다.
 
 ## 글자와 모양은 한곳에서 {#ch13-format}
 
@@ -212,6 +212,7 @@ const RULES = {
 | `fmtDate('20261115')` | `2026-11-15` |
 | `fmtCount(12345)` | `12,345` |
 | `fmtOffice('100001', '가람지점')` | `[100001] 가람지점` |
+| `fmtDateTime14('20261115093000')` | `2026-11-15 09:30:00` |
 
 `fmtDate(null)`처럼 값이 없으면 `-`를 돌려주는 일도 함수가 맡습니다. `dateCol`과 `countCol`도 이 함수들을 부르니, 표와 팝업과 출력물의 날짜를 점으로 찍기로 하면 이 파일만 고칩니다.
 
