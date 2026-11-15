@@ -470,7 +470,7 @@ const assemble = (pages) => {
       toc += '</div>';
     }
   }
-  if (config.index !== false) toc += `<div class="front-items" style="margin-top:5mm"><a class="row fm" href="#fm-index"><span>찾아보기</span><span class="dots"></span>${pg('fm-index')}</a></div>`;
+  if (config.index !== false) toc += `<div class="front-items" style="margin:1.2mm 0 0"><a class="row fm" href="#fm-index"><span>찾아보기</span><span class="dots"></span>${pg('fm-index')}</a></div>`;
   toc += '</section>';
   // 부 표지 + 장
   let main = '';
