@@ -134,6 +134,13 @@ md.core.ruler.push('ko_quotes', (state) => {
     }
   }
 });
+// 숫자와 바로 붙은 한글 단위(10개, 34행, 3월)가 줄 끝에서 갈리지 않게 그 사이에 단어 이음표(U+2060)를 넣는다. 코드(`…`)는 건드리지 않는다.
+md.core.ruler.push('num_unit', (state) => {
+  for (const blk of state.tokens) {
+    if (blk.type !== 'inline' || !blk.children) continue;
+    for (const t of blk.children) if (t.type === 'text') t.content = t.content.replace(/(\d)(?=[가-힣])/g, '$1\u2060');
+  }
+});
 md.use(mdAttrs, { allowedAttributes: ['id', 'class', 'width', 'w'] });
 for (const name of Object.keys(BOX_TAG)) {
   md.use(mdContainer, name, {

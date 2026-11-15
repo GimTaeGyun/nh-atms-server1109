@@ -106,7 +106,7 @@
 | boolean | 참거짓 | |
 | AppShell / PageFrame | 앱 틀 / 화면 틀 | |
 | ActionBar / ResultHeader | 버튼줄 / 건수 줄 | |
-| DetailModal / NoticeViewModal / NoticeEditModal | 팝업 틀 / 상세 팝업 / 등록·수정 팝업 | 등록으로 연 장면만 "등록 팝업" |
+| DetailModal / NoticeViewModal / NoticeEditModal | 팝업 틀 / 상세 팝업 / 등록·수정 팝업 | 이름은 "등록·수정 팝업". [등록]으로 연 장면은 "등록 팝업", [수정]으로 연 장면은 "수정 팝업"이라 불러도 된다 |
 | Popconfirm | 확인 풍선 | 삭제 앞이면 "삭제 확인 풍선", 버튼은 [확인]·[취소] |
 | rowSelection | 체크 칸 | |
 | SettingsDrawer / StatusTag / SidePanel / IconRail | 환경설정 창 / 상태 알약 / 메뉴 패널 / 아이콘 줄 | |
