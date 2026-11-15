@@ -180,7 +180,7 @@ export const sumBy = <T,>(rows: T[], pick: (r: T) => number | null | undefined):
 
 ## domain/notice.ts 읽기 {#ch4-notice}
 
-`src/domain/notice.ts`는 공지사항 화면과 서버가 주고받는 자료의 모양을 적은 57줄짜리 파일이고, [[#ch14]]에서 빈 화면 다음에 치는 파일입니다. 타입만 6개 있습니다. 서버로 보내는 양식은 `NoticeSearch`(조회조건), `NoticeSave`(등록·수정), `NoticeDeleteRequest`(삭제)입니다. 받는 양식은 `Notice`(공지 한 건)와 `NoticeDeleteResult`(삭제 결과)이고, 나머지 하나가 검색구분 `NoticeField`입니다. 끝의 세 양식은 [[#ch4-interface]]에서 읽었습니다.
+`src/domain/notice.ts`는 공지사항 화면과 서버가 주고받는 자료의 모양을 적은 57줄짜리 파일이고, [[#ch14]]에서 빈 화면 다음에 치는 파일입니다. 타입만 6개 들어 있습니다. 서버로 보내는 양식은 `NoticeSearch`(조회조건), `NoticeSave`(등록·수정), `NoticeDeleteRequest`(삭제)입니다. 받는 양식은 `Notice`(공지 한 건)와 `NoticeDeleteResult`(삭제 결과)이고, 나머지 하나가 검색구분 `NoticeField`입니다. 끝의 세 양식은 [[#ch4-interface]]에서 읽었습니다.
 
 ```ts src="src/domain/notice.ts:1-8"
 /**

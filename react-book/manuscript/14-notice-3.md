@@ -188,7 +188,7 @@ git diff --no-index --ignore-cr-at-eol --ignore-blank-lines --stat <원본 폴�
 | 할 일 | 어디에 | 누가 |
 |---|---|---|
 | 서버와 맞춘 자료의 모양과 API 함수 | `domain/`, `api/endpoints/`(백엔드의 API 계약 문서를 보고) | 화면 담당 |
-| 견본을 복사해 화면 파일 만들기 | `screens/` (`NoticeParts.tsx` 4행 주석) | 화면 담당 |
+| 견본을 복사해 화면 파일 만들기 | `screens/`(`NoticeParts.tsx` 4행 주석) | 화면 담당 |
 | 권한을 묻는 화면키 바꾸기 | 팝업 속 `AuthButton`의 `screenKey` | 화면 담당 |
 | 화면키·팝업 화면키·`def(…)` | `screenIds.ts`, `registry.ts` | 화면 담당 → 리드 |
 | 메뉴 표에 주소와 권한 넣기 | 서버의 메뉴 표([[#ch10-menu]]) | 리드·백엔드 |

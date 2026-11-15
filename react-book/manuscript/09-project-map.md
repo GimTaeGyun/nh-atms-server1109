@@ -105,7 +105,7 @@ export const AppProviders = ({ children }: { children: ReactNode }) => (
 );
 ```
 
-@@`AppProviders`|AppProviders@@는 `children`을 세 겹으로 감쌉니다. 세 겹 모두 [[#ch8]]에서 본 Provider로, 안쪽 어디서든 꺼내 쓸 것을 걸어 둡니다. ①은 서버 자료를 기억하는 캐시를([[#ch12]]), ②는 antd 부품의 한국어 표기와 `antdTheme.ts`의 색을, ③은 알림과 확인 창을 깔아 줍니다. `AntApp`은 antd의 `App`인데, 우리 `App`과 헷갈리지 않게 가져오기 줄에서 `App as AntApp`으로 이름을 바꿨습니다. 가져오기의 `as`는 이름 바꾸기로, [[#ch4]]의 타입 보증과 다릅니다. 14행의 `AppMessageBridge`는 알림을 컴포넌트 바깥에서도 띄우게 잇습니다. 15행의 @@`ErrorBoundary`|ErrorBoundary@@는 화면을 그리다 오류가 나면 흰 화면 대신 안내문을 띄우는 안전망입니다. 그 안의 `{children}`이 `AppRouter`입니다.
+@@`AppProviders`|AppProviders@@는 `children`을 세 겹으로 감쌉니다. 세 겹 모두 [[#ch8]]에서 본 Provider로, 안쪽 어디서든 꺼내 쓸 것을 걸어 둡니다. ①은 서버 자료를 기억하는 캐시를([[#ch12]]), ②는 antd 부품의 한국어 표기와 `antdTheme.ts`의 색을, ③은 알림과 확인 창을 깔아 줍니다. `AntApp`은 antd의 `App`인데, 우리 `App`과 헷갈리지 않게 가져오기 줄에서 `App as AntApp`으로 이름을 바꿨습니다. 가져오기의 `as`는 이름 바꾸기로, [[#ch4]]의 타입 보증과 다릅니다. 14행의 `AppMessageBridge`는 알림을 컴포넌트 바깥에서도 띄우게 이어 줍니다. 15행의 @@`ErrorBoundary`|ErrorBoundary@@는 화면을 그리다 오류가 나면 흰 화면 대신 안내문을 띄우는 안전망입니다. 그 안의 `{children}`이 `AppRouter`입니다.
 
 ::: note 12행의 `${label}`은 템플릿 문자열이 아닙니다
 백틱이 아닌 작은따옴표로 감쌌으므로 `${label}`은 값으로 바뀌지 않고 글자 그대로 남습니다. 이 자리는 antd가 나중에 입력 칸의 이름으로 채웁니다.

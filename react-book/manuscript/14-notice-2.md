@@ -221,7 +221,7 @@ export const TEXT_MAX_BYTES = 4000;
 
 제목과 내용 길이의 상한을 [[#ch13-popup]]의 바이트로 적은 상수입니다. 주석의 '잠정'처럼 바뀔 수 있는 값이라 이름을 붙여 한곳에 둡니다.
 
-팝업 파일은 102줄로 이 장에서 가장 길어 여섯 덩이로 나눠 싣습니다. 첫 덩이는 가져오기입니다.
+팝업 파일은 102줄이라 여섯 덩이로 나눠 싣습니다. 첫 덩이는 가져오기입니다.
 
 ```tsx src="src/screens/popup/NoticeEditModal.tsx:1-15" kind="새 파일"
 import { Button, Form, Input, Modal, Skeleton } from 'antd';

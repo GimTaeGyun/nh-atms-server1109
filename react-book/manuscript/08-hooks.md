@@ -48,7 +48,7 @@ const Ticket = ({ vip }: { vip: boolean }) => {
 
 이번에는 3행의 훅이 먼저 불려 1번 칸을 받습니다. 그 칸에는 `waiting`의 값이 들어 있어서 콘솔에는 '귀빈' 대신 7이 찍힙니다. 6행의 훅은 받을 칸이 없습니다. 리액트는 `Rendered more hooks than during the previous render.`라는 오류를 내고 화면 그리기를 그만둡니다.
 
-*훅은 렌더링할 때마다 같은 순서로, 같은 개수만큼 불려야 합니다.* 맨 바깥 줄에서 함수를 중간에 끝내는 이른 `return`보다 먼저 부르면 저절로 지켜집니다. `NoticePage.tsx`의 훅도 모두 그렇게 불립니다.
+*훅은 렌더링할 때마다 같은 순서로, 같은 개수만큼 불려야 합니다.* 맨 바깥 줄에서, 함수를 중간에 끝내는 이른 `return`보다 먼저 부르면 저절로 지켜집니다. `NoticePage.tsx`의 훅도 모두 그렇습니다.
 
 ::: tip 규칙은 검사 도구가 지켜 줍니다
 우리 프로젝트의 코드 검사 도구 ESLint에는 훅 규칙이 들어 있습니다(`eslint.config.js` 15행). 예제 8-1 같은 코드가 소스 파일에 있으면 `npm run lint`가 그 줄(예제의 3행)에 `React Hook "useState" is called conditionally.`라는 오류를 찍습니다.
