@@ -106,7 +106,7 @@ export const SectionCard = ({ title, sub, extra, children, style, bodyStyle, cla
 ![`SectionCard`가 화면 조각을 받는 네 자리](img/ch06-slots.svg){width=100%}
 
 ::: try 빈 자리 채우기
-[공통 모듈] 화면의 [권한·메시지] 탭 맨 아래 '표시 부품' 상자를 보세요. "SectionCard 제목" 카드가 `src/screens/sample/commonModules/DisplayShowcase.tsx` 80~82행입니다.
+[공통 모듈] 화면의 [권한·메시지] 탭 맨 아래 '표시 부품' 상자를 보세요. 그 안의 "SectionCard 제목" 카드가 `src/screens/sample/commonModules/DisplayShowcase.tsx` 80~82행입니다.
 
 80행의 `title`을 `"점검 안내"`로, 81행의 글을 `오늘 22시부터 점검합니다.`로 고칩니다. `style` 앞에는 `extra={<b>오른쪽 자리</b>}`를 넣고 저장하세요. `<b>`는 글자를 굵게 하는 태그입니다. 카드가 그림 6-2와 같아집니다. 끝나면 <kbd>Ctrl</kbd>+<kbd>Z</kbd>를 여러 번 눌러 되돌리고 저장합니다.
 :::

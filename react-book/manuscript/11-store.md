@@ -103,7 +103,7 @@ export const usePermission = (screenKey?: ScreenKey | string): Permission => {
 };
 ```
 
-48~50행에서 스토어 3곳의 값을 꺼냅니다. `selectIsAdmin`은 "관리자인가"를 고르는 셀렉터이고, `preview`는 다른 권한의 화면을 흉내 내 보는 미리보기 값입니다. 51행은 메뉴에서 이 화면을 찾습니다. 52행 안쪽 `permissionOf`는 관리자면 모두 `true`, 아니면 메뉴에 적힌 대로 `canQry`(조회), `canReg`(등록) 같은 답을 정합니다. 바깥쪽 `applyPreview`는 미리보기가 켜지면 관리자라도 답을 덮어씁니다.
+48~50행에서 스토어 3곳의 값을 꺼냅니다. `selectIsAdmin`은 "관리자인가"를 고르는 셀렉터이고, `preview`는 다른 권한을 흉내 내는 미리보기 값입니다. 51행은 메뉴에서 이 화면을 찾습니다. 52행 안쪽 `permissionOf`는 관리자면 모두 `true`, 아니면 메뉴에 적힌 대로 `canQry`(조회), `canReg`(등록) 같은 답을 정합니다. 바깥쪽 `applyPreview`는 미리보기가 켜지면 관리자라도 답을 덮어씁니다.
 
 ![권한이 버튼까지 오는 길. 스토어 3곳에 든 값을 훅이 모아서 답한다](img/ch11-permission-path.svg){width=82%}
 
