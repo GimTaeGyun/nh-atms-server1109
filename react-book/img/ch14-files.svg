@@ -7,45 +7,45 @@
   <rect x="195" y="4" width="210" height="64" class="box-yellow"/>
   <text x="300" y="25" text-anchor="middle" class="t-mono t-b">NoticePage.tsx</text>
   <text x="300" y="43" text-anchor="middle">화면 본체 · 틀과 버튼</text>
-  <text x="300" y="60" text-anchor="middle" class="t-sm t-blue">단계 1, 4~11</text>
+  <text x="300" y="60" text-anchor="middle" class="t-blue">단계 1, 4~11</text>
 
   <!-- 본체에서 아래로 -->
-  <path d="M240,68 L110,114" class="line" marker-end="url(#arrow)"/>
+  <path d="M240,68 L100,114" class="line" marker-end="url(#arrow)"/>
   <path d="M296,68 L296,114" class="line" marker-end="url(#arrow)"/>
   <path d="M360,68 L495,114" class="line" marker-end="url(#arrow)"/>
   <path d="M399,68 L399,226" class="line" marker-end="url(#arrow)"/>
 
   <!-- 2층: 부품과 팝업 -->
-  <rect x="4" y="116" width="188" height="64" class="box"/>
-  <text x="98" y="137" text-anchor="middle" class="t-mono t-b">NoticeParts.tsx</text>
-  <text x="98" y="155" text-anchor="middle">조회조건 · 컬럼</text>
-  <text x="98" y="172" text-anchor="middle" class="t-sm t-blue">단계 4~6, 8, 11</text>
+  <rect x="4" y="116" width="164" height="64" class="box"/>
+  <text x="86" y="137" text-anchor="middle" class="t-mono t-b">NoticeParts.tsx</text>
+  <text x="86" y="155" text-anchor="middle">조회조건 · 컬럼</text>
+  <text x="86" y="172" text-anchor="middle" class="t-blue">단계 4~6, 8, 11</text>
 
   <rect x="204" y="116" width="184" height="64" class="box"/>
   <text x="296" y="137" text-anchor="middle" class="t-mono t-b">NoticeEditModal.tsx</text>
   <text x="296" y="155" text-anchor="middle">등록 · 수정 팝업</text>
-  <text x="296" y="172" text-anchor="middle" class="t-sm t-blue">단계 8</text>
+  <text x="296" y="172" text-anchor="middle" class="t-blue">단계 8</text>
 
   <rect x="410" y="116" width="186" height="64" class="box"/>
   <text x="503" y="137" text-anchor="middle" class="t-mono t-b">NoticeViewModal.tsx</text>
   <text x="503" y="155" text-anchor="middle">상세 팝업</text>
-  <text x="503" y="172" text-anchor="middle" class="t-sm t-blue">단계 7</text>
+  <text x="503" y="172" text-anchor="middle" class="t-blue">단계 7</text>
 
   <!-- 등록·수정 팝업이 쓰는 것 -->
-  <path d="M204,148 L195,148" class="line" marker-end="url(#arrow)"/>
+  <path d="M204,148 L171,148" class="line" marker-end="url(#arrow)"/>
   <path d="M330,180 L330,226" class="line" marker-end="url(#arrow)"/>
 
   <!-- 3층: 서버 창구와 자료의 모양 -->
   <rect x="300" y="228" width="296" height="64" class="box-blue"/>
   <text x="448" y="249" text-anchor="middle" class="t-mono t-b">api/endpoints/notice.ts</text>
   <text x="448" y="267" text-anchor="middle">서버 창구 · API 함수와 쿼리 키</text>
-  <text x="448" y="284" text-anchor="middle" class="t-sm t-blue">단계 3</text>
+  <text x="448" y="284" text-anchor="middle" class="t-blue">단계 3</text>
 
   <path d="M300,260 L270,260" class="line" marker-end="url(#arrow)"/>
 
   <rect x="4" y="228" width="264" height="64" class="box-blue"/>
   <text x="136" y="249" text-anchor="middle" class="t-mono t-b">domain/notice.ts</text>
   <text x="136" y="267" text-anchor="middle">자료의 모양 · 타입 6개</text>
-  <text x="136" y="284" text-anchor="middle" class="t-sm t-blue">단계 2</text>
+  <text x="136" y="284" text-anchor="middle" class="t-blue">단계 2</text>
 
 </svg>
