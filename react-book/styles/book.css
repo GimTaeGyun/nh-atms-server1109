@@ -322,8 +322,8 @@ td:first-child { font-weight: 500; }
 /* ---------- 찾아보기 ---------- */
 .index { break-before: page; font-family: var(--sans); text-align: left; }
 .index h1.ft { font-size: 21pt; font-weight: 800; letter-spacing: -0.03em; margin: 8mm 0 6mm; padding-bottom: 3mm; border-bottom: 1.6pt solid var(--ink); }
-.index .cols { columns: 3; column-gap: 6mm; font-size: 7.7pt; line-height: 1.52; }
-.index .grp { font-family: var(--mono); font-weight: 700; font-size: 8.6pt; color: #fff; background: var(--blue); padding: 0 1.6mm; margin: 2.6mm 0 1mm; break-after: avoid; }
+.index .cols { columns: 3; column-gap: 6mm; font-size: 7.7pt; line-height: 1.47; }
+.index .grp { font-family: var(--mono); font-weight: 700; font-size: 8.6pt; color: #fff; background: var(--blue); padding: 0 1.6mm; margin: 2.2mm 0 0.9mm; break-after: avoid; }
 .index .cols > .grp:first-child { margin-top: 0; }
 .index .it { display: flex; gap: 1.4mm; align-items: baseline; break-inside: avoid; }
 .index .it .k { flex: 0 1 auto; overflow-wrap: anywhere; }

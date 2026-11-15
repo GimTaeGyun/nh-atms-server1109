@@ -88,7 +88,7 @@ export const noticeColumns = (page: number, size: number, onOpen: (r: Notice) =>
   const view = useMutation({ mutationFn: (no: number) => noticeApi.get(no, true), onSuccess: invalidate });
 ```
 
-`view`(47행)는 조회수를 1 올리는 읽기라서 뮤테이션이고([[#ch12-mutation]]), 성공하면 `invalidate`(44행)가 목록에 '낡았음' 딱지를 붙입니다. `const onSearch` 줄 위에는 [[#ch8-memo]]에 실린 50~59행을 그대로 칩니다.
+`view`(47행)는 조회수를 1 올리는 읽기라서 뮤테이션이고([[#ch12-mutation]]), 성공하면 `invalidate`(44행)가 목록에 "낡았음" 딱지를 붙입니다. `const onSearch` 줄 위에는 [[#ch8-memo]]에 실린 50~59행을 그대로 칩니다.
 
 `openView`(51행)는 `viewOpen`을 켜고 상세를 읽으며, 59행이 이 함수를 컬럼에 건넵니다. 끝으로 `SearchForm` 줄(85행) 바로 아래에 표를 놓습니다.
 

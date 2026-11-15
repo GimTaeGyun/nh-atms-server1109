@@ -162,7 +162,7 @@ export default NoticePage;
 `src/domain/notice.ts`에 공지사항의 타입 6개를 씁니다.
 :::
 
-이 파일 57줄은 [[#ch4]]에 한 줄도 빼지 않고 실었습니다. 1~37행은 [[#ch4-notice]]의 세 블록에, 39~57행은 [[#ch4-interface]]의 첫 블록에 있습니다. 그 쪽을 펴 두거나 원본 창을 보며 처음부터 끝까지 그대로 칩니다. 뜻은 그 절에 맡기고, 칠 때는 세 가지를 살핍니다.
+이 파일 57줄은 [[#ch4]]에 빈 줄 말고는 모두 실었습니다. 1~37행은 [[#ch4-notice]]의 세 블록에, 39~57행은 [[#ch4-interface]]의 첫 블록에 있습니다. 그 쪽을 펴 두거나 원본 창을 보며 처음부터 끝까지 그대로 칩니다. 뜻은 그 절에 맡기고, 칠 때는 세 가지를 살핍니다.
 
 - 첫째, 타입 6개 앞의 `export`입니다. 다른 파일이 가져다 쓰려면 내보내야 합니다([[#ch3]]). `NoticeSave` 앞에서 빠뜨리면 이 단계에서 `'NoticeSave' is declared but never used.`가 나옵니다. 아무도 쓰지 않는 이름이라는 뜻이고, 단계 3에서는 `… is not exported` 오류가 더 붙습니다.
 - 둘째, 5행의 `import type` 줄입니다. 빠뜨리면 `Cannot find name 'Audit'`과 `Cannot find name 'PageParams'`가 나옵니다.
@@ -269,7 +269,7 @@ export const FIELD_OPTIONS: { value: NoticeField; label: string }[] = [
 export const lastMonth = (): [Dayjs, Dayjs] => [today().subtract(1, 'month').add(1, 'day'), today()];
 ```
 
-`FIELD_OPTIONS`는 검색구분 칸의 고를 거리 넷입니다. `value`는 서버로 보낼 값, `label`은 화면의 글자이고, `value`에는 [[#ch4-union]]의 `NoticeField` 네 값만 들어갑니다.
+`FIELD_OPTIONS`는 검색구분 칸의 고를 거리 넷입니다. `value`는 서버로 보낼 값, `label`은 화면의 글자이고, `value`에는 [[#ch4-notice]]의 `NoticeField` 네 값만 들어갑니다.
 
 39행의 `lastMonth`는 기본 기간을 만드는 함수입니다. 반환 타입 `[Dayjs, Dayjs]`는 날짜 객체가 시작과 끝 순서로 정확히 2개 든 배열입니다. 이렇게 칸의 개수와 자리마다의 타입이 정해진 배열을 @@**튜플**|튜플@@(tuple)이라고 합니다. `today()`는 오늘을 날짜 라이브러리 dayjs의 날짜 객체로 돌려주고, 시작은 거기서 한 달을 빼고(`subtract`) 하루를 더한(`add`) 날입니다.
 
