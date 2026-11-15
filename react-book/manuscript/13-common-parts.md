@@ -181,7 +181,7 @@ export const noticeColumns = (page: number, size: number, onOpen: (r: Notice) =>
 
 [등록]을 누르면 뜨는 작은 창이 [[#ch6]]의 팝업(모달)이고, 그 창은 `NoticeEditModal.tsx` 45~52행처럼 antd의 @@`Modal`|Modal@@로 그립니다. `open`이 `true`면 뜨고 `false`면 사라집니다. `onCancel`은 ×나 팝업 바깥을 누르거나 <kbd>Esc</kbd>를 눌렀을 때 부를 함수입니다. `destroyOnHidden`은 닫을 때 안쪽을 버리라는 표시라서, 다시 열면 새 폼으로 시작합니다.
 
-팝업 안쪽의 라벨과 값 표는 @@`DetailGrid`|DetailGrid@@가 `items`라는 설정 배열을 받아 그립니다. 값 자리에 글자를 넣으면 상세 팝업이, 입력 칸을 넣으면 등록·수정 팝업이 됩니다. 상세 팝업은 `Modal`에 제목 줄과 [닫기]를 붙인 팝업 틀 @@`DetailModal`|DetailModal@@로 감쌉니다. 아래는 등록 팝업에서 빈칸으로 [저장]을 누른 모습입니다.
+팝업 안쪽의 라벨과 값 표는 @@`DetailGrid`|DetailGrid@@가 `items`라는 설정 배열을 받아 그립니다. 값 자리에 글자를 넣으면 상세 팝업이, 입력 칸을 넣으면 등록·수정 팝업이 됩니다. 상세 팝업은 `Modal`에 제목 줄과 [닫기]를 붙인 팝업 틀 @@`DetailModal`|DetailModal@@로 감쌉니다. 아래는 빈칸으로 [저장]을 누른 등록 팝업입니다.
 
 ![빈칸으로 [저장]을 누른 등록 팝업의 윗부분. 칸 아래 빨간 글자가 입력 검사의 결과다](img/shots/ch13-invalid-top.png){width=100%}
 

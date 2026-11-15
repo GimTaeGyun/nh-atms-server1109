@@ -272,7 +272,7 @@ interface Props {
 
 남은 64줄은 컴포넌트 셋입니다. 아래 그림처럼 겉, 가운데, 속 세 겹으로 서로를 감쌉니다.
 
-![등록·수정 팝업의 세 겹. 화면 본체의 props를 겉이 받아 안으로 넘기고, 점선 안쪽은 팝업을 닫을 때 버려진다](img/ch14-edit-layers.svg){width=92%}
+![등록·수정 팝업의 세 겹. 화면 본체의 props를 겉이 받아 안으로 넘기고, 점선 안쪽은 팝업을 닫을 때 버려진다](img/ch14-edit-layers.svg){width=100%}
 
 셋째 덩이가 겉입니다.
 
@@ -334,7 +334,7 @@ const NoticeForm = ({ target, onClose }: { target: Notice | null; onClose: () =>
 
 `target`은 고칠 공지이고 등록이면 `null`입니다. `me`(69행)는 [[#ch11]]의 스토어에 든 로그인한 사람이고, `save`(70~73행)는 [[#ch12-mutation]]의 저장 뮤테이션입니다. `writer`(74행)는 작성자 칸에 보일 사람, `initial`(75~77행)은 폼의 처음 값입니다. `Partial`([[#ch4-table]])은 일부 칸만 채워도 된다는 표시입니다.
 
-80행의 @@`onFinish`|onFinish@@는 폼이 모든 칸의 검사를 통과했을 때만 부르는 함수입니다. 성공했을 때 할 일이 2곳에 있습니다. 72행은 저장할 때마다 늘 하는 일(목록 다시 읽기), 80행의 `{ onSuccess: onClose }`는 이번 호출에만 하는 일(팝업 닫기)입니다. 여섯째 덩이는 폼을 그립니다.
+80행의 @@`onFinish`|onFinish@@는 폼이 모든 칸의 검사를 통과했을 때만 부르는 함수입니다. 저장에 성공했을 때 할 일이 2곳에 있습니다. 72행은 저장할 때마다 늘 하는 일(목록 다시 읽기), 80행의 `{ onSuccess: onClose }`는 이번 호출에만 하는 일(팝업 닫기)입니다. 여섯째 덩이는 폼을 그립니다.
 
 ```tsx src="src/screens/popup/NoticeEditModal.tsx:82-102" kind="이어 쓰기"
   return (
