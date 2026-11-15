@@ -84,6 +84,7 @@
 | query / mutation | 쿼리 / 뮤테이션 | TanStack Query 용어 |
 | cache / invalidate | 캐시 / 무효화 | |
 | store | 스토어 | zustand |
+| selector | 셀렉터 / 선택자 | zustand 에서 값을 고르는 함수는 셀렉터, CSS 의 selector 는 선택자 |
 | router / route / path | 라우터 / 라우트 / 경로 | |
 | screen | 화면 | 이 프로젝트의 말. "페이지" 대신 "화면" |
 | modal | 팝업 | 첫 등장: "팝업(모달)" |

@@ -16,7 +16,7 @@
   <text class="t-mono" x="35" y="164">.env.production</text>
   <text class="t-mono" x="35" y="184">public/</text>
   <text class="t-mono t-b" x="35" y="204">src/</text>
-  <text class="t-gray" x="104" y="64">첫 HTML</text>
+  <text class="t-gray" x="104" y="64">하나뿐인 HTML</text>
   <path class="line" d="M138,76 H144 V168 H138"/>
   <text x="150" y="118">설정</text>
   <text x="150" y="134">파일</text>
@@ -28,15 +28,15 @@
 
   <rect class="box-yellow" x="226" y="12" width="360" height="74"/>
   <text class="t-b" x="238" y="30">새 화면을 만들 때 파일을 만드는 곳</text>
-  <rect class="box" x="236" y="39" width="108" height="39"/>
-  <text class="t-mono t-b" x="290" y="55" text-anchor="middle">screens/</text>
-  <text x="290" y="71" text-anchor="middle">화면</text>
-  <rect class="box" x="352" y="39" width="108" height="39"/>
-  <text class="t-mono t-b" x="406" y="55" text-anchor="middle">domain/</text>
-  <text x="406" y="71" text-anchor="middle">자료의 타입</text>
-  <rect class="box" x="468" y="39" width="108" height="39"/>
-  <text class="t-mono t-b" x="522" y="55" text-anchor="middle">api/endpoints/</text>
-  <text x="522" y="71" text-anchor="middle">서버 호출 함수</text>
+  <rect class="box" x="234" y="39" width="104" height="39"/>
+  <text class="t-mono t-b" x="286" y="55" text-anchor="middle">screens/</text>
+  <text x="286" y="71" text-anchor="middle">화면</text>
+  <rect class="box" x="344" y="39" width="104" height="39"/>
+  <text class="t-mono t-b" x="396" y="55" text-anchor="middle">domain/</text>
+  <text x="396" y="71" text-anchor="middle">자료의 타입</text>
+  <rect class="box" x="454" y="39" width="126" height="39"/>
+  <text class="t-mono t-b" x="517" y="55" text-anchor="middle">api/endpoints/</text>
+  <text x="517" y="71" text-anchor="middle">서버를 부르는 함수</text>
 
   <rect class="box-blue" x="226" y="94" width="360" height="70"/>
   <text class="t-b" x="238" y="112">만들어 둔 것을 가져다 쓰는 곳</text>

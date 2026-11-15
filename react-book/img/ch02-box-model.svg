@@ -6,7 +6,7 @@
 
   <!-- 바깥 여백 -->
   <rect x="10" y="8" width="580" height="174" class="box-dash"/>
-  <text x="24" y="27"><tspan class="t-b">바깥 여백</tspan>  <tspan class="t-mono">margin</tspan></text>
+  <text x="24" y="27"><tspan class="t-b">바깥 여백</tspan>  <tspan class="t-mono">margin</tspan>  <tspan class="t-gray">(이 규칙은 아래쪽만)</tspan></text>
   <path d="M300,150 L300,180" class="line" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
   <text x="310" y="170" class="t-mono">margin-bottom: 14px</text>
 

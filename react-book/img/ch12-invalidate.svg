@@ -20,15 +20,15 @@
   <path d="M77,59 L521,59" class="line" marker-end="url(#arrow)"/>
 
   <!-- ② 성공 응답 -->
-  <text x="310" y="81"><tspan class="t-b t-blue">② 성공</tspan><tspan dx="6">"등록되었습니다."</tspan></text>
+  <text x="310" y="81"><tspan class="t-b t-blue">② 성공</tspan><tspan dx="6">“등록되었습니다.”</tspan></text>
   <path d="M523,89 L79,89" class="line" marker-end="url(#arrow)"/>
-  <text x="86" y="104" class="t-sm t-gray">알림이 뜨고 팝업이 닫힌다</text>
+  <text x="86" y="104" class="t-sm t-gray">알림이 뜬다</text>
 
   <!-- ③ 무효화 -->
   <text x="86" y="126"><tspan class="t-b t-blue">③ 무효화</tspan><tspan dx="6" class="t-mono">['notice']</tspan></text>
   <path d="M77,134 L298,134" class="line" marker-end="url(#arrow)"/>
   <rect x="310" y="119" width="202" height="30" class="box-yellow"/>
-  <text x="411" y="138" text-anchor="middle">목록 서랍에 "낡았음" 딱지</text>
+  <text x="411" y="138" text-anchor="middle">목록 서랍에 “낡았음” 딱지</text>
 
   <!-- ④ 다시 읽기 -->
   <text x="310" y="166"><tspan class="t-b t-blue">④ 다시 읽기</tspan><tspan dx="6" class="t-mono">GET /api/notice?…</tspan></text>
@@ -37,6 +37,6 @@
   <!-- ⑤ 새 목록 -->
   <text x="310" y="194"><tspan class="t-b t-blue">⑤ 새 목록</tspan></text>
   <path d="M523,202 L302,202" class="line" marker-end="url(#arrow)"/>
-  <text x="86" y="194">표를 다시 그린다</text>
+  <text x="86" y="194">표를 다시 그리고 팝업이 닫힌다</text>
   <path d="M300,202 L79,202" class="line" marker-end="url(#arrow)"/>
 </svg>

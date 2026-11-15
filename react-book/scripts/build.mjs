@@ -4,7 +4,7 @@
  *
  *   node scripts/build.mjs                 책 전체 → dist/book.html, react-book.pdf (2번 인쇄: 쪽번호 채우기)
  *   node scripts/build.mjs --only 05       5장만 → dist/ch05.pdf (쪽수 확인용, 빠름)
- *   node scripts/build.mjs --only 05 --png 5장을 쪽별 PNG 로도 저장 → dist/png/ch05-01.png …
+ *   node scripts/build.mjs --only 05 --png 5장을 쪽별 PNG 로도 저장 → dist/png/ch05-1.png …
  *   node scripts/build.mjs --no-pdf        HTML 만
  *
  * 원고 문법은 STYLE.md 참고. 코드 블록에 src="경로:시작-끝" 을 달면 실제 소스와 한 줄씩 대조한다(다르면 실패).
@@ -31,6 +31,14 @@ const NO_PDF = flag('--no-pdf');
 const QUIET = flag('--quiet');
 const TAG = opt('--tag'); // 같은 장을 여러 작업이 동시에 빌드할 때 결과 파일 이름을 나눈다 (dist/ch05-<tag>.pdf)
 const CHECK_ONLY = flag('--check'); // 파일을 만들지 않고 원고 문법·소스 인용 대조만
+{
+  const KNOWN = new Set(['--only', '--png', '--no-pdf', '--quiet', '--tag', '--check', '--dpi']);
+  const WITH_VALUE = new Set(['--only', '--tag', '--dpi']);
+  for (let i = 0; i < args.length; i += 1) {
+    if (!KNOWN.has(args[i])) { console.error(`모르는 옵션: ${args[i]}\n쓸 수 있는 것: --only <장번호|preface|guide> --png [--dpi N] --tag <이름> --check --no-pdf --quiet`); process.exit(2); }
+    if (WITH_VALUE.has(args[i])) i += 1;
+  }
+}
 
 const config = (await import(pathToFileURL(path.join(ROOT, 'book.config.mjs')).href)).default;
 const SRC_ROOT = path.resolve(ROOT, config.sourceRoot);
@@ -158,6 +166,13 @@ md.use(mdContainer, 'quiz', {
 md.use(mdContainer, 'answer', { render: (tokens, idx) => (tokens[idx].nesting === 1 ? '<div class="answer">\n' : '</div>\n') });
 
 // 찾아보기 표시: @@용어@@ · @@보이는글|색인어@@ · @@|색인어@@(보이지 않음)
+const defaultCodeInline = md.renderer.rules.code_inline;
+md.renderer.rules.code_inline = (tokens, idx, o, env, self) => {
+  const out = defaultCodeInline(tokens, idx, o, env, self);
+  const next = tokens[idx + 1];
+  return next && next.type === 'text' && /^[가-힣]/.test(next.content) ? `${out}\u2060` : out;
+};
+
 md.inline.ruler.before('emphasis', 'ix', (state, silent) => {
   const s = state.src; const pos = state.pos;
   if (s.charCodeAt(pos) !== 0x40 || s.charCodeAt(pos + 1) !== 0x40) return false;
@@ -237,7 +252,8 @@ const inlineSvg = (file, where) => {
   let s = fs.readFileSync(file, 'utf8').replace(/<\?xml[^>]*\?>/g, '').replace(/<!DOCTYPE[^>]*>/g, '').replace(/<!--[\s\S]*?-->/g, '').trim();
   if (!/viewBox=/.test(s)) fail(where, `SVG 에 viewBox 가 없다: ${file}`);
   const pre = `f${(svgSeq += 1)}-`;
-  s = s.replace(/\bid="([^"]+)"/g, `id="${pre}$1"`).replace(/url\(#([^)]+)\)/g, `url(#${pre}$1)`).replace(/\b(xlink:href|href)="#([^"]+)"/g, `$1="#${pre}$2"`);
+  // 태그 안의 속성만 바꾼다(글자 속 id="root" 같은 문장은 그대로)
+  s = s.replace(/<[^>]+>/g, (tag) => tag.replace(/\sid="([^"]+)"/g, ` id="${pre}$1"`).replace(/url\(#([^)]+)\)/g, `url(#${pre}$1)`).replace(/\s(xlink:href|href)="#([^"]+)"/g, ` $1="#${pre}$2"`));
   s = s.replace(/<svg\b([^>]*)>/, (_m, at) => `<svg${at.replace(/\s(width|height)="[^"]*"/g, '')}>`);
   return s;
 };
@@ -290,8 +306,10 @@ md.renderer.rules.fence = (tokens, idx, _o, env) => {
   }
   const hl = parseSet(attrs.hl);
   const marks = new Map(String(attrs.marks || '').split(';').map((s) => s.split('=')).filter((p) => p.length === 2).map(([k, v]) => [Number(k), v]));
-  const html = tokenLines(lines.join('\n'), lang);
-  const showNums = Boolean(attrs.src) || attrs.nums === true;
+  // 긴 코드 줄이 낱말 가운데서 접히지 않게, 구두점 뒤에 줄바꿈 자리(<wbr>)를 둔다. <wbr> 은 글자가 아니라 복사해도 코드가 그대로다
+  const wbr = (h) => h.replace(/(<[^>]*>)|(\$\{)|((?:&amp;){2}|\|\||=&gt;|[.(,{[\/=:?])(?!\s|$)/g, (m, tag, tpl, p) => (tag || tpl ? m : `${p}<wbr>`));
+  const html = tokenLines(lines.join('\n'), lang).map(wbr);
+  const showNums = Boolean(attrs.src) || attrs.nums === true || Boolean(attrs.diff);
   const start = typeof attrs.nums === 'string' ? Number(attrs.nums) : 1;
   const body = html
     .map((h, i) => {
@@ -301,7 +319,8 @@ md.renderer.rules.fence = (tokens, idx, _o, env) => {
       let no = '';
       if (nums) { if (nums[i] === 'gap') { cls.push('gap'); return `<span class="${cls.join(' ')}"><span class="ln"></span><span class="lc">⋮</span></span>`; } no = nums[i] ?? ''; }
       else if (showNums) no = start + i;
-      return `<span class="${cls.join(' ')}"><span class="ln">${no}</span><span class="lc">${h || ' '}</span>${marks.has(i + 1) ? `<span class="mk">${esc(marks.get(i + 1))}</span>` : ''}</span>`;
+      const dm = dmark?.[i] === 'add' ? '<b class="dm">+</b>' : dmark?.[i] === 'del' ? '<b class="dm">−</b>' : '';
+      return `<span class="${cls.join(' ')}"><span class="ln">${no}${dm}</span><span class="lc">${h || ' '}</span>${marks.has(i + 1) ? `<span class="mk">${esc(marks.get(i + 1))}</span>` : ''}</span>`;
     })
     .join('');
   let cap = '';
@@ -363,6 +382,27 @@ const renderFront = (f) => {
   src = fixBoldIx(src);
   checkLeftover(md.render(src, { ...env, ix: [], ixSeq: { n: 0 }, xref: new Map() }), f.id);
   return { ...f, title: h1 ? h1[1] : f.title, html: `<section class="front" id="${f.id}"><h1 class="ft" id="fm-${f.id}">${esc(h1 ? h1[1] : f.title)}</h1>\n${md.render(src, env)}</section>` };
+};
+
+/** 원고를 렌더링하지 않고 제목만 훑어 상호참조 글자표를 만든다(--only 빌드용) */
+const scanXrefLabels = () => {
+  const map = new Map();
+  for (const p of config.parts) for (const c of p.chapters) {
+    map.set(`ch${c.no}`, { id: `ch-${c.no}`, label: `${c.no}장` });
+    let sec = 0; let fence = false;
+    for (const f of c.files) {
+      const fp = path.join(ROOT, f); if (!fs.existsSync(fp)) continue;
+      for (const line of fs.readFileSync(fp, 'utf8').split('\n')) {
+        if (/^(```|~~~)/.test(line)) { fence = !fence; continue; }
+        if (fence) continue;
+        const h2 = /^##\s+(.*?)\s*(\{#([\w-]+)\})?\s*$/.exec(line);
+        if (h2 && !line.startsWith('###')) { sec += 1; const id = `sec-${c.no}-${sec}`; const v = { id, label: `${c.no}.${sec}절` }; map.set(id, v); if (h2[3]) map.set(h2[3], v); continue; }
+        const h3 = /^###+\s+(.*?)\s*\{#([\w-]+)\}\s*$/.exec(line);
+        if (h3) map.set(h3[2], { id: h3[2], label: `‘${h3[1].replace(/[*`]/g, '')}’` });
+      }
+    }
+  }
+  return map;
 };
 
 /* ------------------------------------------------------------------ 조립 */
@@ -484,8 +524,14 @@ if (ONLY) {
   if (hit) {
     const r = renderChapter(hit.c, hit.p);
     body = r.html; name = `ch${pad2(hit.c.no)}${TAG ? `-${TAG}` : ''}`; title = r.title; css = pageCss([r]); budget = hit.c.budget;
-    // 다른 장을 가리키는 상호참조는 한 장 빌드에서 풀 수 없으므로 글자만 남긴다
-    body = body.replace(/\[\[#([\w-]+)\]\]/g, (_m, id) => (xref.get(id) ? `<a class="xref" href="#${xref.get(id).id}">${esc(xref.get(id).label)}</a>` : `<span class="xref">(→${id})</span>`));
+    // 다른 장을 가리키는 [[#…]] 는 원고 제목만 훑어 책 전체 빌드와 같은 글자로 만든다(줄바꿈·쪽수가 같아지게)
+    const outer = scanXrefLabels();
+    body = body.replace(/\[\[#([\w-]+)\]\]/g, (_m, id) => {
+      const x = xref.get(id) ?? outer.get(id);
+      if (!x) { fail(`${hit.c.no}장`, `상호참조 대상 없음: [[#${id}]]`); return `<span class="xref">(→${id})</span>`; }
+      return `<a class="xref" href="#${x.id}">${esc(x.label)}</a>`;
+    });
+    if (errors.length) { console.error(`오류 ${errors.length}건\n${errors.join('\n')}`); process.exit(1); }
   } else {
     const f = (config.front ?? []).find((x) => x.id === ONLY);
     if (!f) { console.error(`--only ${ONLY}: 그런 장/머리글이 없다`); process.exit(2); }

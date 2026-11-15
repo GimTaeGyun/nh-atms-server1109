@@ -5,8 +5,8 @@
 
   <!-- 왼쪽: 처음 렌더링 -->
   <text class="t-b" x="143" y="14" text-anchor="middle">처음 렌더링 (vip는 false)</text>
-  <text class="t-sm t-gray" x="72" y="36" text-anchor="middle">훅을 부른 순서</text>
-  <text class="t-sm t-gray" x="232" y="36" text-anchor="middle">리액트의 보관함</text>
+  <text class="t-gray" x="72" y="36" text-anchor="middle">훅을 부른 순서</text>
+  <text class="t-gray" x="232" y="36" text-anchor="middle">리액트의 보관함</text>
 
   <rect class="box" x="4" y="44" width="136" height="30"/>
   <text class="t-mono" x="72" y="63" text-anchor="middle">6행 useState(7)</text>
@@ -20,8 +20,8 @@
 
   <!-- 오른쪽: 다음 렌더링 -->
   <text class="t-b" x="458" y="14" text-anchor="middle">다음 렌더링 (vip가 true)</text>
-  <text class="t-sm t-gray" x="388" y="36" text-anchor="middle">훅을 부른 순서</text>
-  <text class="t-sm t-gray" x="548" y="36" text-anchor="middle">리액트의 보관함</text>
+  <text class="t-gray" x="388" y="36" text-anchor="middle">훅을 부른 순서</text>
+  <text class="t-gray" x="548" y="36" text-anchor="middle">리액트의 보관함</text>
 
   <rect class="box-red" x="320" y="44" width="136" height="30"/>
   <text class="t-mono" x="388" y="63" text-anchor="middle">3행 useState('귀빈')</text>

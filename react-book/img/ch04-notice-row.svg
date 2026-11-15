@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 96">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fill-ink"/></marker>
+  </defs>
+
+  <!-- 표의 머리줄 -->
+  <rect x="2" y="2" width="596" height="24" class="box-gray"/>
+  <text x="32" y="19" text-anchor="middle" class="t-b">번호</text>
+  <text x="147" y="19" text-anchor="middle" class="t-b">제목</text>
+  <text x="306" y="19" text-anchor="middle" class="t-b">사무소</text>
+  <text x="415" y="19" text-anchor="middle" class="t-b">작성자</text>
+  <text x="494" y="19" text-anchor="middle" class="t-b">작성일</text>
+  <text x="568" y="19" text-anchor="middle" class="t-b">조회수</text>
+
+  <!-- 표의 한 행 -->
+  <rect x="2" y="26" width="596" height="24" class="box"/>
+  <text x="32" y="43" text-anchor="middle">264</text>
+  <text x="147" y="43" text-anchor="middle">기기 장애 통계 주간 보고</text>
+  <text x="278" y="43" text-anchor="middle">[100001]</text>
+  <text x="340" y="43" text-anchor="middle">가람지점</text>
+  <text x="415" y="43" text-anchor="middle">김하늘</text>
+  <text x="494" y="43" text-anchor="middle">2026-11-15</text>
+  <text x="568" y="43" text-anchor="middle">14</text>
+
+  <!-- 컬럼 나눔선 -->
+  <path d="M62,2 L62,50 M232,2 L232,50 M380,2 L380,50 M450,2 L450,50 M538,2 L538,50" class="line-gray"/>
+
+  <!-- 짝이 되는 칸 -->
+  <path d="M32,52 L32,70" class="line" marker-end="url(#arrow)"/>
+  <path d="M147,52 L147,70" class="line" marker-end="url(#arrow)"/>
+  <path d="M278,52 L278,70" class="line" marker-end="url(#arrow)"/>
+  <path d="M340,52 L340,70" class="line" marker-end="url(#arrow)"/>
+  <path d="M415,52 L415,70" class="line" marker-end="url(#arrow)"/>
+  <path d="M494,52 L494,70" class="line" marker-end="url(#arrow)"/>
+  <path d="M568,52 L568,70" class="line" marker-end="url(#arrow)"/>
+
+  <rect x="12" y="72" width="40" height="22" class="box-blue"/>
+  <text x="32" y="87" text-anchor="middle" class="t-mono">no</text>
+  <rect x="110" y="72" width="74" height="22" class="box-blue"/>
+  <text x="147" y="87" text-anchor="middle" class="t-mono">subject</text>
+  <rect x="244" y="72" width="68" height="22" class="box-blue"/>
+  <text x="278" y="87" text-anchor="middle" class="t-mono">ofcCode</text>
+  <rect x="316" y="72" width="48" height="22" class="box-blue"/>
+  <text x="340" y="87" text-anchor="middle" class="t-mono">kanm</text>
+  <rect x="390" y="72" width="50" height="22" class="box-blue"/>
+  <text x="415" y="87" text-anchor="middle" class="t-mono">name</text>
+  <rect x="460" y="72" width="68" height="22" class="box-blue"/>
+  <text x="494" y="87" text-anchor="middle" class="t-mono">wrtDate</text>
+  <rect x="543" y="72" width="50" height="22" class="box-blue"/>
+  <text x="568" y="87" text-anchor="middle" class="t-mono">visit</text>
+</svg>

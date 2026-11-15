@@ -195,6 +195,7 @@ export async function startVite({ appDir = DEFAULT_APP_DIR, port = 3100, apiTarg
 
 /**
  * 한 번에 준비: 프론트 사본(ensureApp) + 가짜 백엔드 + 개발 서버. 포트가 쓰이고 있으면 그 다음 빈 포트를 쓴다.
+ * 주의: 기본(sync: true)은 원본에서 바뀐 파일을 사본에 덮어쓴다. 사본을 고쳐 둔 실험이면 startAll({ appDir, sync: false }).
  * 돌려주는 값: { appDir, mock, vite, stop() } — 주소는 mock.url · vite.url
  *
  *   const app = await startAll();
@@ -202,8 +203,9 @@ export async function startVite({ appDir = DEFAULT_APP_DIR, port = 3100, apiTarg
  *   …
  *   await browser.close(); await app.stop();
  */
-export async function startAll({ appDir = DEFAULT_APP_DIR, mockPort = 8080, vitePort = 3100, quiet = true, delayMs } = {}) {
-  ensureApp({ appDir, quiet });
+export async function startAll({ appDir = DEFAULT_APP_DIR, mockPort = 8080, vitePort = 3100, quiet = true, delayMs, sync = true } = {}) {
+  // sync: false 면 원본을 사본에 다시 옮기지 않는다 — 사본을 고쳐 가며 실험할 때(예: 14장 단계 상태) 반드시 false
+  if (sync) ensureApp({ appDir, quiet });
   const mock = await startMock({ port: await freePort(mockPort), quiet, delayMs });
   let vite;
   try {

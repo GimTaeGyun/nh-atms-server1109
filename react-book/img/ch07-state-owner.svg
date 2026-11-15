@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 262">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 240">
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fill-ink"/></marker>
     <marker id="arrow-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fill-blue"/></marker>
@@ -7,37 +7,37 @@
   <!-- 부모 -->
   <rect class="box-blue" x="2" y="2" width="596" height="84"/>
   <text class="t-b" x="18" y="25">NoticePage</text>
-  <text class="t-sm t-gray" x="96" y="25">부모. state를 갖고 있다</text>
+  <text class="t-gray" x="112" y="25">부모. state를 갖고 있다</text>
   <rect class="box-yellow" x="46" y="40" width="210" height="34"/>
   <text class="t-mono" x="151" y="62" text-anchor="middle">viewOpen</text>
   <rect class="box-yellow" x="344" y="40" width="210" height="34"/>
   <text class="t-mono" x="449" y="62" text-anchor="middle">edit { open, no }</text>
 
   <!-- 자식 둘 -->
-  <rect class="box" x="2" y="172" width="286" height="54"/>
-  <text class="t-b" x="145" y="195" text-anchor="middle">NoticeViewModal</text>
-  <text class="t-sm t-gray" x="145" y="213" text-anchor="middle">상세 팝업. state가 없다</text>
-  <rect class="box" x="312" y="172" width="286" height="54"/>
-  <text class="t-b" x="455" y="195" text-anchor="middle">NoticeEditModal</text>
-  <text class="t-sm t-gray" x="455" y="213" text-anchor="middle">등록·수정 팝업</text>
+  <rect class="box" x="2" y="150" width="286" height="54"/>
+  <text class="t-b" x="145" y="173" text-anchor="middle">NoticeViewModal</text>
+  <text class="t-gray" x="145" y="192" text-anchor="middle">상세 팝업. state가 없다</text>
+  <rect class="box" x="312" y="150" width="286" height="54"/>
+  <text class="t-b" x="455" y="173" text-anchor="middle">NoticeEditModal</text>
+  <text class="t-gray" x="455" y="192" text-anchor="middle">등록·수정 팝업</text>
 
-  <!-- 왼쪽: 값은 아래로, 알림은 위로 -->
-  <path class="line-blue" d="M70,86 V172" marker-end="url(#arrow-b)"/>
-  <text class="t-mono t-blue" x="78" y="124">open={viewOpen}</text>
-  <path class="line-dash" d="M196,172 V86" marker-end="url(#arrow)"/>
-  <text class="t-mono" x="204" y="124">onClose()</text>
-  <text class="t-mono" x="204" y="142">onEdit(n)</text>
+  <!-- 왼쪽: 값은 아래로(검정), 알림은 위로(파랑) -->
+  <path class="line" d="M70,86 V150" marker-end="url(#arrow)"/>
+  <text class="t-mono" x="78" y="112">open={viewOpen}</text>
+  <path class="line-blue" d="M196,150 V86" marker-end="url(#arrow-b)"/>
+  <text class="t-mono t-blue" x="204" y="112">onClose()</text>
+  <text class="t-mono t-blue" x="204" y="130">onEdit(n)</text>
 
   <!-- 오른쪽 -->
-  <path class="line-blue" d="M368,86 V172" marker-end="url(#arrow-b)"/>
-  <text class="t-mono t-blue" x="376" y="124">open={edit.open}</text>
-  <text class="t-mono t-blue" x="376" y="142">no={edit.no}</text>
-  <path class="line-dash" d="M506,172 V86" marker-end="url(#arrow)"/>
-  <text class="t-mono" x="514" y="124">onClose()</text>
+  <path class="line" d="M368,86 V150" marker-end="url(#arrow)"/>
+  <text class="t-mono" x="376" y="112">open={edit.open}</text>
+  <text class="t-mono" x="376" y="130">no={edit.no}</text>
+  <path class="line-blue" d="M506,150 V86" marker-end="url(#arrow-b)"/>
+  <text class="t-mono t-blue" x="514" y="112">onClose()</text>
 
   <!-- 범례 -->
-  <path class="line-blue" d="M92,250 H128" marker-end="url(#arrow-b)"/>
-  <text class="t-sm" x="136" y="254">props: 지금 값을 내려 준다</text>
-  <path class="line-dash" d="M322,250 H358" marker-end="url(#arrow)"/>
-  <text class="t-sm" x="366" y="254">콜백: 바꿔 달라고 알린다</text>
+  <path class="line" d="M60,228 H96" marker-end="url(#arrow)"/>
+  <text x="104" y="232">props: 지금 값을 내려 준다</text>
+  <path class="line-blue" d="M330,228 H366" marker-end="url(#arrow-b)"/>
+  <text x="374" y="232">콜백: 바꿔 달라고 알린다</text>
 </svg>

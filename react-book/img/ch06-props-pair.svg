@@ -1,29 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 162">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 140">
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fill-ink"/></marker>
   </defs>
 
   <!-- 쓰는 쪽 -->
-  <text x="14" y="23" class="t-b t-blue">쓰는 쪽</text>
-  <text x="14" y="38" class="t-sm t-gray">MeGate.tsx 46행</text>
-  <rect x="128" y="8" width="458" height="34" class="box-blue"/>
-  <text x="357" y="30" text-anchor="middle" class="t-mono">&lt;LoadingBlock tip="사용자 정보를 확인하는 중…" height={400} /&gt;</text>
+  <text x="14" y="20" class="t-b t-blue">쓰는 쪽</text>
+  <text x="14" y="35" class="t-sm t-gray">MeGate.tsx 46행</text>
+  <rect x="128" y="6" width="458" height="30" class="box-blue"/>
+  <text x="357" y="26" text-anchor="middle" class="t-mono">&lt;LoadingBlock tip="사용자 정보를 확인하는 중…" height={400} /&gt;</text>
 
-  <path d="M357,42 L357,64" class="line" marker-end="url(#arrow)"/>
-  <text x="371" y="58">① 속성을 객체 하나로 묶는다</text>
+  <path d="M357,36 L357,54" class="line" marker-end="url(#arrow)"/>
+  <text x="371" y="50">① 속성을 객체 하나로 묶는다</text>
 
   <!-- props 객체 -->
-  <text x="14" y="81" class="t-b">props 객체</text>
-  <text x="14" y="96" class="t-sm t-gray">리액트가 만든다</text>
-  <rect x="128" y="66" width="458" height="34" class="box-yellow"/>
-  <text x="357" y="88" text-anchor="middle" class="t-mono">{ tip: '사용자 정보를 확인하는 중…', height: 400 }</text>
+  <text x="14" y="70" class="t-b">props 객체</text>
+  <text x="14" y="85" class="t-sm t-gray">리액트가 만든다</text>
+  <rect x="128" y="56" width="458" height="30" class="box-yellow"/>
+  <text x="357" y="76" text-anchor="middle" class="t-mono">{ tip: '사용자 정보를 확인하는 중…', height: 400 }</text>
 
-  <path d="M357,100 L357,122" class="line" marker-end="url(#arrow)"/>
-  <text x="371" y="116">② 함수의 인자로 넘긴다</text>
+  <path d="M357,86 L357,104" class="line" marker-end="url(#arrow)"/>
+  <text x="371" y="100">② 함수의 인자로 넘긴다</text>
 
   <!-- 받는 쪽 -->
-  <text x="14" y="139" class="t-b t-blue">받는 쪽</text>
-  <text x="14" y="154" class="t-sm t-gray">LoadingBlock.tsx 3행</text>
-  <rect x="128" y="124" width="458" height="34" class="box"/>
-  <text x="357" y="146" text-anchor="middle" class="t-mono">({ tip = '불러오는 중…', height = 160 }) =&gt; ( … )</text>
+  <text x="14" y="120" class="t-b t-blue">받는 쪽</text>
+  <text x="14" y="135" class="t-sm t-gray">LoadingBlock.tsx 3행</text>
+  <rect x="128" y="106" width="458" height="30" class="box"/>
+  <text x="357" y="126" text-anchor="middle" class="t-mono">({ tip = '불러오는 중…', height = 160 }) =&gt; ( … )</text>
 </svg>

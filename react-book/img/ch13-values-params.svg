@@ -1,36 +1,36 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 184">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 172">
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fill-ink"/></marker>
   </defs>
 
-  <!-- ① 폼이 건넨 값 -->
-  <text x="4" y="14"><tspan class="t-b">① values</tspan><tspan class="t-gray" dx="8">폼이 건넨 값</tspan></text>
-  <rect x="2" y="24" width="188" height="156" class="box"/>
-  <text x="14" y="54" class="t-mono">period:  [날짜, 날짜]</text>
-  <text x="14" y="90" class="t-mono">ofcCode: '100001'</text>
-  <text x="14" y="114" class="t-mono">perNo:   undefined</text>
-  <text x="14" y="138" class="t-mono">field:   'SUBJECT'</text>
-  <text x="14" y="162" class="t-mono">keyword: ' 교체 '</text>
+  <!-- ① 폼이 건넨 값(v) -->
+  <text x="4" y="14"><tspan class="t-b">① v</tspan><tspan class="t-gray" dx="8">폼이 건넨 값</tspan></text>
+  <rect x="2" y="24" width="188" height="144" class="box"/>
+  <text x="14" y="52" class="t-mono">period:</text><text x="84" y="52" class="t-mono">[날짜, 날짜]</text>
+  <text x="14" y="80" class="t-mono">ofcCode:</text><text x="84" y="80" class="t-mono">'100001'</text>
+  <text x="14" y="106" class="t-mono">perNo:</text><text x="84" y="106" class="t-mono">undefined</text>
+  <text x="14" y="132" class="t-mono">field:</text><text x="84" y="132" class="t-mono">'SUBJECT'</text>
+  <text x="14" y="158" class="t-mono">keyword:</text><text x="84" y="158" class="t-mono">' 교체 '</text>
 
   <!-- ② 바꾸는 함수 -->
   <text x="300" y="14" text-anchor="middle" class="t-b t-blue">② toNoticeParams</text>
-  <path d="M192,50 L408,50" class="line" marker-end="url(#arrow)"/>
-  <text x="300" y="44" text-anchor="middle" class="t-sm">날짜 둘을 8자리 글자 둘로</text>
-  <path d="M192,86 L408,86" class="line" marker-end="url(#arrow)"/>
-  <text x="300" y="80" text-anchor="middle" class="t-sm">그대로</text>
-  <path d="M192,110 L246,110" class="line-dash"/>
-  <text x="254" y="114" class="t-sm t-gray">빈 값은 보내지 않는다</text>
-  <path d="M192,134 L408,134" class="line" marker-end="url(#arrow)"/>
-  <text x="300" y="128" text-anchor="middle" class="t-sm">검색어가 있을 때만</text>
-  <path d="M192,158 L408,158" class="line" marker-end="url(#arrow)"/>
-  <text x="300" y="152" text-anchor="middle" class="t-sm">앞뒤 빈칸을 떼고</text>
+  <path d="M192,48 L408,48" class="line" marker-end="url(#arrow)"/>
+  <text x="300" y="42" text-anchor="middle">날짜를 8자리 글자로</text>
+  <path d="M192,76 L408,76" class="line" marker-end="url(#arrow)"/>
+  <text x="300" y="70" text-anchor="middle">그대로</text>
+  <path d="M192,102 L238,102" class="line-dash"/>
+  <text x="246" y="106" class="t-gray">빈 값은 빼기</text>
+  <path d="M192,128 L408,128" class="line" marker-end="url(#arrow)"/>
+  <text x="300" y="122" text-anchor="middle">검색어 있을 때만</text>
+  <path d="M192,154 L408,154" class="line" marker-end="url(#arrow)"/>
+  <text x="300" y="148" text-anchor="middle">앞뒤 빈칸 떼기</text>
 
   <!-- ③ 서버로 갈 조건 -->
   <text x="412" y="14"><tspan class="t-b">③ 조건</tspan><tspan class="t-gray" dx="8">서버로 갈 모양</tspan></text>
-  <rect x="410" y="24" width="188" height="156" class="box-blue"/>
-  <text x="422" y="46" class="t-mono">fromDate: '20261016'</text>
-  <text x="422" y="64" class="t-mono">toDate:   '20261115'</text>
-  <text x="422" y="90" class="t-mono">ofcCode:  '100001'</text>
-  <text x="422" y="138" class="t-mono">field:    'SUBJECT'</text>
-  <text x="422" y="162" class="t-mono">keyword:  '교체'</text>
+  <rect x="410" y="24" width="188" height="144" class="box-blue"/>
+  <text x="422" y="44" class="t-mono">fromDate:</text><text x="500" y="44" class="t-mono">'20261016'</text>
+  <text x="422" y="62" class="t-mono">toDate:</text><text x="500" y="62" class="t-mono">'20261115'</text>
+  <text x="422" y="80" class="t-mono">ofcCode:</text><text x="500" y="80" class="t-mono">'100001'</text>
+  <text x="422" y="132" class="t-mono">field:</text><text x="500" y="132" class="t-mono">'SUBJECT'</text>
+  <text x="422" y="158" class="t-mono">keyword:</text><text x="500" y="158" class="t-mono">'교체'</text>
 </svg>

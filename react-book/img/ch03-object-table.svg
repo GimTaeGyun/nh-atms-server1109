@@ -1,51 +1,56 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 152">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 170">
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fill-ink"/></marker>
   </defs>
 
   <!-- 왼쪽: 객체가 든 배열 -->
   <text class="t-b t-blue" x="2" y="13">객체가 든 배열</text>
-  <text class="t-mono" x="2" y="35">const notices = [</text>
+  <text class="t-mono" x="2" y="53">const notices = [</text>
 
-  <rect class="box-yellow" x="12" y="44" width="338" height="28"/>
-  <text class="t-mono" x="20" y="62">{ no: 264, subject: '기기 장애 통계 주간 보고', visit: 14 }</text>
-  <rect class="box" x="12" y="72" width="338" height="28"/>
-  <text class="t-mono" x="20" y="90">{ no: 261, subject: '현금 준비 안내', visit: 29 }</text>
-  <rect class="box" x="12" y="100" width="338" height="28"/>
-  <text class="t-mono" x="20" y="118">{ no: 260, subject: '청소 일정 변경 안내', visit: 10 }</text>
+  <rect class="box-yellow" x="4" y="62" width="350" height="28"/>
+  <text class="t-mono" x="9" y="80">{ no: 264, subject: '기기 장애 통계 주간 보고', visit: 14 },</text>
+  <rect class="box" x="4" y="90" width="350" height="28"/>
+  <text class="t-mono" x="9" y="108">{ no: 261, subject: '현금 준비 안내', visit: 29 },</text>
+  <rect class="box" x="4" y="118" width="350" height="28"/>
+  <text class="t-mono" x="9" y="136">{ no: 260, subject: '청소 일정 변경 안내', visit: 10 }</text>
 
-  <text class="t-mono" x="2" y="146">];</text>
+  <text class="t-mono" x="2" y="164">];</text>
 
   <!-- 화살표: 객체 하나 → 행 하나 -->
-  <path class="line" d="M350,58 H378" marker-end="url(#arrow)"/>
-  <path class="line" d="M350,86 H378" marker-end="url(#arrow)"/>
-  <path class="line" d="M350,114 H378" marker-end="url(#arrow)"/>
+  <path class="line" d="M354,76 H378" marker-end="url(#arrow)"/>
+  <path class="line" d="M354,104 H378" marker-end="url(#arrow)"/>
+  <path class="line" d="M354,132 H378" marker-end="url(#arrow)"/>
 
   <!-- 오른쪽: 화면의 표 -->
   <text class="t-b t-blue" x="380" y="13">화면의 표</text>
 
-  <rect class="box-gray" x="380" y="20" width="218" height="24"/>
-  <text class="t-b" x="397" y="37" text-anchor="middle">번호</text>
-  <text class="t-b" x="485" y="37" text-anchor="middle">제목</text>
-  <text class="t-b" x="576" y="37" text-anchor="middle">조회수</text>
+  <!-- 속성 이름 → 컬럼 -->
+  <text class="t-mono t-blue" x="397" y="32" text-anchor="middle">no</text>
+  <text class="t-mono t-blue" x="484" y="32" text-anchor="middle">subject</text>
+  <text class="t-mono t-blue" x="576" y="32" text-anchor="middle">visit</text>
 
-  <rect class="box-yellow" x="380" y="44" width="218" height="28"/>
-  <text x="397" y="63" text-anchor="middle">264</text>
-  <text x="422" y="63">기기 장애 통계 주간 보고</text>
-  <text x="576" y="63" text-anchor="middle">14</text>
+  <rect class="box-gray" x="380" y="38" width="218" height="24"/>
+  <text class="t-b" x="397" y="55" text-anchor="middle">번호</text>
+  <text class="t-b" x="484" y="55" text-anchor="middle">제목</text>
+  <text class="t-b" x="576" y="55" text-anchor="middle">조회수</text>
 
-  <rect class="box" x="380" y="72" width="218" height="28"/>
-  <text x="397" y="91" text-anchor="middle">261</text>
-  <text x="422" y="91">현금 준비 안내</text>
-  <text x="576" y="91" text-anchor="middle">29</text>
+  <rect class="box-yellow" x="380" y="62" width="218" height="28"/>
+  <text x="397" y="81" text-anchor="middle">264</text>
+  <text x="422" y="81">기기 장애 통계 주간 보고</text>
+  <text x="576" y="81" text-anchor="middle">14</text>
 
-  <rect class="box" x="380" y="100" width="218" height="28"/>
-  <text x="397" y="119" text-anchor="middle">260</text>
-  <text x="422" y="119">청소 일정 변경 안내</text>
-  <text x="576" y="119" text-anchor="middle">10</text>
+  <rect class="box" x="380" y="90" width="218" height="28"/>
+  <text x="397" y="109" text-anchor="middle">261</text>
+  <text x="422" y="109">현금 준비 안내</text>
+  <text x="576" y="109" text-anchor="middle">29</text>
 
-  <path class="line-gray" d="M414,20 V128"/>
-  <path class="line-gray" d="M554,20 V128"/>
+  <rect class="box" x="380" y="118" width="218" height="28"/>
+  <text x="397" y="137" text-anchor="middle">260</text>
+  <text x="422" y="137">청소 일정 변경 안내</text>
+  <text x="576" y="137" text-anchor="middle">10</text>
 
-  <text class="t-sm t-gray" x="380" y="146">속성 하나가 컬럼 하나</text>
+  <path class="line-gray" d="M414,38 V146"/>
+  <path class="line-gray" d="M554,38 V146"/>
+
+  <text class="t-sm t-gray" x="380" y="164">속성 이름 하나가 컬럼 하나</text>
 </svg>
