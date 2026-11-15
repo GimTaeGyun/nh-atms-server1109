@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 352">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="fill-ink"/></marker>
+  </defs>
+
+  <!-- 부모: 화면 본체 -->
+  <rect x="170" y="4" width="260" height="52" class="box-gray"/>
+  <text x="300" y="25" text-anchor="middle" class="t-mono t-b">NoticePage</text>
+  <text x="300" y="45" text-anchor="middle" class="t-sm">state edit = { open, no }</text>
+
+  <path d="M300,56 L300,92" class="line" marker-end="url(#arrow)"/>
+  <text x="312" y="80" class="t-sm t-mono">open · no · onClose</text>
+
+  <!-- 겉 -->
+  <rect x="6" y="94" width="588" height="228" class="box-blue"/>
+  <text x="300" y="116" text-anchor="middle" class="t-b">겉 · <tspan class="t-mono">NoticeEditModal</tspan></text>
+  <text x="300" y="135" text-anchor="middle" class="t-sm">antd Modal 틀 · 제목(등록/수정) · destroyOnHidden · 훅 없음</text>
+
+  <!-- 가운데 (점선 = 닫으면 버려지는 부분) -->
+  <rect x="24" y="146" width="552" height="164" class="box-dash"/>
+  <text x="300" y="168" text-anchor="middle" class="t-b">가운데 · <tspan class="t-mono">NoticeEditBody</tspan></text>
+  <text x="300" y="187" text-anchor="middle" class="t-sm">수정이면 useQuery로 원문을 읽고, 셋 가운데 하나를 돌려준다</text>
+
+  <rect x="40" y="200" width="150" height="94" class="box-gray"/>
+  <text x="115" y="238" text-anchor="middle" class="t-b">읽기 실패</text>
+  <text x="115" y="260" text-anchor="middle" class="t-sm">안내 + [닫기]</text>
+
+  <rect x="202" y="200" width="150" height="94" class="box-gray"/>
+  <text x="277" y="238" text-anchor="middle" class="t-b">읽는 중</text>
+  <text x="277" y="260" text-anchor="middle" class="t-sm">회색 막대</text>
+
+  <rect x="364" y="200" width="196" height="94" class="box-yellow"/>
+  <text x="462" y="226" text-anchor="middle" class="t-b">속 · <tspan class="t-mono">NoticeForm</tspan></text>
+  <text x="462" y="248" text-anchor="middle" class="t-sm">Form · 처음 값 · save</text>
+  <text x="462" y="268" text-anchor="middle" class="t-sm">[닫기] [저장]</text>
+  <text x="462" y="286" text-anchor="middle" class="t-sm t-blue">등록이거나 다 읽었을 때</text>
+
+  <text x="300" y="342" text-anchor="middle" class="t-sm t-gray">점선 안쪽은 팝업을 닫을 때 버려지고, 다시 열 때 처음부터 새로 만들어진다</text>
+</svg>

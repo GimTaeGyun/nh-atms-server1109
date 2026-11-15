@@ -35,6 +35,6 @@
 
   <!-- 누가 켜나 -->
   <text x="76" y="164" text-anchor="middle">주소창에 localhost:3100</text>
-  <text x="300" y="164" text-anchor="middle">npm run dev 로 켠다</text>
+  <text x="300" y="164" text-anchor="middle">npm run dev로 켠다</text>
   <text x="524" y="164" text-anchor="middle">따로 켜 둔다</text>
 </svg>
