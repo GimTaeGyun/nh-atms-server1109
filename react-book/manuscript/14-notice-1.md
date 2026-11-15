@@ -275,7 +275,7 @@ export const lastMonth = (): [Dayjs, Dayjs] => [today().subtract(1, 'month').add
 
 오늘이 11월 15일이면 10월 16일부터 11월 15일까지입니다. 상수가 아니라 함수인 것은 부를 때마다 그날 날짜로 다시 계산하기 위해서입니다.
 
-남은 검색어 칸 `KeywordInput`은 [[#ch7-input]]에서, 조건 칸 목록 `useNoticeFields`는 [[#ch13-search]]에서 읽었습니다. 그때 건너뛴 43행의 `Form.useWatch('field', form)`는 검색구분 칸을 지켜보다가 값이 바뀌면 다시 렌더링하게 하는 antd의 훅입니다. 44행의 `off`는 그 값이 '전체'이면 참이 되어 검색어 칸을 끕니다.
+남은 조건 칸 목록 `useNoticeFields`는 [[#ch13-search]]에서, 검색어 칸 `KeywordInput`은 [[#ch7-input]]에서 읽었습니다. 그때 건너뛴 43행의 `Form.useWatch('field', form)`는 검색구분 칸을 지켜보다가 값이 바뀌면 다시 렌더링하게 하는 antd의 훅입니다. 44행의 `off`는 그 값이 '전체'이면 참이 되어 검색어 칸을 끕니다.
 
 ```tsx src="src/screens/sample/NoticeParts.tsx:41-61" kind="이어 쓰기"
 /** 검색어 칸 — 검색구분이 '전체'면 비활성 */
