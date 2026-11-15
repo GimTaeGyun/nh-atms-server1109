@@ -597,5 +597,7 @@ const rows = starts.map((s, i) => {
 console.log(`\n총 ${p2.n}쪽 (목표 ${config.totalPages ?? '-'}쪽)  →  ${outPdf}`);
 for (const r of rows) console.log(`  ${String(r.from ?? '?').padStart(3)}쪽  ${String(r.pages ?? '?').padStart(2)}쪽${r.budget ? ` / 목표 ${String(r.budget).padStart(2)}` : '          '}  ${r.budget && r.pages !== r.budget ? '≠' : ' '} ${r.label}`);
 if (moved) console.warn(`주의: 2번째 인쇄에서 쪽이 바뀐 항목 ${moved}개 — 차례·찾아보기 쪽번호를 다시 확인`);
+const lost = allIx.filter((x) => !p2.pages.get(x.id));
+if (lost.length) { console.error(`오류: 찾아보기 위치를 PDF 에서 찾지 못한 표시 ${lost.length}개 — ${lost.map((x) => x.key).join(', ')}`); process.exitCode = 1; }
 if (warns.length && !QUIET) console.warn(warns.join('\n'));
 fs.writeFileSync(path.join(DIST, 'report.json'), JSON.stringify({ total: p2.n, rows, moved }, null, 2));
