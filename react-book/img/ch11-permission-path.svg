@@ -25,7 +25,7 @@
   <text x="240" y="57" text-anchor="middle">me: 관리자인가</text>
   <rect x="150" y="76" width="180" height="38" class="box-blue"/>
   <text x="240" y="91" text-anchor="middle" class="t-mono t-b">useNavStore</text>
-  <text x="240" y="107" text-anchor="middle">menus: 화면마다 권한 5가지</text>
+  <text x="240" y="107" text-anchor="middle">menus: 화면마다 권한 다섯 가지</text>
   <rect x="150" y="126" width="180" height="38" class="box-blue"/>
   <text x="240" y="141" text-anchor="middle" class="t-mono t-b">usePermPreviewStore</text>
   <text x="240" y="157" text-anchor="middle">preview: 미리보기 값</text>

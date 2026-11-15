@@ -6,7 +6,7 @@
 `NoticeParts.tsx`에 컬럼 목록을 만들고, `NoticePage.tsx`가 받아 온 목록을 표로 그리게 합니다.
 :::
 
-먼저 `NoticeParts.tsx`의 가져오기 줄을 고칩니다. `antd` 줄과 `@/domain/notice` 줄은 원본(7행·21행)과 같아지고, 새 `@/utils/format` 줄은 단계 11에서 이름을 하나 더 받습니다.
+먼저 `NoticeParts.tsx`의 가져오기 줄을 고칩니다. 새 `@/utils/format` 줄은 단계 11에서 이름을 하나 더 받습니다.
 
 ```tsx title="src/screens/sample/NoticeParts.tsx" kind="고치기" diff
  import { useMemo } from 'react';
@@ -88,20 +88,7 @@ export const noticeColumns = (page: number, size: number, onOpen: (r: Notice) =>
   const view = useMutation({ mutationFn: (no: number) => noticeApi.get(no, true), onSuccess: invalidate });
 ```
 
-`view`(47행)는 조회수를 1 올리는 읽기라서 뮤테이션이고([[#ch12-mutation]]), 성공하면 `invalidate`(44행)가 목록에 '낡았음' 딱지를 붙입니다. `const onSearch` 줄 바로 위에는 [[#ch8-memo]]에서 읽은 10줄을 칩니다.
-
-```tsx src="src/screens/sample/NoticePage.tsx:50-59" kind="이어 쓰기"
-  const { mutate: openDetail, isPending: viewPending } = view;
-  const openView = useCallback(
-    (r: Notice) => {
-      if (viewPending) return; // 제목 더블클릭(클릭 2번 + 더블클릭)에도 요청은 한 번만
-      setViewOpen(true);
-      openDetail(r.no, { onError: () => setViewOpen(false) }); // 오류 문구는 전역에서 띄운다
-    },
-    [viewPending, openDetail],
-  );
-  const columns = useMemo(() => noticeColumns(search.page, search.size, openView), [search.page, search.size, openView]);
-```
+`view`(47행)는 조회수를 1 올리는 읽기라서 뮤테이션이고([[#ch12-mutation]]), 성공하면 `invalidate`(44행)가 목록에 '낡았음' 딱지를 붙입니다. `const onSearch` 줄 위에는 [[#ch8-memo]]에 실린 50~59행을 그대로 칩니다.
 
 `openView`(51행)는 `viewOpen`을 켜고 상세를 읽으며, 59행이 이 함수를 컬럼에 건넵니다. 끝으로 `SearchForm` 줄(85행) 바로 아래에 표를 놓습니다.
 
@@ -123,12 +110,12 @@ props는 [[#ch13-grid]]에서 읽었고, 태그 이름 뒤의 `<Notice>`는 한 
 
 ::: check
 - [조회]를 누르면 공지 행과 맨 아래 쪽 번호 줄이 생깁니다. 2쪽이 있으면 순번이 21부터 이어집니다.
-- 표가 비어 있으면 코드보다 조건 탓일 때가 많습니다. 작성일 칸을 눌러 [3개월]을 고르고 사무소 칸을 비워 다시 [조회]합니다. 그래도 비면 선배에게 연습용 공지를 두세 건 부탁합니다.
+- 표가 비어 있으면 코드보다 조건 탓일 때가 많습니다. 작성일 칸을 눌러 [3개월]을 고르고 사무소 칸을 비워 다시 [조회]합니다. 그래도 비면 선배에게 연습용 공지를 2~3건 부탁합니다.
 - 제목을 누르면 Network 탭에 `notice/번호?hit=Y`와 목록 요청이 차례로 생깁니다. 팝업은 아직 없고, 그 행의 조회수만 1 오릅니다.
 - `npm run typecheck`가 `error TS6133: 'viewOpen' is declared but its value is never read.` 오류 하나를 남깁니다. `viewOpen`을 바꾸는 곳은 있는데 읽는 부품이 아직 없다는 뜻이고, 다음 단계에서 사라집니다.
 :::
 
-## 팝업 두 개 {#ch14-popup}
+## 팝업 둘 {#ch14-popup}
 
 제목을 누르면 서버가 공지 한 건을 보내 주지만 보여 줄 창이 없습니다. 이 절에서 공지를 보여 주기만 하는 상세 팝업과, 입력을 받아 서버에 보내는 등록·수정 팝업을 만듭니다.
 
@@ -168,7 +155,7 @@ const itemsOf = (n: Notice): DetailItem[] => [
 
 19행의 `writerOf`는 이름과 개인번호를 받아 `'김하늘 (12345678)'` 같은 글자를 만듭니다. 삼항 연산자와 템플릿 문자열이 겹친 줄이니 바깥부터 읽습니다. 이름과 개인번호가 둘 다 없으면 `undefined`를, 하나라도 있으면 템플릿 문자열을 돌려줍니다. 그 안의 첫째 `${…}`는 이름(없으면 빈 글자)이고, 둘째 `${…}`는 개인번호가 있을 때만 빈칸과 괄호로 감싼 개인번호를 붙입니다. 이름이 없으면 맨 앞에 빈칸이 남는데, 그 빈칸은 `.trim()`이 뗍니다.
 
-22~31행의 `itemsOf`는 [[#ch13-frame]]의 버튼 배열처럼 그릴 것을 적은 설정 배열이고, 항목 순서가 곧 화면의 순서입니다. `span: 2`는 한 줄을 다 쓰고, `num`은 오른쪽에 붙이고, `pre`는 줄바꿈을 그대로 보여 줍니다. 값이 `undefined`인 칸은 `DetailGrid`가 회색 `-`로 그립니다. 마지막 덩이가 팝업 컴포넌트입니다.
+22~31행의 `itemsOf`는 [[#ch13-frame]]의 버튼 배열처럼 그릴 것을 적은 설정 배열이고, 항목 순서가 곧 화면의 순서입니다. `span: 2`는 한 행을 다 쓰고, `num`은 오른쪽에 붙이고, `pre`는 줄바꿈을 그대로 보여 줍니다. 값이 `undefined`인 칸은 `DetailGrid`가 회색 `-`로 그립니다. 29행의 `lschgDtm`·`lsCmeno`는 `Notice`가 물려받은 `Audit`([[#ch4-notice]])의 칸으로, 마지막으로 고친 일시와 사람입니다. 마지막 덩이가 팝업 컴포넌트입니다.
 
 ```tsx src="src/screens/popup/NoticeViewModal.tsx:33-53" kind="이어 쓰기"
 /**
@@ -194,7 +181,7 @@ export const NoticeViewModal = ({ open, notice, loading, onClose, onEdit }: Prop
 );
 ```
 
-37행의 컴포넌트는 화살표 뒤에 중괄호 없이 JSX를 바로 돌려줍니다. state도 훅도 없이 받은 props만으로 그리고, 서버를 부르는 일은 화면 본체의 47행이 했습니다. 44행은 읽는 중이거나 공지가 없으면 회색 막대를 그리게 합니다. [닫기]는 `DetailModal`이 그리고, 45~49행은 그 오른쪽의 [수정]으로 수정 권한(`need="upd"`)을 공지사항의 화면키로 묻습니다. 51행은 공지가 있을 때만 그리는 [[#ch5-cond]]의 `&&`입니다.
+37행의 컴포넌트는 화살표 뒤에 중괄호 없이 JSX를 바로 돌려줍니다. state도 훅도 없이 받은 props만으로 그리고, 서버를 부르는 일은 화면 본체의 47행이 했습니다. 42행의 `popup.noticeView`는 팝업의 화면키로, `screenIds.ts`의 팝업 묶음에 있습니다. 44행은 읽는 중이거나 공지가 없으면 회색 막대를 그리게 합니다. [닫기]는 `DetailModal`이 그리고, 45~49행은 그 오른쪽의 [수정]으로 수정 권한(`need="upd"`)을 공지사항의 화면키로 묻습니다. 51행은 공지가 있을 때만 그리는 [[#ch5-cond]]의 `&&`입니다.
 
 화면 본체에는 2줄을 넣습니다. 22행은 `./NoticeParts` 가져오기 줄 바로 위에, 37행은 38행(`viewOpen`) 바로 위에 둡니다.
 
@@ -212,17 +199,17 @@ import { NoticeViewModal } from '../popup/NoticeViewModal';
 
 ::: check
 - 제목을 누르거나 행을 더블클릭하면 "공지사항 상세" 팝업이 뜹니다. 회색 막대가 잠깐 보인 뒤 아래 그림처럼 항목이 채워지고, 연 공지의 조회수가 1 오릅니다.
-- [수정]을 누르면 팝업이 닫히기만 합니다. 열어 줄 입력 팝업은 다음 단계에서 만듭니다.
+- [수정]을 누르면 팝업이 닫히기만 합니다. 열어 줄 등록·수정 팝업은 다음 단계에서 만듭니다.
 - 타입 검사의 `viewOpen` 오류가 사라집니다. 대신 `error TS6133: 'edit' is declared but its value is never read.`가 하나 남습니다. `edit`를 읽는 곳이 아직 없어서이고, 다음 단계에서 사라집니다.
 :::
 
 ![단계 7을 마친 화면의 상세 팝업](img/shots/ch14-step7-view.png){width=70%}
 
 ::: step 8 등록·수정 팝업
-`NoticeEditModal.tsx`에 입력 팝업을 만들고, [등록] 버튼과 상세 팝업의 [수정]이 이 팝업을 열게 합니다.
+`NoticeEditModal.tsx`에 등록·수정 팝업을 만들고, [등록] 버튼과 상세 팝업의 [수정]이 이 팝업을 열게 합니다.
 :::
 
-부품 서랍의 상수, 팝업 파일, 화면 본체 순서로 고칩니다. 먼저 `NoticeParts.tsx`의 가져오기 줄들 아래, `/* ---------- 1. 조회조건` 주석 위에 상수 둘을 넣습니다.
+부품 파일의 상수, 팝업 파일, 화면 본체 순서로 고칩니다. 먼저 `NoticeParts.tsx`의 가져오기 줄들 아래, `/* ---------- 1. 조회조건` 주석 위에 상수 둘을 넣습니다.
 
 ```tsx src="src/screens/sample/NoticeParts.tsx:23-27" kind="이어 쓰기"
 /* ---------- 0. 바이트 상한(잠정 Q-07 — 계산은 공통 utils/rules byteLength·maxBytes·byteCount) ---------- */
@@ -308,7 +295,7 @@ export const NoticeEditModal = ({ open, no, onClose }: Props) => (
 );
 ```
 
-45~52행이 [[#ch13-popup]]의 antd `Modal`입니다. 49행은 `no`로 제목을 고르고, 50행의 `footer={null}`은 기본 버튼을 없앱니다. [닫기]와 [저장]은 속의 폼이 그립니다. 51행의 @@`destroyOnHidden`|destroyOnHidden@@은 닫힐 때 안쪽을 버리라는 표시라서, 다시 열면 점선 안쪽이 새로 만들어지고 쓰다 만 글이 남지 않습니다. 없어도 되는 props라 빠뜨려도 타입 검사는 조용하니, 닫았다 다시 열어 글이 사라지는지 화면에서 봅니다.
+45~52행이 [[#ch13-popup]]의 antd `Modal`입니다. 49행은 `no`로 고른 제목을 팝업 제목 부품 `ModalTitle`에 건네고, 50행의 `footer={null}`은 기본 버튼을 없앱니다. [닫기]와 [저장]은 속의 폼이 그립니다. 51행의 @@`destroyOnHidden`|destroyOnHidden@@은 닫힐 때 안쪽을 버리라는 표시라서, 다시 열면 점선 안쪽이 새로 만들어지고 쓰다 만 글이 남지 않습니다. 없어도 되는 props라 빠뜨려도 타입 검사는 조용하니, 닫았다 다시 열어 글이 사라지는지 화면에서 봅니다.
 
 겉은 화면 본체에 늘 그려져 있어 겉에 둔 훅의 기억은 버려지지 않습니다. 그래서 훅은 모두 안쪽에 둡니다. 넷째 덩이가 가운데입니다.
 
@@ -345,9 +332,9 @@ const NoticeForm = ({ target, onClose }: { target: Notice | null; onClose: () =>
   const onFinish = (v: NoticeFormValues) => save.mutate(toBody(v), { onSuccess: onClose });
 ```
 
-`target`은 고칠 공지이고 등록이면 `null`입니다. `me`(69행)는 [[#ch11]]의 스토어에서 꺼낸 로그인한 사람이고, `save`(70~73행)는 [[#ch12-mutation]]의 저장 뮤테이션입니다. `writer`(74행)는 작성자 칸에 보일 사람, `initial`(75~77행)은 폼의 처음 값입니다. `Partial`([[#ch4-table]])은 칸을 다 채우지 않아도 된다는 표시입니다.
+`target`은 고칠 공지이고 등록이면 `null`입니다. `me`(69행)는 [[#ch11]]의 스토어에 든 로그인한 사람이고, `save`(70~73행)는 [[#ch12-mutation]]의 저장 뮤테이션입니다. `writer`(74행)는 작성자 칸에 보일 사람, `initial`(75~77행)은 폼의 처음 값입니다. `Partial`([[#ch4-table]])은 일부 칸만 채워도 된다는 표시입니다.
 
-80행의 @@`onFinish`|onFinish@@는 폼이 모든 칸의 검사를 통과했을 때만 부르는 함수입니다. 성공했을 때 할 일이 두 곳에 있습니다. 72행은 저장할 때마다 늘 하는 일(목록 다시 읽기), 80행의 `{ onSuccess: onClose }`는 이번 호출에만 하는 일(팝업 닫기)입니다. 여섯째 덩이는 폼을 그립니다.
+80행의 @@`onFinish`|onFinish@@는 폼이 모든 칸의 검사를 통과했을 때만 부르는 함수입니다. 성공했을 때 할 일이 2곳에 있습니다. 72행은 저장할 때마다 늘 하는 일(목록 다시 읽기), 80행의 `{ onSuccess: onClose }`는 이번 호출에만 하는 일(팝업 닫기)입니다. 여섯째 덩이는 폼을 그립니다.
 
 ```tsx src="src/screens/popup/NoticeEditModal.tsx:82-102" kind="이어 쓰기"
   return (
@@ -373,7 +360,9 @@ const NoticeForm = ({ target, onClose }: { target: Notice | null; onClose: () =>
 };
 ```
 
-83행의 `component={false}`는 `<form>` 태그를 따로 만들지 않는다는 antd의 옵션입니다. 그래서 [저장]은 96행처럼 `form.submit()`으로 폼을 제출합니다. 84~93행은 상세 팝업의 `itemsOf`와 같은 모양인데, 값 자리에 글자 대신 [[#ch13-popup]]의 `formItem`으로 만든 입력 칸이 들어갑니다. 작성자(90행)만은 글자인데, 42행 주석대로 서버가 로그인한 사람으로 채우기 때문입니다. 96행의 [저장]은 수정이면 수정 권한을, 등록이면 등록 권한을 묻고, 저장하는 동안 도는 표시를 냅니다.
+83행의 `component={false}`는 `<form>` 태그를 따로 만들지 않는다는 antd의 옵션입니다. 그래서 [저장]은 96행처럼 `form.submit()`으로 폼을 제출합니다. 84~93행은 상세 팝업의 `itemsOf`와 같은 모양인데, 값 자리에 글자 대신 [[#ch13-popup]]의 `formItem`으로 만든 입력 칸이 들어갑니다. 89행의 `OfficeSelector`는 사무소를 고르는 공통 부품입니다. 작성자(90행)만은 글자인데, 42행 주석대로 서버가 로그인한 사람으로 채우기 때문입니다.
+
+94행이 [[#ch2-where]]에서 말한 그 `style` 한 줄이고, `justifyContent: 'flex-end'`는 자식을 끝 쪽으로 모으라는 값입니다. 96행의 [저장]은 수정이면 수정 권한을, 등록이면 등록 권한을 묻고, 저장하는 동안 도는 표시를 냅니다.
 
 끝으로 `NoticePage.tsx`에 3줄을 넣습니다. 21행은 `NoticeViewModal` 가져오기 줄(22행) 바로 위, 72행은 [조회] 버튼 줄(69행) 바로 아래입니다. 110행은 상세 팝업이 끝나는 `/>` 줄(109행) 아래입니다.
 

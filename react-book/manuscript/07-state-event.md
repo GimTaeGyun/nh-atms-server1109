@@ -68,7 +68,7 @@ const CallButton = () => {
 const [ticket, setTicket] = useState(0);
 ```
 
-괄호 안의 `0`은 처음 값입니다. `useState`는 칸이 둘인 배열을 돌려줍니다. 첫 칸은 지금 값이고, 둘째 칸은 그 값을 @@|바꾸는 함수@@**바꾸는 함수**, 곧 표시기에 이어진 단추입니다. 왼쪽의 대괄호는 [[#ch3]]에서 배운 배열 구조 분해로, 두 칸에 `ticket`과 `setTicket`이라는 이름을 붙여 꺼냅니다. 이름은 `값`, `set값`으로 짝을 맞춥니다. `useState`는 파일 첫머리에서 `import { useState } from 'react';`로 가져와 씁니다.
+괄호 안의 `0`은 처음 값입니다. `useState`는 칸이 둘인 배열을 돌려줍니다. 첫 칸은 지금 값이고, 둘째 칸은 그 값을 @@|바꾸는 함수@@**바꾸는 함수**, 곧 표시기에 이어진 단추입니다. 왼쪽의 대괄호는 [[#ch3]]에서 배운 배열 구조 분해로, 2칸에 `ticket`과 `setTicket`이라는 이름을 붙여 꺼냅니다. 이름은 `값`, `set값`으로 짝을 맞춥니다. `useState`는 파일 첫머리에서 `import { useState } from 'react';`로 가져와 씁니다.
 
 예제 7-1의 2행을 이 줄로, 4행을 `setTicket(ticket + 1)`로 바꿔 봅니다. 이제 누를 때마다 버튼의 글자가 (1), (2), (3)으로 올라갑니다. 이름이 `use`로 시작하는 이런 리액트 함수를 훅이라고 합니다([[#ch8]]).
 
@@ -82,7 +82,7 @@ const [ticket, setTicket] = useState(0);
 
 표에서 체크한 공지 번호들(`selected`), 등록·수정 팝업의 상황(`edit`), 상세 팝업이 열려 있는지(`viewOpen`)입니다. 36행과 37행의 꺾쇠는 [[#ch7-multi-state]]에서 풀고, 가장 단순한 38행부터 봅니다. 처음 값이 `false`이므로 화면을 막 열었을 때 상세 팝업은 닫혀 있습니다.
 
-이 파일에서 `viewOpen`을 바꾸는 곳은 네 군데(54·55·104·106행)이고, 모두 `setViewOpen`을 부릅니다. `viewOpen = true`처럼 값을 직접 넣는 줄은 하나도 없습니다. state는 바꾸는 함수로만 바꿉니다.
+이 파일에서 `viewOpen`을 바꾸는 곳은 4군데(54·55·104·106행)이고, 모두 `setViewOpen`을 부릅니다. `viewOpen = true`처럼 값을 직접 넣는 줄은 하나도 없습니다. state는 바꾸는 함수로만 바꿉니다.
 
 ## state가 바뀌면 다시 그린다 {#ch7-rerender}
 
@@ -114,12 +114,12 @@ const [ticket, setTicket] = useState(0);
 :::
 
 ::: try 누른 횟수를 세는 버튼
-개발 서버를 켜 둔 채로 `src/screens/home/HomePage.tsx`에 +가 찍힌 3줄을 더하고 저장합니다. 나머지는 자리를 찾는 길잡이입니다(줄 번호는 상자 안에서 센 번호, `// …`는 건너뛴 줄).
+개발 서버를 켜 둔 채로 `src/screens/home/HomePage.tsx`에 +가 찍힌 3줄을 더하고 저장합니다. 나머지는 자리를 찾는 길잡이입니다(줄 번호는 상자 안에서 센 번호, `⋮`은 건너뛴 줄).
 
 ```tsx title="src/screens/home/HomePage.tsx" kind="고치기" diff
 +import { useState } from 'react';
  import type { ReactNode } from 'react';
- // …
+ ⋮
    const openScreen = useOpenScreen();
 +  const [count, setCount] = useState(0);
    return (
@@ -143,7 +143,7 @@ state에는 참거짓과 숫자뿐 아니라 객체와 배열도 담습니다. �
     { key: 'update', onClick: () => setEdit({ open: true, no: selected[0] }), disabled: selected.length !== 1 },
 ```
 
-[등록] 버튼과 [수정] 버튼이 눌렸을 때 할 일입니다(버튼이 되는 과정은 [[#ch13]]). [수정]은 체크한 공지가 하나일 때만 켜지고, 그 번호인 `selected[0]`을 `no`에 넣습니다. 두 줄 모두 `setEdit`에 새 객체를 통째로 건넵니다. `edit.open = true`처럼 들고 있던 객체의 속을 고치지 않습니다.
+[등록] 버튼과 [수정] 버튼이 눌렸을 때 할 일입니다(버튼이 되는 과정은 [[#ch13]]). [수정]은 체크한 공지가 하나일 때만 켜지고, 그 번호인 `selected[0]`을 `no`에 넣습니다. 2줄 모두 `setEdit`에 새 객체를 통째로 건넵니다. `edit.open = true`처럼 들고 있던 객체의 속을 고치지 않습니다.
 
 속을 고치면 안 되는 까닭은 리액트가 "이전 것과 같은 물건인가"로 state가 바뀌었는지를 가리기 때문입니다. 배열에 `push`로 값을 밀어 넣고 같은 배열을 바꾸는 함수에 다시 건네면, 리액트는 같은 물건으로 보고 화면을 다시 그리지 않습니다. *객체와 배열 state는 속을 고치지 말고 새로 만들어 넣습니다.* [[#ch3]]에서 배운 전개 연산자와 `filter`가 여기서 쓰입니다.
 
@@ -167,7 +167,7 @@ state에는 참거짓과 숫자뿐 아니라 객체와 배열도 담습니다. �
   const setPage = useCallback((page: number, size: number) => setParams((prev) => (prev ? { ...prev, page, size } : prev)), [setParams]);
 ```
 
-[[#ch3]]에서 읽은, 쪽 번호를 누르면 불리는 줄입니다. `setParams`는 같은 파일 13행에서 처음 값 `null`로 만든 조회조건 `params`의 바꾸는 함수입니다. `prev`는 가장 최근 조회조건이고, 조회 전이라 `null`이면 그대로 둡니다. 바깥의 `useCallback`([[#ch8]]) 때문에 `setPage`는 한 번 만들어 두고 계속 쓰는 함수입니다. 그 안에서 `params`를 읽으면 만들 때의 값에 머무르므로, `prev`로 최근 값을 받습니다.
+[[#ch3]]에서 읽은, 쪽 번호를 누르면 불리는 줄입니다. `setParams`는 같은 파일 13행에서 처음 값 `null`로 만든 조회조건 `params`의 바꾸는 함수입니다. `prev`는 가장 최근 조회조건이고, 조회 전이라 `null`이면 그대로 둡니다. 바깥을 감싼 `useCallback`은 [[#ch8]]에서 봅니다.
 
 ## state는 누가 갖고 있을까 {#ch7-owner}
 
@@ -192,7 +192,7 @@ state에는 참거짓과 숫자뿐 아니라 객체와 배열도 담습니다. �
 
 상세 팝업의 [수정]을 누르면 106행과 107행이 state 2개를 한꺼번에 바꿉니다. 상세 팝업을 닫고, 같은 공지 번호로 등록·수정 팝업을 엽니다. 두 state가 한 컴포넌트에 모여 있어서 되는 일입니다.
 
-여러 부품이 함께 보는 state를 공통 부모로 올려 두는 일을 @@|state 끌어올리기@@**state 끌어올리기**(lifting state up)라고 합니다. 끌어올린 state에는 그림 7-3의 검은 화살표(값)와 파란 화살표(알림)가 늘 짝으로 붙습니다. 여러 화면이 함께 보는 값은 [[#ch11]]의 스토어가 맡습니다.
+여러 컴포넌트가 함께 보는 state를 공통 부모로 올려 두는 일을 @@|state 끌어올리기@@**state 끌어올리기**(lifting state up)라고 합니다. 끌어올린 state에는 그림 7-3의 검은 화살표(값)와 파란 화살표(알림)가 늘 짝으로 붙습니다. 여러 화면이 함께 보는 값은 [[#ch11]]의 스토어가 맡습니다.
 
 ## 입력 칸과 state {#ch7-input}
 
@@ -200,7 +200,7 @@ state에는 참거짓과 숫자뿐 아니라 객체와 배열도 담습니다. �
 
 ```tsx title="예제 7-3 글자를 기억하는 입력 칸"
 const [name, setName] = useState('');
-// …
+⋮
 <input value={name} onChange={(e) => setName(e.target.value)} />
 <p>{name.length}글자: {name}</p>
 ```
@@ -221,9 +221,9 @@ const KeywordInput = ({ form, value, onChange }: ValueProps<string | undefined> 
 
 45행의 `Input`은 antd의 입력 칸이고, `value`와 `onChange` 짝이 예제와 같습니다. 다만 `useState`가 없습니다. 둘을 props로 받아(42행) `Input`에 이어 줄 뿐입니다. 42행 콜론 뒤는 props의 타입인데, `&`는 두 타입을 합친다는 표시입니다. `value`와 `onChange`를 담은 공용 타입 `ValueProps`에 `form`을 더해 받습니다. `onChange?.(…)`는 [[#ch3]]의 옵셔널 체이닝으로, `onChange`를 받았을 때만 부릅니다.
 
-둘을 건네는 쪽은 antd의 `Form`입니다. `KeywordInput`을 쓰는 57행은 `<KeywordInput form={form} />`이 전부라서 `value`도 `onChange`도 건네지 않습니다. 이 칸은 조회조건 틀 `SearchForm`([[#ch13]])이 품은 `Form` 안에 놓이고, 그 `Form`이 칸마다 값을 기억해 두었다가 이 둘을 꽂아 줍니다. 입력 칸이 열 개여도 `useState`를 열 번 쓰지 않는 까닭입니다.
+둘을 건네는 쪽은 antd의 `Form`입니다. `KeywordInput`을 쓰는 57행은 `<KeywordInput form={form} />`이 전부라서 `value`도 `onChange`도 건네지 않습니다. 이 칸은 조회조건 부품 `SearchForm`([[#ch13]])이 품은 `Form` 안에 놓이고, 그 `Form`이 칸마다 값을 기억해 두었다가 이 둘을 꽂아 줍니다. 입력 칸이 10개여도 `useState`를 10번 쓰지 않는 까닭입니다.
 
-로그인 화면 `LoginPage.tsx`도 `Form`을 써서 `useState`가 한 번도 나오지 않습니다. `NoticePage.tsx` 34행의 `Form.useForm()`은 `Form`을 바깥에서 다루는 손잡이를 받는 줄입니다.
+로그인 화면 `LoginPage.tsx`도 입력 칸을 `Form`에 맡겨서 `useState`가 없습니다. `NoticePage.tsx` 34행의 `Form.useForm()`은 `Form`을 바깥에서 다루는 손잡이를 받는 줄입니다.
 
 우리 소스의 `useState`는 대개 팝업이 열렸는지, 무엇을 골랐는지 같은 화면의 사정을 기억합니다. 폼의 글자는 `Form`이, 서버에서 읽은 목록은 TanStack Query가([[#ch12]]), 로그인한 사람은 스토어가([[#ch11]]) 맡습니다. 다만 폼 밖에 홀로 놓인 검색어 칸은 예제 7-3처럼 `useState`로 기억하기도 합니다(사무소 검색 팝업 `OfficeSearchModal.tsx` 20·31행).
 
@@ -232,7 +232,7 @@ const KeywordInput = ({ form, value, onChange }: ValueProps<string | undefined> 
 - `const [값, 바꾸는 함수] = useState(처음 값)`. state는 컴포넌트가 기억하는 값이다.
 - 바꾸는 함수를 부르면 리액트가 컴포넌트를 다시 렌더링한다. 화면은 state를 그린 결과다.
 - 객체와 배열 state는 새로 만들어 넣는다. 가장 최근 값이 필요하면 `set((prev) => …)`를 쓴다.
-- 여러 부품이 함께 보는 state는 공통 부모가 갖고, 지금 값과 알릴 길(콜백)을 props로 내려 준다.
+- 여러 컴포넌트가 함께 보는 state는 공통 부모가 갖고, 지금 값과 알릴 길(콜백)을 props로 내려 준다.
 - 입력 칸은 `value`와 `onChange` 짝으로 state와 묶는다. 우리 소스의 폼은 antd `Form`이 맡는다.
 :::
 

@@ -35,10 +35,10 @@
   <path d="M204,148 L171,148" class="line" marker-end="url(#arrow)"/>
   <path d="M330,180 L330,226" class="line" marker-end="url(#arrow)"/>
 
-  <!-- 3층: 서버 창구와 자료의 모양 -->
+  <!-- 3층: API 함수와 자료의 모양 -->
   <rect x="300" y="228" width="296" height="64" class="box-blue"/>
   <text x="448" y="249" text-anchor="middle" class="t-mono t-b">api/endpoints/notice.ts</text>
-  <text x="448" y="267" text-anchor="middle">서버 창구 · API 함수와 쿼리 키</text>
+  <text x="448" y="267" text-anchor="middle">API 함수와 쿼리 키</text>
   <text x="448" y="284" text-anchor="middle" class="t-blue">단계 3</text>
 
   <path d="M300,260 L270,260" class="line" marker-end="url(#arrow)"/>

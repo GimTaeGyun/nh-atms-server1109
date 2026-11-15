@@ -38,7 +38,7 @@
   <rect class="box-blue" x="226" y="170" width="96" height="26"/>
   <text class="t-mono t-b" x="274" y="188" text-anchor="middle">MeGate</text>
 
-  <!-- 갈림길 2: status (코드 순서 25 → 27 → 29–45 → 46) -->
+  <!-- 갈림길 2: status (코드 순서 25 → 27 → 29~45 → 46) -->
   <text class="t-b" x="502" y="31" text-anchor="middle">status에 따라 돌려주는 것</text>
   <path class="line" d="M322,183 H336 M336,57 V183"/>
 
@@ -60,7 +60,7 @@
   <text class="t-sm" x="379" y="153" text-anchor="middle">그 밖의 실패</text>
   <rect class="box-red" x="424" y="124" width="156" height="34"/>
   <text x="502" y="138" text-anchor="middle">오류 안내와 [다시 시도]</text>
-  <text class="t-sm" x="502" y="152" text-anchor="middle">29–45행</text>
+  <text class="t-sm" x="502" y="152" text-anchor="middle">29~45행</text>
 
   <path class="line" d="M336,183 H424" marker-end="url(#arrow)"/>
   <text class="t-mono" x="379" y="177" text-anchor="middle">idle, loading</text>

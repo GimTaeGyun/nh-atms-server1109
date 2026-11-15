@@ -14,11 +14,11 @@
   <text class="t-mono" x="341" y="27" text-anchor="middle">size: 20</text>
   <text class="t-sm t-gray" x="398" y="27">원본은 그대로 남는다</text>
 
-  <!-- ① 세 칸을 모두 베낀다 -->
+  <!-- ① 3칸을 모두 베낀다 -->
   <path class="line" d="M101,38 V64" marker-end="url(#arrow)"/>
   <path class="line" d="M226,38 V64" marker-end="url(#arrow)"/>
   <path class="line" d="M341,38 V64" marker-end="url(#arrow)"/>
-  <text class="t-sm" x="398" y="55">① <tspan class="t-mono">...prev</tspan>가 세 칸을 모두 베낀다</text>
+  <text class="t-sm" x="398" y="55">① <tspan class="t-mono">...prev</tspan>가 3칸을 모두 베낀다</text>
 
   <!-- 새 객체 next -->
   <text class="t-mono t-b" x="2" y="85">next</text>

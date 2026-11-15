@@ -20,7 +20,7 @@
 - `src/screens/popup/NoticeEditModal.tsx`
 :::
 
-은행에 들어온 신입 직원은 첫날부터 창구에 혼자 앉지 않습니다. 며칠은 선배 옆에서 전표 처리를 지켜보고, 그다음에는 선배가 지켜보는 앞에서 직접 처리해 봅니다. 13장까지가 지켜보는 시간이었다면 이 장은 직접 처리하는 시간입니다.
+은행에 들어온 신입 직원은 첫날부터 창구에 혼자 앉지 않습니다. 며칠은 선배 옆에서 전표 처리를 지켜보고, 그다음에는 선배가 지켜보는 앞에서 직접 처리해 봅니다. [[#ch13]]까지가 지켜보는 시간이었다면 이 장은 직접 처리하는 시간입니다.
 
 공지사항 화면의 파일 6개를 비우고 처음부터 한 줄씩 다시 채웁니다. 원래 파일은 옆에 펼쳐 둔 정답지입니다. 막히면 정답지를 보고, 단계가 끝날 때마다 화면을 띄워 확인합니다.
 
@@ -34,7 +34,7 @@
 
 ![공지사항 화면의 파일 6개. 화살표는 가져다 쓰는 파일에서 쓰이는 파일로 향하고, 파란 글자는 그 파일을 치는 단계다. 타입 파일은 다섯 파일이 모두 쓰지만 화살표는 하나만 그렸다](img/ch14-files.svg){width=96%}
 
-맨 위의 `NoticePage.tsx`가 화면 본체로, 틀과 버튼을 그리고 아래 파일들을 불러 조립합니다. `NoticeParts.tsx`는 조회조건 칸과 표의 컬럼을 모아 둔 부품 서랍이고, 팝업 둘은 한 파일씩입니다. 맨 아래 두 파일은 화면에 아무것도 그리지 않습니다. 서버와 주고받는 자료의 모양을 적은 타입 파일과, 서버를 부르는 API 함수 파일입니다.
+맨 위의 `NoticePage.tsx`가 화면 본체로, 틀과 버튼을 그리고 아래 파일들을 불러 조립합니다. `NoticeParts.tsx`는 조회조건 칸과 표의 컬럼을 모아 둔 부품 파일이고, 팝업 둘은 한 파일씩입니다. 맨 아래 두 파일은 화면에 아무것도 그리지 않습니다. 서버와 주고받는 자료의 모양을 적은 타입 파일과, 서버를 부르는 API 함수 파일입니다.
 
 화살표 끝의 파일이 먼저 있어야 그 파일을 가져다 쓸 수 있습니다. 그래서 빈 화면을 하나 띄운 다음에는 화살표를 거슬러 올라가며 만듭니다. 아래 표가 이 장의 지도입니다.
 
@@ -56,7 +56,7 @@
 
 ### 연습용 폴더 만들기
 
-1. 파일 탐색기에서 `nh-atms-web` 폴더를 복사해 바탕 화면에 붙여 넣습니다. 붙여 넣은 폴더의 이름은 `nh-atms-web-practice`처럼 바꿉니다. 받은 소스 폴더는 팀이 Git이라는 도구로 함께 관리하는 저장소라서, 그 안에 두면 연습한 파일이 팀 소스에 섞여 올라갈 수 있습니다. `node_modules`까지 함께 복사되니 `npm ci`는 다시 하지 않습니다.
+1. 파일 탐색기에서 `nh-atms-web` 폴더를 복사해 바탕 화면에 붙여 넣습니다. 붙여 넣은 폴더의 이름은 `nh-atms-web-practice`처럼 바꿉니다. 앞 장의 해 보기는 고친 줄을 곧바로 되돌렸지만 이 장은 파일을 통째로 비웁니다. 받은 소스 폴더는 팀이 Git이라는 도구로 함께 관리하는 저장소라서, 그 안에 두면 연습한 파일이 팀 소스에 섞여 올라갈 수 있습니다. `node_modules`까지 함께 복사되니 `npm ci`는 다시 하지 않습니다.
 2. VS Code의 [파일] → [새 창]([New Window])으로 창을 하나 더 열고, 그 창에서 [폴더 열기]로 연습용 폴더를 엽니다. 창 제목의 폴더 이름으로 원본 창과 구별합니다.
 3. 장 머리의 소스 6개 파일을 하나씩 열어 <kbd>Ctrl</kbd>+<kbd>A</kbd>, <kbd>Delete</kbd>, <kbd>Ctrl</kbd>+<kbd>S</kbd>를 누릅니다. 파일은 지우지 않고 내용만 비워서, 자리와 이름을 그대로 둡니다.
 4. 원본 폴더에서 켜 둔 개발 서버가 있으면 <kbd>Ctrl</kbd>+<kbd>C</kbd>로 끄고, 연습용 폴더의 터미널에서 `npm run dev`를 칩니다. 두 화면은 똑같이 생겨서, 둘 다 켜 두면 어느 쪽을 보는지 헷갈립니다.
@@ -100,14 +100,14 @@ Found 1 error.
 - 주석은 동작과 상관없고 §·→ 같은 기호가 많으니 원본 창에서 복사해 붙여도 됩니다. 블록 사이의 빈 줄도 보기 좋게 넣습니다.
 
 ::: warn 저장과 삭제는 누르지 않습니다
-실습 화면이 붙는 백엔드는 팀이 함께 쓰는 개발 DB를 읽고 씁니다. 그래서 이 장의 실습은 화면을 확인하는 데까지만 합니다. [저장]은 제목과 내용을 하나도 치지 않은 등록 팝업에서 입력 검사를 볼 때만 누릅니다. 빨간 별이 붙은 칸이 비어 있으면 화면이 막아 서버로 가지 않기 때문입니다. 글이 든 팝업의 [저장]과 삭제 확인 풍선의 [확인]은 누르지 않고, 그 뒤의 화면은 책의 그림으로 봅니다.
+실습 화면이 붙는 백엔드는 팀이 함께 쓰는 개발 DB를 읽고 씁니다. 그래서 이 장의 실습은 화면을 확인하는 데까지만 합니다. [저장]은 제목과 내용을 하나도 치지 않은 등록 팝업에서 입력 검사를 볼 때만 누릅니다. 빨간 별이 붙은 칸이 비어 있으면 화면이 막아 서버로 가지 않기 때문입니다. 글을 채운 팝업의 [저장]과 삭제 확인 풍선의 [확인]은 누르지 않고, 그 뒤의 화면은 책의 그림으로 봅니다.
 
 공지 제목을 누르면 서버가 조회수를 1 올립니다. 바뀌는 것이 조회수뿐이니 눌러도 괜찮습니다.
 :::
 
-## 빈 화면과 서버 창구 {#ch14-shell}
+## 빈 화면과 API 함수 {#ch14-shell}
 
-첫 세 단계는 화면의 문을 열고, 서버와 주고받을 서류의 양식과 창구를 갖추는 일입니다. 단계 2와 3은 화면 대신 타입 검사로 확인합니다.
+첫 세 단계는 화면의 문을 열고, 서버와 주고받을 서류의 양식과 API 함수를 갖추는 일입니다. 단계 2와 3은 화면 대신 타입 검사로 확인합니다.
 
 ::: step 1 빈 화면 띄우기
 `NoticePage.tsx`에 화면 틀만 그리는 컴포넌트를 씁니다.
@@ -147,7 +147,7 @@ const NoticePage = ({ screenKey }: ScreenProps) => {
 export default NoticePage;
 ```
 
-8행은 바깥 틀 `PageFrame`([[#ch13-frame]])을, 20행은 화면 props의 타입([[#ch6]])을 가져옵니다. 27~32행의 머리 주석은 앞으로 칠 것의 차례표입니다. 33행부터는 `screenKey`만 꺼내는 화살표 함수 컴포넌트입니다([[#ch5]]). 화면키를 받은 `PageFrame`은 등록부에서 제목과 경로를 찾아 그립니다. 129행의 `export default`는 등록부의 `lazy`가 찾는 내보내기입니다([[#ch10-registry]]).
+8행은 화면 틀 `PageFrame`([[#ch13-frame]])을, 20행은 화면 props의 타입([[#ch6]])을 가져옵니다. 27~32행의 머리 주석은 앞으로 칠 것의 차례표입니다. 33행부터는 `screenKey`만 꺼내는 화살표 함수 컴포넌트입니다([[#ch5]]). 화면키를 받은 `PageFrame`은 등록부에서 제목과 경로를 찾아 그립니다. 129행의 `export default`는 등록부의 `lazy`가 찾는 내보내기입니다([[#ch10-registry]]).
 
 @@임시 줄@@은 `PageFrame` 태그 사이에 들어가는 `children`입니다. `PageFrame`은 `children`을 꼭 받아야 합니다. 이 줄을 빼면 타입 검사가 `error TS2741: Property 'children' is missing …`라고 알립니다.
 
@@ -162,7 +162,7 @@ export default NoticePage;
 `src/domain/notice.ts`에 공지사항의 타입 6개를 씁니다.
 :::
 
-이 파일 57줄은 4장에 한 줄도 빼지 않고 실었습니다. 1~37행은 [[#ch4-notice]]의 세 블록에, 39~57행은 [[#ch4-interface]]의 첫 블록에 있습니다. 그 쪽을 펴 두거나 원본 창을 보며 처음부터 끝까지 그대로 칩니다. 뜻은 그 절에 맡기고, 칠 때는 세 가지를 살핍니다.
+이 파일 57줄은 [[#ch4]]에 한 줄도 빼지 않고 실었습니다. 1~37행은 [[#ch4-notice]]의 세 블록에, 39~57행은 [[#ch4-interface]]의 첫 블록에 있습니다. 그 쪽을 펴 두거나 원본 창을 보며 처음부터 끝까지 그대로 칩니다. 뜻은 그 절에 맡기고, 칠 때는 세 가지를 살핍니다.
 
 - 첫째, 타입 6개 앞의 `export`입니다. 다른 파일이 가져다 쓰려면 내보내야 합니다([[#ch3]]). `NoticeSave` 앞에서 빠뜨리면 이 단계에서 `'NoticeSave' is declared but never used.`가 나옵니다. 아무도 쓰지 않는 이름이라는 뜻이고, 단계 3에서는 `… is not exported` 오류가 더 붙습니다.
 - 둘째, 5행의 `import type` 줄입니다. 빠뜨리면 `Cannot find name 'Audit'`과 `Cannot find name 'PageParams'`가 나옵니다.
@@ -177,7 +177,7 @@ export default NoticePage;
 ```
 :::
 
-::: step 3 서버 창구 만들기
+::: step 3 API 함수 만들기
 `src/api/endpoints/notice.ts`에 API 함수 5개와 쿼리 키를 씁니다.
 :::
 
@@ -221,7 +221,7 @@ export const noticeKeys = {
 
 ::: check
 - 화면은 그대로이고, `npm run typecheck`가 단계 2처럼 2줄만 찍고 끝납니다.
-- 15행을 작은따옴표로 치면 `error TS6133: 'no' is declared but its value is never read.`가 나옵니다. 받은 `no`를 쓰지 않았다는 말이고, 따옴표가 틀렸다는 신호입니다.
+- 15행을 작은따옴표로 치면 `error TS6133: 'no' is declared but its value is never read.`가 나옵니다. 따옴표가 틀렸다는 신호입니다.
 :::
 
 ## 조회조건에서 조회까지 {#ch14-search}
@@ -253,7 +253,7 @@ import type { ValueProps } from '@/types/common';
 import type { NoticeField } from '@/domain/notice';
 ```
 
-이 블록은 원본 1~21행 가운데 지금 쓰는 줄만 모았습니다(14~17·19행은 뒤 단계에서 칩니다). 형광펜 2줄은 원본 7행의 `Typography`, 21행의 `Notice`와 `NoticeSearch`를 빼고 치므로 이 블록에는 줄 번호를 달지 않았습니다. 우리 소스의 타입 검사는 가져와 놓고 쓰지 않는 이름을 오류로 봅니다(`tsconfig.app.json`의 @@`noUnusedLocals`|noUnusedLocals@@). 그래서 가져오기 줄에는 그 단계에서 쓰는 이름만 적고, 쓰는 단계에 이르면 더합니다. 이어서 검색구분의 고를 거리와 기본 기간을 만듭니다.
+이 블록은 원본에서 지금 쓰는 줄만 모았고, 형광펜 2줄은 원본보다 이름을 덜 적은 줄이라 줄 번호를 달지 않았습니다. 우리 소스의 타입 검사는 가져와 놓고 쓰지 않는 이름을 오류로 봅니다(`tsconfig.app.json`의 @@`noUnusedLocals`|noUnusedLocals@@). 그래서 가져오기 줄에는 그 단계에서 쓰는 이름만 적고, 쓰는 단계에 이르면 더합니다. 이어서 검색구분의 고를 거리와 기본 기간을 만듭니다.
 
 ```tsx src="src/screens/sample/NoticeParts.tsx:29-39" kind="이어 쓰기"
 /* ---------- 1. 조회조건 ---------- */
@@ -275,7 +275,7 @@ export const lastMonth = (): [Dayjs, Dayjs] => [today().subtract(1, 'month').add
 
 오늘이 11월 15일이면 10월 16일부터 11월 15일까지입니다. 상수가 아니라 함수인 것은 부를 때마다 그날 날짜로 다시 계산하기 위해서입니다.
 
-남은 검색어 칸 `KeywordInput`은 [[#ch7-input]]에서, 조건 칸 목록 `useNoticeFields`는 [[#ch13-search]]에서 읽었습니다.
+남은 검색어 칸 `KeywordInput`은 [[#ch7-input]]에서, 조건 칸 목록 `useNoticeFields`는 [[#ch13-search]]에서 읽었습니다. 그때 건너뛴 43행의 `Form.useWatch('field', form)`는 검색구분 칸을 지켜보다가 값이 바뀌면 다시 렌더링하게 하는 antd의 훅입니다. 44행의 `off`는 그 값이 '전체'이면 참이 되어 검색어 칸을 끕니다.
 
 ```tsx src="src/screens/sample/NoticeParts.tsx:41-61" kind="이어 쓰기"
 /** 검색어 칸 — 검색구분이 '전체'면 비활성 */
@@ -301,7 +301,7 @@ export const useNoticeFields = (): SearchField[] => {
 };
 ```
 
-13장에서 지나친 곳만 짚습니다. `useNoticeFields`는 커스텀 훅이고([[#ch8-custom]]), 50행은 [[#ch11]]의 셀렉터로 내 사무소 코드를 꺼냅니다. 51행의 `useMemo`는 사무소가 바뀔 때만 칸 목록을 새로 만듭니다([[#ch8-memo]]). 54행은 빈 글자까지 `undefined`로 바꾸려고 `??` 대신 `||`를 썼습니다([[#ch3-cond]]).
+[[#ch13]]에서 지나친 곳만 짚습니다. `useNoticeFields`는 커스텀 훅이고([[#ch8-custom]]), 50행은 [[#ch11]]의 셀렉터로 내 사무소 코드를 꺼냅니다. 51행의 `useMemo`는 사무소가 바뀔 때만 칸 목록을 새로 만듭니다([[#ch8-memo]]). 54행은 빈 글자까지 `undefined`로 바꾸려고 `??` 대신 `||`를 썼습니다([[#ch3-cond]]).
 
 이제 `NoticePage.tsx`에 가져오기 2줄과 훅을 부르는 줄을 더하고 임시 줄을 바꿉니다.
 
@@ -319,11 +319,7 @@ export const useNoticeFields = (): SearchField[] => {
 +      <SearchForm fields={fields} onSearch={(v) => console.log(v)} />
 ```
 
-`useNoticeFields`를 가져오는 줄도 원본 23행보다 이름이 적고, 훅을 부르는 줄은 `return`보다 위에 둡니다([[#ch8-rules]]). 바뀐 임시 줄은 `SearchForm`에 칸 목록을 건네고, [조회]를 누르면 폼이 건넨 값을 `console.log`로 Console 탭에 찍습니다. 서버에 묻기 전에 폼이 무엇을 건네는지 보려는 줄이고, 단계 5에서 원본 85행으로 바꿉니다.
-
-::: warn 타입 검사가 못 잡는 실수
-`NoticeParts.tsx` 53행에서 `lastMonth()`의 괄호를 빠뜨리면 날짜 둘 대신 함수가 처음 값으로 건너갑니다. `defaultValue`는 무엇이든 받는 `unknown` 타입이라 타입 검사는 조용합니다. 그런데 화면은 오류 화면이 되고, Console 탭에는 `TypeError: date4.isValid is not a function`이 찍힙니다. 검사가 조용해도 화면에서 꼭 확인합니다.
-:::
+`useNoticeFields`를 가져오는 줄도 원본 23행보다 이름이 적고, 훅을 부르는 줄은 `return`보다 위에 둡니다([[#ch8-rules]]). 바뀐 임시 줄은 `SearchForm`에 칸 목록을 건네고, [조회]를 누르면 폼이 건넨 값을 `console.log`로 Console 탭에 찍습니다. 이 줄은 단계 5에서 원본 85행으로 바꿉니다.
 
 ::: check
 - 조건 칸 5개와 [조회]가 생깁니다. 검색구분을 "제목"으로 바꾸면 꺼져 있던 검색어 칸이 켜집니다.
@@ -368,9 +364,9 @@ export const toNoticeParams = (v: Record<string, unknown>): Omit<NoticeSearch, '
 };
 ```
 
-65행은 폼의 값 `v`를 받아 `NoticeSearch`에서 `page`와 `size`를 뺀(`Omit`, [[#ch4-table]]) 모양을 돌려준다는 약속입니다. 뺀 두 칸은 `usePagedSearch`가 붙입니다. 66행의 `ymdRange`는 날짜 둘을 8자리 글자 둘로 바꿔 `{ fromDate, toDate }`로 돌려줍니다.
+65행은 폼의 값 `v`를 받아 `NoticeSearch`에서 `page`와 `size`를 뺀(`Omit`, [[#ch4-table]]) 모양을 돌려준다는 약속입니다. 뺀 2칸은 `usePagedSearch`가 붙입니다. 66행의 `ymdRange`는 날짜 둘을 8자리 글자 둘로 바꿔 `{ fromDate, toDate }`로 돌려줍니다.
 
-68행은 연산자가 여럿 겹친 줄이니 안쪽부터 읽습니다. 검색어가 없으면 `?? ''`가 빈 글자로 바꾸고, `.trim()`이 앞뒤 빈칸을 떼고, `|| undefined`가 빈 글자를 `undefined`로 바꿉니다. 맨 앞의 삼항 연산자는 검색구분이 "전체"면 검색어가 무엇이든 `undefined`를 고릅니다. 74행은 검색어가 없으면 검색구분도 빼고, 72·73행은 빈 글자를 거르며, 69행의 `compactParams`가 `undefined`인 칸을 뺍니다([[#ch12-endpoints]]).
+68행은 연산자가 여럿 겹친 줄이니 안쪽부터 읽습니다. 검색어가 없으면 `?? ''`가 빈 글자로 바꾸고, `.trim()`이 앞뒤 빈칸을 떼고, `|| undefined`가 빈 글자를 `undefined`로 바꿉니다. 맨 앞의 삼항 연산자는 검색구분이 "전체"면 `undefined`를 고릅니다. 74행은 검색어가 없으면 검색구분도 빼고, 72·73행은 빈 글자를 거르며, 69행의 `compactParams`가 `undefined`인 칸을 뺍니다([[#ch12-endpoints]]).
 
 화면 본체에 가져오기 5줄을 더하고, `./NoticeParts` 줄에 이름을 하나 더합니다.
 
@@ -387,7 +383,7 @@ export const toNoticeParams = (v: Record<string, unknown>): Omit<NoticeSearch, '
 +import { toNoticeParams, useNoticeFields } from './NoticeParts';
 ```
 
-컴포넌트 안에는 세 군데에 넣습니다. 34행은 컴포넌트 첫 줄 바로 아래, 41행은 단계 4의 `const fields …` 줄 아래, 61~75행은 `return (` 바로 위입니다.
+컴포넌트 안에는 3군데에 넣습니다. 34행은 컴포넌트 첫 줄 바로 아래, 41행은 단계 4의 `const fields …` 줄 아래, 61~75행은 `return (` 바로 위입니다.
 
 ```tsx src="src/screens/sample/NoticePage.tsx:34-75" kind="이어 쓰기"
   const [form] = Form.useForm();
@@ -407,7 +403,7 @@ export const toNoticeParams = (v: Record<string, unknown>): Omit<NoticeSearch, '
 
 34행은 폼을 바깥에서 다루는 손잡이 `form`을 받습니다([[#ch7-input]]). 41행은 [[#ch12-paged]]에서 읽은 줄로, `noticeKeys.list`와 `noticeApi.list`를 괄호 없이 건네 부르는 일을 훅에 맡깁니다.
 
-61~64행의 `onSearch`는 폼의 값을 `toNoticeParams`로 바꿔 `search.search`에 넘기고, 62행 자리는 단계 9에서 채웁니다. 68~75행은 제목 줄의 버튼 목록으로([[#ch13-frame]]) 지금은 [조회] 하나입니다. 69행을 `onClick: form.submit()`으로 치면 [[#ch7-event]]의 그 실수가 되어, 누르기도 전에 조회가 돌다 리액트가 오류를 내며 멈춥니다. 다행히 이 실수는 타입 검사가 `error TS2322`로 먼저 알려 줍니다.
+61~64행의 `onSearch`는 폼의 값을 `toNoticeParams`로 바꿔 `search.search`에 넘기고, 62행 자리는 단계 9에서 채웁니다. 68~75행은 제목 줄의 버튼 목록으로([[#ch13-frame]]) 지금은 [조회] 하나입니다. 69행을 `onClick: form.submit()`으로 치면 [[#ch7-event]]의 그 실수가 되는데, 이 실수는 타입 검사가 `error TS2322`로 먼저 알려 줍니다.
 
 끝으로 `PageFrame`에 props 4개를 더하고, 임시 줄을 원본 85행으로 바꿉니다.
 
@@ -424,12 +420,12 @@ export const toNoticeParams = (v: Record<string, unknown>): Omit<NoticeSearch, '
      </PageFrame>
 ```
 
-더한 4줄(원본 80~83행) 가운데 `lastUpdated`는 "조회 전"이나 "마지막 업데이트"를 그리고, `onRefresh`를 건네면 ↻가 생깁니다. `void`는 `refetch`가 돌려주는 값을 쓰지 않는다는 표시입니다. `extra`의 `ActionBar`는 `actions`를 버튼으로 그립니다. 바꾼 `SearchForm` 줄이 34행의 손잡이를 건네서, 조회조건 칸 옆의 [조회]와 제목 줄의 [조회]가 같은 폼을 제출합니다. 이제 임시 줄은 없고, 이름을 덜 적은 가져오기 줄 3개를 빼면 지금까지 친 줄은 모두 원본의 줄입니다.
+더한 4줄(원본 80~83행) 가운데 `lastUpdated`는 "조회 전"이나 "마지막 업데이트"를 그리고, `onRefresh`를 건네면 ↻가 생깁니다. `void`는 `refetch`가 돌려주는 값을 쓰지 않는다는 표시입니다. `extra`의 `ActionBar`는 `actions`를 버튼으로 그립니다. 바꾼 `SearchForm` 줄이 34행의 손잡이를 건네서, 조회조건 칸 옆의 [조회]와 제목 줄의 [조회]가 같은 폼을 제출합니다. 이제 임시 줄은 없습니다.
 
 ::: check
 - 제목 줄 오른쪽에 "조회 전", ↻, [조회]가 생기고, [조회]를 누르면 "마지막 업데이트 : 0초 전"이 됩니다. 목록을 그릴 표는 아직 없습니다.
 - Network 탭에 `notice?fromDate=…&toDate=…&ofcCode=…&page=1&size=20` 줄이 생깁니다.
-- 조건을 그대로 두고 [조회]를 곧바로 또 누르면 줄이 늘지 않습니다([[#ch12-paged]]의 캐시). 조건을 바꾼 뒤 조건 칸에서 <kbd>Enter</kbd>나 <kbd>Ctrl</kbd>+<kbd>Enter</kbd>를 눌러도 같은 모양의 요청이 나갑니다. ↻는 누를 때마다 다시 읽습니다.
+- 조건을 그대로 두고 [조회]를 곧바로 또 누르면 줄이 늘지 않습니다([[#ch12-paged]]의 캐시). ↻는 누를 때마다 다시 읽습니다.
 :::
 
 ![단계 5를 마친 제목 줄의 오른쪽. [조회]를 누르자 "마지막 업데이트"가 떴다](img/shots/ch14-step5-title.png){width=36%}

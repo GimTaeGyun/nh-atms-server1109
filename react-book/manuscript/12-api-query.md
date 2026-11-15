@@ -36,9 +36,9 @@ GET /api/notice?fromDate=20261016&toDate=20261115&ofcCode=100001&page=1&size=20
 
 맨 앞의 `GET`은 요청의 방식입니다. `/api/notice`는 주소이고, 물음표 뒤는 조회조건입니다. `이름=값`을 `&`로 이어 붙였습니다. 작성일은 10월 16일부터 11월 15일까지, 사무소는 100001, 20건씩 나눈 목록의 1쪽을 달라는 뜻입니다. 날짜와 사무소 코드는 여러분 화면의 조회조건을 따라갑니다.
 
-요청의 방식을 @@**HTTP 메서드**|HTTP 메서드@@(method)라고 부릅니다. HTTP는 브라우저와 서버가 주고받는 규칙의 이름이고, 주소 앞의 `http://`가 그것입니다. 우리 소스에는 메서드가 넷 나옵니다. `GET`은 읽기, `POST`는 새로 만들기, `PUT`은 고치기, `DELETE`는 지우기입니다.
+요청의 방식을 @@**HTTP 메서드**|HTTP 메서드@@(method)라고 부릅니다. HTTP는 브라우저와 서버가 주고받는 규칙의 이름이고, 주소 앞의 `http://`가 그것입니다. 우리 소스가 쓰는 메서드는 네 가지입니다. `GET`은 읽기, `POST`는 새로 만들기, `PUT`은 고치기, `DELETE`는 지우기입니다.
 
-은행에서 증명서를 떼면 '발급 완료' 도장이 찍힌 봉투에 담아 줍니다. 우리 서버도 무엇을 묻든 똑같은 겉봉투에 담아 답합니다. 그 겉봉투의 모양을 정한 타입이 @@`ApiResponse`|ApiResponse@@입니다.
+은행에서 증명서를 떼면 '발급 완료'라고 적힌 봉투에 담아 줍니다. 우리 서버도 무엇을 묻든 똑같은 겉봉투에 담아 답합니다. 그 겉봉투의 모양을 정한 타입이 @@`ApiResponse`|ApiResponse@@입니다.
 
 ```ts src="src/types/api.ts:2-9"
 export interface ApiResponse<T> {
@@ -51,7 +51,7 @@ export interface ApiResponse<T> {
 }
 ```
 
-`success`는 일이 잘 끝났는지를, `code`는 결과를 뜻하는 응답코드를 알려 주며, 이 둘이 봉투에 찍힌 도장입니다. `message`는 사용자에게 알릴 말이고, 봉투 속 서류인 알맹이는 `data`에 들어 있습니다. 알맹이의 모양은 요청마다 달라서 [[#ch4]]에서 배운 제네릭 `T`로 비워 두었습니다. 목록을 달라는 요청이라면 아래 그림처럼 `T` 자리에 속봉투 `PageResult<Notice>`가 들어가고, 그 안에 공지 배열이 있습니다. 그림 오른쪽의 ①과 ②는 봉투를 여는 쪽입니다.
+`success`는 일이 잘 끝났는지를, `code`는 결과를 뜻하는 응답코드를 알려 주며, 이 둘이 봉투 겉에 적힌 결과 표시입니다. `message`는 사용자에게 알릴 말이고, 봉투 속 서류인 알맹이는 `data`에 들어 있습니다. 알맹이의 모양은 요청마다 달라서 [[#ch4]]에서 배운 제네릭 `T`로 비워 두었습니다. 목록을 달라는 요청이라면 아래 그림처럼 `T` 자리에 속봉투 `PageResult<Notice>`가 들어가고, 그 안에 공지 배열이 있습니다. 그림 오른쪽의 ①과 ②는 봉투를 여는 쪽입니다.
 
 ![목록 조회의 응답은 봉투 안의 봉투다](img/ch12-envelope.svg){width=100%}
 
@@ -62,7 +62,7 @@ export interface ApiResponse<T> {
 4. 조건을 그대로 두고 [조회]를 또 누릅니다. 줄이 늘지 않습니다. 까닭은 [[#ch12-paged]]에서 풉니다.
 :::
 
-## 모든 요청이 거치는 창구, http.ts {#ch12-http}
+## 모든 요청이 거치는 공용 창구, http.ts {#ch12-http}
 
 화면마다 서버를 직접 부른다고 해 봅시다. 요청마다 네 가지 일이 따라붙습니다. 주소 앞에 `/api`를 붙이고, 겉봉투를 벗겨 알맹이를 꺼내고, 서버가 보낸 성공 문구를 띄우고, 실패하면 어떤 실패든 한 가지 모양의 오류로 바꿔야 합니다. 우리 소스는 이 네 가지를 `src/api/http.ts` 한 파일에 모았습니다. 서버로 가는 요청은 모두 이 창구를 거칩니다.
 
@@ -83,13 +83,13 @@ const unwrap = <T>(body: ApiResponse<T>, config?: ApiRequestConfig): T => {
   }
 ```
 
-@@`api.get`|api (http.ts)@@은 주소를 받아 `GET` 요청을 보내고(88행), 받은 응답을 `unwrap`에 넘겨 그 결과를 돌려줍니다(89행). 둘째 매개변수 `config`는 요청에 덧붙이는 설정으로, 다음 절의 `{ params: … }`가 이 자리에 들어갑니다. 88행의 `http`는 30행에서 axios로 만든 요청 도구이고, 31행에서 주소 앞머리를 `env.apiBase`(값은 `/api`)로 정해 두었습니다. 그래서 `'/notice'`만 건네도 요청은 `/api/notice`로 나갑니다. `post`, `put`, `delete`도 같은 모양입니다.
+@@`api.get`|api(http.ts)@@은 주소를 받아 `GET` 요청을 보내고(88행), 받은 응답을 `unwrap`에 넘겨 그 결과를 돌려줍니다(89행). 둘째 매개변수 `config`는 요청에 덧붙이는 설정으로, 다음 절의 `{ params: … }`가 이 자리에 들어갑니다. 88행의 `http`는 같은 파일 앞쪽에서 axios로 만든 요청 도구이고, 주소 앞머리를 `env.apiBase`(값은 `/api`)로 정해 두었습니다. 그래서 `'/notice'`만 건네도 요청은 `/api/notice`로 나갑니다. `post`, `put`, `delete`도 같은 모양입니다.
 
 봉투를 여는 일은 114행의 `unwrap`이 합니다. 115행은 받은 것이 겉봉투 모양인지 확인합니다. ①은 `success`가 `false`일 때 서버의 문구(없으면 미리 정해 둔 문구)를 담아 `throw`로 오류를 던집니다. `throw`는 하던 일을 멈추고 문제가 생겼다고 알리는 문장입니다. 던진 오류는 `api.get`을 부른 함수로, 다시 그 함수를 부른 쪽으로 거슬러 올라갑니다.
 
 ②는 서버가 `message`에 알릴 말을 담아 보낸 경우로, `notifySuccess`가 그 글자를 화면 위에 띄웁니다. 공지를 등록하면 뜨는 "등록되었습니다."가 서버가 보낸 이 글자입니다. 조회 응답은 `message`가 `null`이라 띄우지 않고, `quietSuccess`를 켠 요청도 띄우지 않습니다. ③은 `data`만 돌려줍니다.
 
-①은 드문 경우를 막아 두는 안전망입니다. 우리 서버는 실패를 알릴 때 400, 404 같은 번호를 붙여 보내고, 이런 응답과 서버가 꺼져 답이 없는 경우는 56~65행이 받습니다. 어느 길로 왔든 실패는 @@`AppError`|AppError@@라는 한 가지 모양의 오류가 되고, 빨간 알림은 `src/api/queryClient.ts`의 공통 코드가 띄웁니다. 로그인이 풀린 실패라면 62행이 [[#ch11]]의 `useAuthStore`에 알려 로그인 화면으로 보냅니다. *이 창구와 공통 코드가 다 해 주므로 화면 코드에는 `try/catch`도, 알림을 띄우는 줄도 없습니다.*
+①은 드문 경우의 안전망이고, 서버가 실패 번호를 보내거나 꺼져 답이 없을 때도 같은 파일이 받아 둡니다. 어느 길로 왔든 실패는 @@`AppError`|AppError@@라는 한 가지 모양의 오류가 되고, 빨간 알림은 공통 코드를 모은 `src/api/queryClient.ts`가 띄웁니다. 로그인이 풀린 실패라면 `http.ts`가 [[#ch11]]의 `useAuthStore`에 알려 로그인 화면으로 보냅니다. *이 창구와 공통 코드가 다 해 주므로 화면 코드에는 `try/catch`도, 알림을 띄우는 줄도 없습니다.*
 
 ::: warn 화면에서 알림을 또 띄우지 않습니다
 저장에 성공했다고 화면에서 알림을 직접 띄우면 알림이 두 번 뜹니다. axios를 화면에서 직접 불러도 안 됩니다. 이 창구를 거치지 않은 요청은 위의 네 가지를 받지 못합니다.
@@ -114,7 +114,7 @@ export const noticeApi = {
 };
 ```
 
-@@`noticeApi`|noticeApi@@는 함수 다섯 개를 담은 객체입니다. 주석대로 차례로 목록, 한 건, 등록, 수정, 삭제입니다. 읽기 둘은 `api.get`을, 등록은 `api.post`를, 수정은 `api.put`을 씁니다. 화면은 `noticeApi.list(조건)`처럼 이름으로 부르면 되고, 주소가 무엇인지는 몰라도 됩니다. 이름이 비슷하지만 `api`는 모든 요청이 지나는 창구 하나이고, `noticeApi`는 그 창구를 부르는 공지사항의 API 함수 묶음입니다.
+@@`noticeApi`|noticeApi@@는 함수 5개를 담은 객체입니다. 주석대로 차례로 목록, 한 건, 등록, 수정, 삭제입니다. 읽기 둘은 `api.get`을, 등록은 `api.post`를, 수정은 `api.put`을 씁니다. 화면은 `noticeApi.list(조건)`처럼 이름으로 부르면 되고, 주소가 무엇인지는 몰라도 됩니다. 이름이 비슷하지만 `api`는 모든 요청이 지나는 공용 창구 하나이고, `noticeApi`는 그 창구를 부르는 공지사항의 API 함수 묶음입니다.
 
 13행을 뜯어 봅시다. 꺾쇠 안의 `PageResult<Notice>`는 겉봉투를 벗긴 뒤 받을 알맹이의 타입입니다. `{ params: … }`는 조회조건 객체를 주소 뒤의 `?이름=값`으로 실어 보내라는 뜻입니다. `compactParams`는 비어 있는 조건을 빼므로, 작성자 칸을 비워 둔 [[#ch12-net]]의 주소에는 작성자 조건이 없었습니다.
 
@@ -128,11 +128,11 @@ export const noticeKeys = {
 };
 ```
 
-`noticeKeys`는 @@**쿼리 키**|쿼리 키@@(query key)를 만드는 곳입니다. 쿼리 키는 받은 자료마다 붙이는 이름으로, 다음 절에서 볼 서랍의 이름표입니다. 키는 넓은 이름부터 좁은 이름 순으로 적은 배열입니다. `noticeKeys.detail(7)`은 `['notice', 'detail', 7]`을 만듭니다. `all`은 가장 넓은 이름뿐입니다.
+`noticeKeys`는 @@**쿼리 키**|쿼리 키@@(query key)를 만드는 곳입니다. 쿼리 키는 받은 자료마다 붙이는 이름으로, 다음 절에서 볼 서랍 이름입니다. 키는 넓은 이름부터 좁은 이름 순으로 적은 배열입니다. `noticeKeys.detail(7)`은 `['notice', 'detail', 7]`을 만듭니다. `all`은 가장 넓은 이름뿐입니다.
 
 ## 읽기, useQuery {#ch12-query}
 
-API 함수만 쓰면 받은 자료와 읽는 중인지를 담을 state, 처음 그린 뒤 요청을 보낼 `useEffect`가 화면마다 필요합니다. 같은 사무소 목록을 부품 다섯 개가 쓰면 요청도 다섯 번 나갑니다.
+API 함수만 쓰면 받은 자료와 읽는 중인지를 담을 state, 처음 그린 뒤 요청을 보낼 `useEffect`가 화면마다 필요합니다. 같은 사무소 목록을 부품 5개가 쓰면 요청도 5번 나갑니다.
 
 @@**TanStack Query**|TanStack Query@@(탠스택 쿼리)가 이 일을 맡습니다. 서버 자료를 읽어 오고, 받은 자료를 @@**캐시**|캐시@@(cache)에 넣어 두는 라이브러리입니다. 캐시는 받은 자료를 다시 쓰려고 넣어 두는 서랍장이고, [[#ch9]]에서 본 `QueryClientProvider`가 이 서랍장을 앱 전체에 놓아 준 부품입니다. 서버에서 자료를 읽는 일 하나를 @@**쿼리**|쿼리@@(query)라 하고, @@`useQuery`|useQuery@@ 훅으로 만듭니다. 공지 등록·수정 팝업은 이렇게 씁니다.
 
@@ -140,7 +140,7 @@ API 함수만 쓰면 받은 자료와 읽는 중인지를 담을 state, 처음 �
   const detail = useQuery({ queryKey: noticeKeys.detail(no ?? 0), queryFn: () => noticeApi.get(no as number), enabled: no !== null, gcTime: 0 });
 ```
 
-`queryFn`에는 자료를 읽어 올 함수를, `queryKey`에는 그 자료를 넣을 서랍의 이름표를 적습니다(둘 다 [[#ch12-endpoints]]). `enabled`는 요청을 보내도 되는지 정합니다. 새 글을 등록할 때는 `no`가 `null`이라 읽을 것이 없으니 보내지 않습니다. `?? 0`과 `as number`는 그 `null`에 대비한 타입 맞춤입니다. `gcTime`을 0으로 둔 것은 팝업을 닫으면 서랍을 바로 비우라는 뜻입니다.
+`queryFn`에는 자료를 읽어 올 함수를, `queryKey`에는 그 자료를 넣을 서랍 이름을 적습니다(둘 다 [[#ch12-endpoints]]). `enabled`는 요청을 보내도 되는지 정합니다. 새 글을 등록할 때는 `no`가 `null`이라 읽을 것이 없으니 보내지 않습니다. `?? 0`과 `as number`는 그 `null`에 대비한 타입 맞춤입니다. `gcTime`을 0으로 둔 것은 팝업을 닫으면 서랍을 바로 비우라는 뜻입니다.
 
 돌려받은 `detail`에는 받은 자료 `data`, 지금 읽는 중인지 알려 주는 `isFetching`, 실패했을 때의 `error`가 들어 있습니다. 컴포넌트가 처음 그려질 때 `detail.data`는 `undefined`입니다. 응답이 오면 `data`에 공지 한 건이 들어오고 컴포넌트가 다시 렌더링됩니다. state를 한 줄도 쓰지 않았는데 [[#ch7]]의 "바뀌면 다시 그린다"가 그대로 일어납니다.
 
@@ -159,23 +159,23 @@ API 함수만 쓰면 받은 자료와 읽는 중인지를 담을 state, 처음 �
   });
 ```
 
-`mutationFn`은 보낼 자료 `body`를 받아 서버를 부르는 함수입니다. 71행은 삼항 연산자로, 고칠 대상 `target`이 있으면 수정을, 없으면 등록을 부릅니다. `onSuccess`는 성공했을 때 할 일입니다. 이 훅은 준비만 하고, 요청은 같은 파일 80행처럼 `save.mutate(값)`을 부를 때 나갑니다. 뮤테이션이 끝날 때까지 `save.isPending`이 `true`이고, [저장] 버튼은 이 값으로 빙글빙글 도는 표시를 냅니다.
+`mutationFn`은 보낼 자료 `body`를 받아 서버를 부르는 함수입니다. 71행은 삼항 연산자로, 고칠 대상 `target`이 있으면 수정을, 없으면 등록을 부릅니다. `onSuccess`는 성공했을 때 할 일입니다. 이 훅은 준비만 하고, 요청은 [저장]을 누른 뒤 `save.mutate(값)`을 부를 때 나갑니다. 뮤테이션이 끝날 때까지 `save.isPending`이 `true`이고, [저장] 버튼은 이 값으로 빙글빙글 도는 표시를 냅니다.
 
 72행이 이 절의 주인공입니다. 등록에 성공한 순간, 캐시에 들어 있던 목록은 새 글이 빠진 낡은 자료가 됩니다. `invalidateQueries`는 그 서랍에 "낡았음" 딱지를 붙입니다. 이 일을 @@**무효화**|무효화@@(invalidate)라고 합니다. 아래 그림은 [저장]을 누른 뒤의 일을 순서대로 그린 것입니다.
 
 ![등록에 성공하면 목록을 무효화해 다시 읽는다](img/ch12-invalidate.svg){width=100%}
 
-③에서 화면이 한 일은 딱지를 붙인 것뿐입니다. 딱지가 붙은 서랍을 지금 화면이 쓰고 있으면 TanStack Query가 바로 다시 읽습니다(④). `qc`는 68행의 `useQueryClient()`가 돌려준 캐시 관리자이고, 건넨 키 `noticeKeys.all`은 `['notice']`입니다. 키의 앞부분이 맞으면 모두 걸리므로 `['notice', 'list', …]` 서랍은 조건과 상관없이 무효화됩니다. 그래서 키는 넓은 이름부터 적습니다.
+③에서 화면이 한 일은 딱지를 붙인 것뿐입니다. 딱지가 붙은 서랍을 지금 화면이 쓰고 있으면 TanStack Query가 바로 다시 읽습니다(④). `qc`는 `useQueryClient()`가 돌려준 캐시 관리자이고, 건넨 키 `noticeKeys.all`은 `['notice']`입니다. 키의 앞부분이 맞으면 모두 걸리므로 `['notice', 'list', …]` 서랍은 조건과 상관없이 무효화됩니다. 그래서 키는 넓은 이름부터 적습니다.
 
-72행은 `invalidateQueries`의 Promise를 그대로 돌려주므로, 뮤테이션은 ⑤의 새 목록이 올 때까지 끝나지 않습니다. [저장] 버튼도 그때까지 돌고, 그 뒤에 80행의 `onClose`가 팝업을 닫습니다.
+72행은 `invalidateQueries`의 Promise를 그대로 돌려주므로, 뮤테이션은 ⑤의 새 목록이 올 때까지 끝나지 않습니다. [저장] 버튼도 그때까지 돌고, 그 뒤에야 `save.mutate`에 함께 건넨 `onClose`가 팝업을 닫습니다.
 
-목록 화면의 삭제도 같은 모양으로, `NoticePage.tsx` 48행에서 `mutationFn`만 `noticeApi.remove`로 바뀝니다. 47행의 상세 열기 `view`는 읽기인데도 뮤테이션입니다. `noticeApi.get`의 `hit`을 켜면 서버가 조회수를 1 올리므로, 누를 때 한 번만 나가야 합니다. 받은 공지는 `view.data`에 들어오고, 기다리는 동안은 `view.isPending`이 `true`입니다. [[#ch6]]에서 본 상세 팝업이 이 둘을 받습니다(102·103행).
+목록 화면의 삭제도 같은 모양으로, `NoticePage.tsx`에서 `mutationFn`만 `noticeApi.remove`로 바뀝니다. 같은 파일의 상세 열기 `view`는 읽기인데도 뮤테이션입니다. `noticeApi.get`의 `hit`을 켜면 서버가 조회수를 1 올리므로, 누를 때 한 번만 나가야 합니다. 받은 공지는 `view.data`에 들어오고, 기다리는 동안은 `view.isPending`이 `true`입니다. [[#ch6]]에서 본 상세 팝업이 이 둘을 받습니다(102·103행).
 
 ## 조회 화면의 공식, usePagedSearch {#ch12-paged}
 
 업무 화면의 조회는 어느 화면이나 똑같이 움직입니다. [조회]를 누르기 전에는 서버를 부르지 않습니다. 누르면 그때의 조건을 기억해 1쪽부터 읽고, 쪽을 넘기면 같은 조건으로 그 쪽을 읽습니다. 이 공식을 담은 커스텀 훅이 @@`usePagedSearch`|usePagedSearch@@입니다.
 
-화면은 이 훅에 쿼리 키를 만드는 함수 `key`와 서버를 부르는 함수 `fetch`를 건넵니다. 뼈대는 `usePagedSearch.ts` 12행의 `useSearchCore`에 있습니다. `usePagedSearch`는 45행에서 `key`·`fetch`에 임시 이름표 `idleKey`를 더해 이 함수에 건네고, 이 함수는 그 묶음을 `opts`로 받습니다. 그 결과는 [[#ch3]]에서 본 46행이 구조 분해로 꺼냅니다. [조회]를 누르면 `NoticePage.tsx` 61~64행의 `onSearch`가 이 훅의 `search` 함수를 부릅니다.
+화면은 이 훅에 쿼리 키를 만드는 함수 `key`와 서버를 부르는 함수 `fetch`를 건넵니다. 아래 코드의 `opts`는 화면이 건넨 두 함수에 조회 전에 쓸 임시 키 `idleKey`를 더한 묶음입니다. [조회]를 누르면 `NoticePage.tsx`의 `onSearch`가 이 훅의 `search` 함수를 부릅니다. 공지사항 화면에서는 `opts.key`가 `noticeKeys.list`, `opts.fetch`가 `noticeApi.list`입니다.
 
 ```ts src="src/hooks/usePagedSearch.ts:13-20"
   const [params, setParams] = useState<P | null>(null);
@@ -188,7 +188,7 @@ API 함수만 쓰면 받은 자료와 읽는 중인지를 담을 state, 처음 �
   });
 ```
 
-13행은 조회조건을 state로 기억하고, 처음 값 `null`은 "조회 전"이라는 약속입니다. 그동안 17행의 `enabled`가 요청을 막고, 15행은 임시 이름표 `opts.idleKey`를 씁니다. 조건이 생기면 15행이 그 조건으로 키를 만들고 16행이 `fetch`를 부릅니다. 18행은 새 답이 올 때까지 이전 목록을 보여 주는 옵션이라, 쪽을 넘겨도 표가 깜빡이지 않습니다. [조회]의 `search`는 이 state만 바꿉니다.
+13행은 조회조건을 state로 기억하고, 처음 값 `null`은 "조회 전"이라는 약속입니다. 그동안 17행의 `enabled`가 요청을 막고, 15행은 임시 키 `opts.idleKey`를 씁니다. 조건이 생기면 15행이 그 조건으로 키를 만들고 16행이 `fetch`를 부릅니다. 18행은 새 답이 올 때까지 이전 목록을 보여 주는 옵션이라, 쪽을 넘겨도 표가 깜빡이지 않습니다. [조회]의 `search`는 이 state만 바꿉니다.
 
 ```ts src="src/hooks/usePagedSearch.ts:48-51"
   const search = useCallback(
@@ -207,7 +207,7 @@ API 함수만 쓰면 받은 자료와 읽는 중인지를 담을 state, 처음 �
   const search = usePagedSearch<NoticeSearch, Notice>({ key: noticeKeys.list, fetch: noticeApi.list });
 ```
 
-`key`와 `fetch`에는 [[#ch12-endpoints]]의 `noticeKeys.list`와 `noticeApi.list`를 괄호 없이 건넸으니, 부르는 일은 훅이 합니다. 꺾쇠의 `NoticeSearch`는 조회조건의 타입(13행의 `P`)이고, `Notice`는 한 행의 타입입니다. 화면은 돌려받은 `search`의 값을 부품에 나눠 건네기만 하고, 그 부품들이 [[#ch13]]의 주제입니다.
+`key`와 `fetch`에 두 함수를 괄호 없이 건넸으니, 부르는 일은 훅이 합니다. 꺾쇠의 `NoticeSearch`는 조회조건의 타입(`usePagedSearch.ts` 13행의 `P`)이고, `Notice`는 한 행의 타입입니다. 화면은 돌려받은 `search`의 값을 부품에 나눠 건네기만 하고, 그 부품들이 [[#ch13]]의 주제입니다.
 
 표: `usePagedSearch`가 돌려주는 값
 

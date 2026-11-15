@@ -47,7 +47,7 @@
 | `types` | 여러 곳에서 쓰는 공통 타입 | `api.ts` |
 | `theme` | 색, 글꼴, 공통 CSS | `global.css` |
 
-표의 행 11개를 외우는 대신 그림의 세 묶음을 기억하세요. *새 화면을 만들 때 파일을 새로 만드는 곳은 `screens`, `domain`, `api/endpoints` 세 곳뿐입니다.* [[#ch14]]의 공지사항 화면도 파일 6개가 모두 이 세 곳에 있습니다. 파란 묶음은 만들어 둔 것을 가져다 쓰는 곳이라 읽을 일은 많아도 고칠 일은 드뭅니다. 파일은 VS Code에서 <kbd>Ctrl</kbd>+<kbd>P</kbd>를 누르고 `NoticePage`처럼 이름 몇 글자를 쳐서 찾으세요.
+표를 통째로 외우는 대신 그림의 세 묶음을 기억하세요. *새 화면을 만들 때 파일을 새로 만드는 곳은 `screens`, `domain`, `api/endpoints` 3곳뿐입니다.* [[#ch14]]의 공지사항 화면도 파일 6개가 모두 이 3곳에 있습니다. 파란 묶음은 만들어 둔 것을 가져다 쓰는 곳이라 읽을 일은 많아도 고칠 일은 드뭅니다. 파일은 VS Code에서 <kbd>Ctrl</kbd>+<kbd>P</kbd>를 누르고 `NoticePage`처럼 이름 몇 글자를 쳐서 찾으세요.
 
 ## 설정 파일이 정하는 것 {#config-files}
 
@@ -55,7 +55,7 @@
 
 @@`package.json`|package.json@@에는 두 가지가 있습니다. 첫째는 [[#ch1]]의 `npm ci`가 설치한 라이브러리 목록입니다. 앱에 들어가는 `dependencies`(20행)와 개발할 때만 쓰는 도구 `devDependencies`(33행), 두 묶음입니다. 사내망에서는 라이브러리를 새로 내려받지 못하므로 이 목록은 혼자 바꾸지 않습니다. 둘째는 `scripts`에 적힌 명령입니다(10~19행). [[#ch1]]에서 쓴 `dev` 말고도 여럿 있습니다.
 
-표: `package.json`에 적힌 @@`npm run` 명령|npm run 명령@@(화면 자동 점검용 `e2e` 두 개는 뺐다)
+표: `package.json`에 적힌 @@`npm run` 명령|npm run 명령@@(화면 자동 점검용 `e2e` 2개는 뺐다)
 
 | 명령 | 실제로 실행하는 것 | 하는 일 |
 |---|---|---|
@@ -90,7 +90,7 @@
 
 ![주소창에서 첫 화면까지. 길은 주소에서 한 번, 로그인 확인에서 또 한 번 갈라진다](img/ch09-boot-flow.svg){width=100%}
 
-그림 위쪽의 세 칸은 이미 읽었습니다. `index.html`의 빈 상자에 `main.tsx`가 `<App />`을 그렸습니다([[#ch2]], [[#ch5]]). `App`은 `AppProviders`로 `AppRouter`를 감쌌습니다. 그 아래 칸부터 새로 읽습니다.
+그림 위쪽의 3칸은 이미 읽었습니다. `index.html`의 빈 상자에 `main.tsx`가 `<App />`을 그렸습니다([[#ch2]], [[#ch5]]). `App`은 `AppProviders`로 `AppRouter`를 감쌌습니다. 그 아래 칸부터 새로 읽습니다.
 
 ```tsx src="src/app/providers.tsx:10-19" marks="2=①;3=②;4=③"
 export const AppProviders = ({ children }: { children: ReactNode }) => (
@@ -105,7 +105,7 @@ export const AppProviders = ({ children }: { children: ReactNode }) => (
 );
 ```
 
-@@`AppProviders`|AppProviders@@는 `children`을 세 겹으로 감쌉니다. 세 겹 모두 [[#ch8]]에서 본 Provider로, 안쪽 어디서든 꺼내 쓸 것을 걸어 둡니다. ① 은 서버 자료를 기억하는 캐시를([[#ch12]]), ② 는 antd 부품의 한국어 표기와 색을, ③ 은 알림과 확인 창을 깔아 줍니다. `AntApp`은 antd의 `App`인데, 우리 `App`과 헷갈리지 않게 2행에서 `App as AntApp`으로 이름을 바꿨습니다. 14행의 `AppMessageBridge`는 화면에 아무것도 그리지 않고, 알림을 컴포넌트 바깥에서도 띄우게 이어 줍니다. 15행의 @@`ErrorBoundary`|ErrorBoundary@@는 화면을 그리다 오류가 나면 흰 화면 대신 안내문을 띄우는 안전망입니다. 그 안의 `{children}`이 `AppRouter`입니다.
+@@`AppProviders`|AppProviders@@는 `children`을 세 겹으로 감쌉니다. 세 겹 모두 [[#ch8]]에서 본 Provider로, 안쪽 어디서든 꺼내 쓸 것을 걸어 둡니다. ①은 서버 자료를 기억하는 캐시를([[#ch12]]), ②는 antd 부품의 한국어 표기와 `antdTheme.ts`의 색을, ③은 알림과 확인 창을 깔아 줍니다. `AntApp`은 antd의 `App`인데, 우리 `App`과 헷갈리지 않게 가져오기 줄에서 `App as AntApp`으로 이름을 바꿨습니다. 가져오기의 `as`는 이름 바꾸기로, [[#ch4]]의 타입 보증과 다릅니다. 14행의 `AppMessageBridge`는 알림을 컴포넌트 바깥에서도 띄우게 잇습니다. 15행의 @@`ErrorBoundary`|ErrorBoundary@@는 화면을 그리다 오류가 나면 흰 화면 대신 안내문을 띄우는 안전망입니다. 그 안의 `{children}`이 `AppRouter`입니다.
 
 ::: note 12행의 `${label}`은 템플릿 문자열이 아닙니다
 백틱이 아닌 작은따옴표로 감쌌으므로 `${label}`은 값으로 바뀌지 않고 글자 그대로 남습니다. 이 자리는 antd가 나중에 입력 칸의 이름으로 채웁니다.
@@ -126,10 +126,10 @@ export const AppProviders = ({ children }: { children: ReactNode }) => (
   }
 ```
 
-어느 `return`으로 갈지는 17행에서 꺼낸 `status`가 먼저 정합니다(꺼내는 법은 [[#ch11]]). 확인을 마친 `'ready'`면 25행이 안쪽 화면 `children`을 그대로 돌려줍니다. 아직 묻지 않은 `'idle'`과 묻는 중인 `'loading'`은 46행의 로딩 표시로 갑니다. 실패한 `'error'`는 26행이 18행의 오류 코드를 보고 한 번 더 가릅니다. 로그인이 필요해서 난 실패면 27행, 그 밖의 실패면 29~45행의 오류 안내입니다. 백엔드가 꺼져 있으면 뜬다고 [[#ch1]]에서 말한 '사용자 정보를 확인할 수 없습니다' 화면이 바로 이것입니다.
+어느 `return`으로 갈지는 17행에서 꺼낸 `status`가 먼저 정합니다(꺼내는 법은 [[#ch11]]). 확인을 마친 `'ready'`면 25행이 안쪽 화면 `children`을 그대로 돌려줍니다. 아직 묻지 않은 `'idle'`과 묻는 중인 `'loading'`은 46행의 로딩 표시로 갑니다. 실패한 `'error'`는 26행이 18행의 오류 코드를 보고 한 번 더 가릅니다. 로그인이 필요해서 난 실패면 27행, 그 밖의 실패면 29~45행의 오류 안내입니다. 백엔드가 꺼져 있으면 뜬다고 [[#ch1]]에서 말한 "사용자 정보를 확인할 수 없습니다" 화면이 바로 이것입니다.
 
 ::: source
-`src/app/MeGate.tsx`를 열어 25~46행의 `return` 네 개를 흐름 그림 오른쪽의 네 상자와 위에서부터 견줘 보세요.
+`MeGate.tsx`를 열어 25~46행의 `return` 4개를 그림 오른쪽의 네 상자와 위에서부터 견줘 보세요.
 :::
 
 로그인하면 서버는 그 브라우저를 기억해 둡니다. 이 기억을 @@**세션**|세션@@(session)이라고 합니다. 로그인하지 않은 채 앱을 열면 처음에는 `'idle'`이라 [[#ch5]]에서 본 로딩 표시가 나옵니다. 그 사이 21행의 `useEffect`가 서버에 묻고([[#ch8]]), 세션이 없다는 답이 오면 `status`가 `'error'`로 바뀝니다. 그러면 `MeGate`가 다시 렌더링되어 27행의 `<Navigate>`를 돌려줍니다. `Navigate`는 그려지는 순간 주소를 바꾸는 컴포넌트라서 화면이 곧바로 `/login`으로 넘어갑니다. *`status`가 바뀔 때마다 같은 함수가 다시 실행되어 그때마다 다른 화면을 돌려줍니다.*
@@ -143,7 +143,7 @@ export const AppProviders = ({ children }: { children: ReactNode }) => (
 :::
 
 ::: summary
-- 화면을 만드는 코드는 `src` 아래 폴더 11개에 있다. 새 화면의 파일은 `screens`, `domain`, `api/endpoints`에 만든다.
+- 새 화면의 파일은 `src` 아래 폴더 11개 가운데 `screens`, `domain`, `api/endpoints`에 만든다.
 - `npm run` 명령은 `package.json`의 `scripts`에 있다. 서버에 올릴 파일을 `dist`에 만드는 일이 빌드다.
 - `vite.config.ts`가 `@` 별칭과 개발 서버의 포트 3100, `/api` 프록시를 정한다.
 - 앱은 `index.html` → `main.tsx` → `App` → `AppProviders` → `AppRouter` 순서로 켜진다.
@@ -157,5 +157,5 @@ export const AppProviders = ({ children }: { children: ReactNode }) => (
 :::
 
 ::: answer
-1. 차례로 `screens`의 하위 폴더, `domain`, `api/endpoints`에 둡니다. 2. `build`는 `tsc -b && vite build`입니다. `&&` 앞의 타입 검사가 실패하면 뒤의 `vite build`를 실행하지 않습니다. 3. 로그인 화면이 끝내 뜨지 않습니다. `MeGate`는 로그인하지 않은 사람에게 `children` 대신 `/login`으로 가라는 `Navigate`만 돌려줍니다. 그 `/login`도 `MeGate` 안이라 같은 일이 되풀이됩니다.
+1. 차례로 `screens`의 하위 폴더, `domain`, `api/endpoints`에 둔다. 2. `build`는 `tsc -b && vite build`다. `&&` 앞의 타입 검사가 실패하면 뒤의 `vite build`를 실행하지 않는다. 3. 로그인 화면이 끝내 뜨지 않는다. `MeGate`는 로그인하지 않은 사람에게 `children` 대신 `/login`으로 가라는 `Navigate`만 돌려준다. 그 `/login`도 `MeGate` 안이라 같은 일이 되풀이된다.
 :::

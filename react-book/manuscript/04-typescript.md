@@ -42,7 +42,7 @@ addVisit('7');  // '71'
 타입스크립트 파일은 이름이 `.ts`로 끝나고, [[#ch5]]의 JSX가 든 파일은 `.tsx`로 끝납니다. 브라우저는 타입스크립트를 몰라서 [[#ch1]]의 Vite가 타입 표기를 지워 자바스크립트로 바꿉니다. 검사는 하지 않아서 타입이 틀려도 화면은 뜹니다. @@|타입 검사@@타입 검사는 VS Code와 @@|npm run typecheck@@`npm run typecheck` 명령이 맡습니다.
 
 ::: try 빨간 줄 만나 보기
-1. <kbd>Ctrl</kbd>+<kbd>P</kbd>를 누르고 `useSettingsStore`를 쳐서 파일을 엽니다. 편집기 왼쪽의 숫자가 줄 번호입니다. 21행의 `pageSize: 20`은 표 한 쪽에 20행을 보여 주는 설정입니다.
+1. <kbd>Ctrl</kbd>+<kbd>P</kbd>를 누르고 `useSettingsStore`를 쳐서 파일을 엽니다. 편집기 왼쪽의 숫자가 줄 번호입니다. 21행의 `pageSize: 20`은 표 한 쪽에 20건씩 보여 주는 설정입니다.
 2. `20`을 `'20'`으로 고치면 저장하기도 전에 `pageSize` 아래에 빨간 줄이 생깁니다. 저장합니다.
 3. 개발 서버가 도는 터미널은 그대로 두고 [터미널] → [새 터미널]로 하나 더 열어 `npm run typecheck`를 실행합니다. `src/stores/useSettingsStore.ts:21:76 - error TS2322: Type 'string' is not assignable to type 'number'.`가 찍힙니다. `21:76`은 21행 76번째 글자입니다.
 4. <kbd>Ctrl</kbd>+<kbd>Z</kbd>로 되돌려 저장하고 다시 실행합니다. `error` 줄 없이 끝나면 통과입니다.
@@ -52,7 +52,7 @@ addVisit('7');  // '71'
 
 타입은 이름 뒤에 콜론을 찍고 적습니다. `const office: string = '가람지점'`은 `office`에 문자열을 담는다는 뜻이고, 이렇게 적는 것을 **@@타입 표기@@**(type annotation)라고 합니다. 흔한 타입은 문자열 `string`, 숫자 `number`, 참거짓 `boolean`입니다. `number[]`는 숫자만 담는 배열입니다.
 
-함수에는 타입을 적는 자리가 두 군데입니다. 초를 "분:초" 글자로 바꾸는 함수를 봅니다.
+함수에는 타입을 적는 자리가 2군데입니다. 초를 "분:초" 글자로 바꾸는 함수를 봅니다.
 
 ```ts src="src/utils/format.ts:100-104" hl="2"
 /** 초 → 'mm:ss' */
@@ -106,7 +106,7 @@ const c: NoticeSave = { subject: '점검 안내', text: '새벽 2시 점검', of
 
 ## 정해진 값만, 유니온 타입 {#ch4-union}
 
-`string`은 너무 넓을 때가 있습니다. 상태를 알리는 꼬리표 부품은 색이 5가지뿐인데, `string`으로 받으면 `'sucess'` 같은 오타도 통과합니다. 그래서 받을 수 있는 값을 모두 늘어놓았습니다.
+`string`은 너무 넓을 때가 있습니다. 상태를 알리는 알약 모양 부품은 색이 다섯 가지뿐인데, `string`으로 받으면 `'sucess'` 같은 오타도 통과합니다. 그래서 받을 값을 모두 늘어놓았습니다.
 
 ```ts src="src/components/display/StatusTag.tsx:4"
 export type Tone = 'success' | 'danger' | 'warning' | 'info' | 'neutral';
@@ -180,7 +180,7 @@ export const sumBy = <T,>(rows: T[], pick: (r: T) => number | null | undefined):
 
 ## domain/notice.ts 읽기 {#ch4-notice}
 
-`src/domain/notice.ts`는 공지사항 화면과 서버가 주고받는 자료의 모양을 적은 57줄짜리 파일이고, [[#ch14]]에서 맨 먼저 치는 파일입니다. 타입만 6개 있습니다. 서버로 보내는 양식은 `NoticeSearch`(조회조건), `NoticeSave`(등록·수정), `NoticeDeleteRequest`(삭제)입니다. 받는 양식은 `Notice`(공지 한 건)와 `NoticeDeleteResult`(삭제 결과)이고, 나머지 하나가 검색구분 `NoticeField`입니다. 끝의 세 양식은 [[#ch4-interface]]에서 읽었습니다.
+`src/domain/notice.ts`는 공지사항 화면과 서버가 주고받는 자료의 모양을 적은 57줄짜리 파일이고, [[#ch14]]에서 빈 화면 다음에 치는 파일입니다. 타입만 6개 있습니다. 서버로 보내는 양식은 `NoticeSearch`(조회조건), `NoticeSave`(등록·수정), `NoticeDeleteRequest`(삭제)입니다. 받는 양식은 `Notice`(공지 한 건)와 `NoticeDeleteResult`(삭제 결과)이고, 나머지 하나가 검색구분 `NoticeField`입니다. 끝의 세 양식은 [[#ch4-interface]]에서 읽었습니다.
 
 ```ts src="src/domain/notice.ts:1-8"
 /**
@@ -193,7 +193,7 @@ import type { Audit, PageParams } from '@/types/api';
 export type NoticeField = 'ALL' | 'SUBJECT' | 'TEXT' | 'NAME';
 ```
 
-1~4행은 이 파일이 API 계약, 곧 화면과 서버가 주고받을 자료 모양을 정한 문서(`§3`은 3절)와 한 글자까지 같다고 밝혀 둔 주석입니다. 타입은 실행하면 사라지므로 서버가 모양을 바꿔도 타입스크립트는 모릅니다. 문서와 맞추는 일은 사람이 챙깁니다. `sample.notice`는 화면키([[#ch10]]), `TB_`로 시작하는 말은 데이터베이스(DB) 표 이름입니다.
+1~4행은 주석입니다. 이 파일이 백엔드와 맞춘 약속 문서(API 계약)의 3절과 글자 하나까지 같다고 적어 두었습니다. 타입은 실행하면 사라지므로 서버가 모양을 바꿔도 타입스크립트는 모릅니다. 문서와 맞추는 일은 사람이 챙깁니다. `sample.notice`는 화면키([[#ch10]]), `TB_`로 시작하는 말은 데이터베이스(DB) 표 이름입니다.
 
 3행은 칸 이름을 DB 컬럼 이름에서 따왔다는 메모입니다. @@|camelCase@@camelCase는 낱말을 붙여 쓰되 둘째 낱말부터 첫 글자를 대문자로 쓰는 표기법으로, 컬럼 `OFC_CODE`가 칸 `ofcCode`가 됩니다. 5행은 다른 파일의 양식 둘을 타입으로만 가져오고, 8행은 검색구분 칸에서 고르는 전체, 제목, 내용, 작성자입니다.
 
@@ -234,7 +234,7 @@ export interface Notice extends Audit {
 }
 ```
 
-실제 화면의 맨 앞에 있는 순번은 화면이 세는 번호라 `Notice`에 없고, 내용 `text`와 작성자의 개인번호 `perNo`는 표에 없는 칸입니다. `no`만 반드시 숫자이고 나머지 8칸은 비어 있어도 됩니다. 작성일은 서버가 `'20261115'`처럼 보내고 화면이 `2026-11-15`로 바꿔 그립니다. 23행에서 물려받는 `Audit`은 누가 언제 만들고 고쳤는지 적는 4칸으로, `src/types/api.ts` 37~42행에 있습니다.
+실제 화면의 맨 앞에 있는 순번은 화면이 세는 번호라 `Notice`에 없고, 내용 `text`와 작성자의 개인번호 `perNo`는 표에 없는 칸입니다. `no`만 반드시 숫자이고 나머지 8칸은 비어 있어도 됩니다. 작성일은 서버가 `'20261115'`처럼 보내고 화면이 `2026-11-15`로 바꿔 그립니다. 23행에서 물려받는 `Audit`은 `src/types/api.ts`에 있는 4칸짜리 양식입니다. 만든 일시와 사람이 `crtDtm`·`crtCmeno`, 마지막으로 고친 일시와 사람이 `lschgDtm`·`lsCmeno`입니다.
 
 ::: summary
 - 타입은 값의 종류다. 타입스크립트는 실행하기 전에 틀린 값을 빨간 줄과 `npm run typecheck`로 알려 준다.

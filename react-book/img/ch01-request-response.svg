@@ -8,10 +8,10 @@
   <text x="66" y="108" text-anchor="middle" class="t-lg">브라우저</text>
   <text x="66" y="128" text-anchor="middle" class="t-gray">손님</text>
 
-  <!-- 서버(창구) -->
+  <!-- 서버(은행) -->
   <rect x="478" y="22" width="112" height="180" class="box-blue"/>
   <text x="534" y="108" text-anchor="middle" class="t-lg">서버</text>
-  <text x="534" y="128" text-anchor="middle" class="t-gray">창구</text>
+  <text x="534" y="128" text-anchor="middle" class="t-gray">은행</text>
 
   <!-- ① 처음 주소를 칠 때 -->
   <text x="300" y="38" text-anchor="middle"><tspan class="t-b t-blue">① 요청</tspan>  “이 주소의 화면을 주세요”</text>

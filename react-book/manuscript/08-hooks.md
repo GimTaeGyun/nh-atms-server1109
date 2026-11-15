@@ -20,7 +20,7 @@
 - `src/hooks/useLookup.ts`
 :::
 
-공지사항 화면 `NoticePage.tsx`를 열어 34행부터 59행까지 훑어보세요. 26줄 사이에 `use`로 시작하는 함수가 13번 불립니다. `useState`와 `Form.useForm`은 [[#ch7]]에서 만났습니다. `useCallback`은 그 장에서 미뤄 둔 이름이고, `useMemo`나 `usePrint`는 처음 보는 이름입니다. 리액트, 라이브러리, 팀 세 곳에서 온 훅이지만 모두 같은 규칙을 따릅니다.
+공지사항 화면 `NoticePage.tsx`를 열어 34행부터 59행까지 훑어보세요. 26줄 사이에 `use`로 시작하는 함수가 13번 불립니다. `useState`와 `Form.useForm`은 [[#ch7]]에서 만났습니다. `useCallback`은 그 장에서 미뤄 둔 이름이고, `useMemo`나 `usePrint`는 처음 보는 이름입니다. 리액트, 라이브러리, 팀 3곳에서 온 훅이지만 모두 같은 규칙을 따릅니다.
 
 ## 훅이란, 그리고 두 가지 규칙 {#ch8-rules}
 
@@ -48,7 +48,7 @@ const Ticket = ({ vip }: { vip: boolean }) => {
 
 이번에는 3행의 훅이 먼저 불려 1번 칸을 받습니다. 그 칸에는 `waiting`의 값이 들어 있어서 콘솔에는 '귀빈' 대신 7이 찍힙니다. 6행의 훅은 받을 칸이 없습니다. 리액트는 `Rendered more hooks than during the previous render.`라는 오류를 내고 화면 그리기를 그만둡니다.
 
-*훅은 렌더링할 때마다 같은 순서로, 같은 개수만큼 불려야 합니다.* 맨 바깥 줄에서 함수를 중간에 끝내는 이른 `return`보다 먼저 부르면 저절로 지켜집니다. `NoticePage.tsx`도 13번 모두 그렇게 부릅니다.
+*훅은 렌더링할 때마다 같은 순서로, 같은 개수만큼 불려야 합니다.* 맨 바깥 줄에서 함수를 중간에 끝내는 이른 `return`보다 먼저 부르면 저절로 지켜집니다. `NoticePage.tsx`의 훅도 모두 그렇게 불립니다.
 
 ::: tip 규칙은 검사 도구가 지켜 줍니다
 우리 프로젝트의 코드 검사 도구 ESLint에는 훅 규칙이 들어 있습니다(`eslint.config.js` 15행). 예제 8-1 같은 코드가 소스 파일에 있으면 `npm run lint`가 그 줄(예제의 3행)에 `React Hook "useState" is called conditionally.`라는 오류를 찍습니다.
@@ -74,9 +74,9 @@ export const useWindowWidth = (): number => {
 
 29행은 창 안쪽의 너비 `window.innerWidth`를 state로 기억합니다. `window`는 브라우저 창을 가리키는 객체입니다. 처음 값 자리에 함수를 넣으면 리액트가 처음 한 번만 그 함수를 불러 값을 정합니다. 삼항 연산자의 앞쪽은 `window`가 없는 곳을 위한 대비이니 건너뛰어도 됩니다.
 
-① 에서 시작하는 30~34행이 `useEffect`입니다. 첫 인자는 화면을 고친 뒤에 할 일을 담은 함수라서 **@@할 일 함수@@**(setup function)라고 부릅니다. 31행은 창 너비를 다시 읽어 state에 넣는 함수 `onResize`를 만듭니다. 32행의 `addEventListener`는 창 크기가 바뀔 때마다 이 함수를 불러 달라고 브라우저에 맡깁니다. 창은 JSX 태그가 아니어서 `onClick` 같은 props를 쓰지 못해 브라우저에 직접 부탁합니다.
+①에서 시작하는 30~34행이 `useEffect`입니다. 첫 인자는 화면을 고친 뒤에 할 일을 담은 함수라서 **@@할 일 함수@@**(setup function)라고 부릅니다. 31행은 창 너비를 다시 읽어 state에 넣는 함수 `onResize`를 만듭니다. 32행의 `addEventListener`는 창 크기가 바뀔 때마다 이 함수를 불러 달라고 브라우저에 맡깁니다. 창은 JSX 태그가 아니어서 `onClick` 같은 props를 쓰지 못해 브라우저에 직접 부탁합니다.
 
-② 는 할 일 함수가 돌려주는 함수로, **@@정리 함수@@**(cleanup function)라고 합니다. 33행은 32행에서 건 것을 `removeEventListener`로 거둬들입니다. ③ 은 **@@의존성 배열@@**(dependency array)입니다. 여기 적은 값이 직전과 달라졌을 때만 effect를 다시 실행합니다. 34행처럼 비우면 처음 한 번만 실행됩니다.
+②는 할 일 함수가 돌려주는 함수로, **@@정리 함수@@**(cleanup function)라고 합니다. 33행은 32행에서 건 것을 `removeEventListener`로 거둬들입니다. ③은 **@@의존성 배열@@**(dependency array)입니다. 여기 적은 값이 직전과 달라졌을 때만 effect를 다시 실행합니다. 34행처럼 비우면 처음 한 번만 실행됩니다.
 
 표: 의존성 배열과 effect가 실행되는 때
 
@@ -164,13 +164,13 @@ export const useWindowWidth = (): number => {
   };
 ```
 
-11행은 처음 값이 `null`인 ref를 만듭니다. `document.title`은 브라우저 탭에 보이는 문서 제목입니다. 41행은 인쇄를 시작할 때 원래 제목을 `saved.current`에 적어 둡니다. 13~18행의 `restoreTitle`은 그것을 꺼내 제목을 되돌린 뒤 `null`로 비웁니다. 20행의 `useEffectEvent`는 리액트 19.2의 새 훅이니 이름만 알아 둡니다.
+11행은 처음 값이 `null`인 ref를 만듭니다. `document.title`은 브라우저 탭에 보이는 문서 제목입니다. 인쇄를 시작할 때는 원래 제목을 `saved.current`에 적어 둡니다. 인쇄하는 동안 다시 렌더링되어도 이 값은 남아 있습니다. 13~18행의 `restoreTitle`은 인쇄가 끝나면 그것을 꺼내 제목을 되돌린 뒤 `null`로 비웁니다.
 
 ### 층을 건너 값 건네기, Context
 
 props는 부모에서 자식으로 한 층씩 내려갑니다. `NoticePage`는 받은 화면키 `screenKey`를 버튼줄 `ActionBar`에 건네고(83행), `ActionBar`는 그것을 버튼마다 다시 건넵니다. 버튼이 화면키를 알아야 눌러도 되는 버튼인지 가려내기 때문입니다([[#ch11]]). 층이 늘 때마다 받아서 넘기는 줄도 늡니다.
 
-지점 이름은 전표에 적어 창구마다 돌리지 않습니다. 입구에 현판을 걸어 두면 안의 누구든 고개를 들어 봅니다. 리액트의 **@@Context@@**(컨텍스트)가 이 현판입니다. 위쪽 컴포넌트가 값을 한 번 걸어 두면, 그 안쪽 컴포넌트는 몇 층 아래에 있든 props 없이 꺼내 씁니다. 만들기, 걸기, 꺼내기 세 걸음입니다.
+지점 이름은 전표에 적어 손에서 손으로 돌리지 않습니다. 입구에 현판을 걸어 두면 안의 누구든 고개를 들어 봅니다. 리액트의 **@@Context@@**(컨텍스트)가 이 현판입니다. 위쪽 컴포넌트가 값을 한 번 걸어 두면, 안쪽 컴포넌트는 몇 층 아래에 있든 props 없이 꺼내 씁니다. 만들기, 걸기, 꺼내기 세 걸음입니다.
 
 ```ts src="src/components/auth/screenIdContext.ts:6-9" marks="1=①;4=③"
 export const ScreenIdContext = createContext<ScreenKey | undefined>(undefined);
@@ -195,7 +195,7 @@ export const ScreenIdProvider = ({ screenKey, children }: { screenKey: ScreenKey
 
 창 너비가 필요한 컴포넌트가 둘이면 `useState`와 `useEffect` 6줄을 두 번 적어야 할까요? 훅을 부르는 코드를 함수로 묶고 이름을 `use`로 시작하면 됩니다. 이 함수가 **@@커스텀 훅@@**(custom hook)입니다.
 
-[[#ch8-effect]]에서 읽은 `useWindowWidth`가 커스텀 훅이고, 같은 파일 39행의 @@|useWindowBand@@`useWindowBand`도 커스텀 훅입니다. `getBand(useWindowWidth())` 한 줄로 창 너비를 `'S'`, `'M'`, `'L'` 가운데 하나로 바꿉니다. 둘을 쓰는 앱의 틀 `src/components/layout/AppShell.tsx`([[#ch10]])는 33~34행에서 훅을 부를 뿐, 창을 지켜보는 일은 모릅니다.
+[[#ch8-effect]]에서 읽은 `useWindowWidth`가 커스텀 훅이고, 같은 파일 39행의 @@|useWindowBand@@`useWindowBand`도 커스텀 훅입니다. `getBand(useWindowWidth())` 한 줄로 창 너비를 `'S'`, `'M'`, `'L'` 가운데 하나로 바꿉니다. 둘을 쓰는 앱 틀 `src/components/layout/AppShell.tsx`([[#ch10]])는 33~34행에서 훅을 부를 뿐, 창을 지켜보는 일은 모릅니다.
 
 ::: try 창 너비를 화면에 찍어 보기
 개발 서버를 켜 둔 채로 홈 화면 파일에 `+`가 찍힌 3줄을 더하고 저장합니다.
@@ -203,7 +203,7 @@ export const ScreenIdProvider = ({ screenKey, children }: { screenKey: ScreenKey
 ```tsx title="src/screens/home/HomePage.tsx" kind="고치기" diff
  import { useOpenScreen } from '@/screens/navigation';
 +import { useWindowWidth } from '@/hooks/useContentBand';
- // …
+ ⋮
    const openScreen = useOpenScreen();
 +  const width = useWindowWidth();
    return (
@@ -225,7 +225,7 @@ export const useOfficeLabel = (ofcCode?: string | null): string => {
 
 `useOfficeLabel`은 사무소 코드를 주면 `[코드] 사무소명` 모양의 글자를 돌려주고, `NoticePage.tsx` 42행이 이 훅을 씁니다. 18행의 `useOffices()`는 사무소 목록을 서버에서 읽어 오는 또 다른 커스텀 훅입니다([[#ch12]]). 19행은 그 목록에서 사무소를 찾아 이름 `kanm`을 `fmtOffice`에 건넵니다. 줄 끝에서 `null`을 `undefined`로 바꾸는 `?? undefined`는 넘어가도 됩니다.
 
-`useState`나 `useEffect`가 없어도, 다른 훅을 부르는 함수면 커스텀 훅입니다. 팀이 만든 커스텀 훅은 `src/hooks/` 폴더에 모여 있습니다. 첫머리의 13번 가운데 `usePagedSearch`, `useOfficeLabel`, `usePrint`가 이 폴더에서 왔습니다. `useNoticeFields`처럼 화면 옆 `NoticeParts.tsx`에 둔 커스텀 훅도 있습니다.
+`useState`나 `useEffect`가 없어도, 다른 훅을 부르는 함수면 커스텀 훅입니다. 팀이 만든 커스텀 훅은 `src/hooks/` 폴더에 모여 있습니다. 첫머리에서 본 훅 가운데 `usePagedSearch`, `useOfficeLabel`, `usePrint`가 이 폴더에서 왔습니다. `useNoticeFields`처럼 화면 옆 `NoticeParts.tsx`에 둔 커스텀 훅도 있습니다.
 
 표: `src/hooks/` 폴더에서 자주 만나는 커스텀 훅
 
