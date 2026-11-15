@@ -14,7 +14,7 @@
   <!-- 겉 -->
   <rect x="164" y="4" width="432" height="228" class="box-blue"/>
   <text x="380" y="27" text-anchor="middle" class="t-b">겉 · <tspan class="t-mono">NoticeEditModal</tspan></text>
-  <text x="380" y="46" text-anchor="middle">Modal 틀 · 제목 고르기 · destroyOnHidden · 훅 없음</text>
+  <text x="380" y="46" text-anchor="middle">antd Modal · 제목 고르기 · destroyOnHidden · 훅 없음</text>
 
   <!-- 가운데 (점선 = 닫으면 버려지는 부분) -->
   <rect x="176" y="56" width="408" height="166" class="box-dash"/>
