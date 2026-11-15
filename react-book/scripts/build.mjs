@@ -420,6 +420,9 @@ const pageCss = (chapters) => {
   for (const c of chapters) {
     css += `.chapter[data-ch="${c.no}"] { page: ch${c.no}; }\n@page ch${c.no}:right { @top-right { content: "${c.no}장  ${c.title.replace(/"/g, '\\"')}"; ${head} } }\n`;
   }
+  // 머리말·읽는 방법·차례·찾아보기도 오른쪽 쪽 머리글에 제 이름을 단다(장과 같은 모양)
+  const fm = [...(config.front ?? []).map((f) => [`section.front#${f.id}`, `fm-${f.id}`, f.title]), ['section.toc', 'fm-toc', '차례'], ['section.index', 'fm-index', '찾아보기']];
+  for (const [sel, name, label] of fm) css += `${sel} { page: ${name}; }\n@page ${name}:right { @top-right { content: "${String(label).replace(/"/g, '\\"')}"; ${head} } }\n`;
   return css;
 };
 const wrapHtml = (body, css, title) => `<!doctype html>
