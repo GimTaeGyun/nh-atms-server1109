@@ -68,6 +68,11 @@ public class SessionUserFilter extends UserContextFilter {
             throws ServletException, IOException {
         String current = perNoOf(request);
         if (current == null) {
+            // 로그아웃 원인 확인용 — 쿠키를 안 보냈는지 / 서버가 모르는 세션번호인지(재기동·다른 앱 쿠키) / 세션은 있는데 로그인 정보가 없는지
+            String sid = request.getRequestedSessionId();
+            log.warn("[로그인사용자] 세션 없음 ME_002 uri={} 받은세션번호={} 서버에있음={} 세션속성있음={}",
+                    request.getRequestURI(), sid == null ? "(쿠키없음)" : sid.substring(0, Math.min(8, sid.length())) + "…",
+                    request.isRequestedSessionIdValid(), request.getSession(false) != null);
             write(response, HttpStatus.UNAUTHORIZED, ApiResponse.fail("ME_002"));
             return;
         }
