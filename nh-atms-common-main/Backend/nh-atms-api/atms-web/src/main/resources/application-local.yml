@@ -10,14 +10,6 @@ spring:
   config:
     import: classpath:local-common.yml
 
-# 로그인 세션 쿠키 이름 — 브라우저는 localhost 쿠키를 포트별로 나누지 않아, 다른 로컬 앱의 JSESSIONID 와 겹치면
-# 로그인이 풀린다(새로고침 몇 번 뒤 로그인 화면). 이 앱만의 이름으로 둔다. 로컬(내장 Tomcat) 전용 — JEUS 는 JEUS 설정을 따른다.
-server:
-  servlet:
-    session:
-      cookie:
-        name: ATMSSESSIONID
-
 # 민감필드 암호화 — 로컬은 키 파일 없이 기동 시 임시 키 자동 생성 (재기동마다 바뀜, 화면은 매번 공개키를 받으므로 문제 없음)
 crypto:
   field:

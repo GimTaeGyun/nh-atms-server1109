@@ -58,7 +58,11 @@ public class SecurityConfig {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                // sessionFixation none: 사용자 필터가 요청마다 인증을 채우므로, 기본값(changeSessionId)이면 요청마다 세션 ID 가 바뀐다
+                // → 동시에 나간 다른 요청(/api/menu/my 등)이 옛 ID 로 401 ME_002 → 로그아웃. 세션 고정 방지는 로그인 때 한다(LoginService)
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                        .sessionFixation(fixation -> fixation.none()))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**", "/actuator/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
